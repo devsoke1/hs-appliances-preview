@@ -10,7 +10,8 @@
     "images": "node scripts/optimize-images.mjs",
     "brand-assets": "node scripts/generate-brand-assets.mjs",
     "audit": "node scripts/audit.mjs",
-    "postbuild": "node scripts/flatten-rsc-segments.mjs"
+    "postbuild": "node scripts/flatten-rsc-segments.mjs",
+    "db:seed-sql": "node --no-warnings --import ./scripts/ts-register.mjs scripts/generate-seed.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",

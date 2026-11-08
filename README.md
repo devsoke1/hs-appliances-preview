@@ -9,6 +9,7 @@ npm run build   # static site → out/ (postbuild fixes Next 16 prefetch file na
 npm run audit   # SEO/link/schema/redirect audit of out/ → docs/seo-audit.md
 npm run images  # assets/images/* → optimised WebP in public/images/ + src/data/images.json
 npm run brand-assets  # regenerate OG image + icons
+npm run db:seed-sql   # regenerate database/seed.sql from src/data + content/blog
 ```
 
 **Deploy:** see [docs/deploy.md](docs/deploy.md). The short version: upload the *contents* of `out/` (including hidden `.htaccess` files) to `public_html`, and put `config.php` in `../private/`.
@@ -32,6 +33,11 @@ npm run brand-assets  # regenerate OG image + icons
 | JSON-LD builders (typed with schema-dts) | `src/lib/schema.ts` |
 | Blog posts (markdown + frontmatter) | `content/blog/*.md` — see `src/lib/blog.ts` for fields |
 | Search Console / launch SEO | `docs/search-console.md` |
+| Admin panel (PHP) | `public/hs-admin/` — setup: `docs/admin-setup.md` |
+| Database schema + seed | `database/schema.sql`, `database/seed.sql`, one-time `database/install.php` |
+| Read-only JSON API | `public/api/services.php`, `posts.php`, `reviews.php` (DB access: `public/api/db.php`) |
+| Vendored PHP libs | PHPMailer 7.1.1, HTMLPurifier 4.19.1 in `public/api/_lib/`; Quill 2.0.3 in `public/hs-admin/assets/vendor/` |
+| Admin uploads (live, not in git) | `public_html/uploads/` — never delete on redeploy |
 
 ## Environment
 

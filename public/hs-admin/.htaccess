@@ -1,0 +1,21 @@
+# /hs-admin — private admin panel
+Options -Indexes
+DirectoryIndex index.php
+
+<IfModule mod_headers.c>
+  Header always set X-Robots-Tag "noindex, nofollow, noarchive"
+  Header always set Cache-Control "no-store, max-age=0"
+  Header always set X-Frame-Options "DENY"
+</IfModule>
+
+# Static assets can be cached briefly (they're versioned with ?v=)
+<FilesMatch "\.(css|js)$">
+  <IfModule mod_headers.c>
+    Header always set Cache-Control "private, max-age=3600"
+  </IfModule>
+</FilesMatch>
+
+# Block internal includes and anything that isn't a page or an asset
+<FilesMatch "\.(inc|ini|log|sql|md|json|lock|bak)$">
+  Require all denied
+</FilesMatch>

@@ -32,6 +32,13 @@ ErrorDocument 403 /404.html
   RewriteRule (^|/)\.(?!well-known/) - [F,L]
   # Internal PHP library and runtime data
   RewriteRule ^api/_(lib|data)(/|$) - [F,L]
+  RewriteRule ^api/db\.php$ - [F,L]
+  # Admin internals
+  RewriteRule ^hs-admin/_inc(/|$) - [F,L]
+  # Uploads: images only, never scripts (also enforced by uploads/.htaccess)
+  RewriteCond %{REQUEST_URI} ^/uploads/
+  RewriteCond %{REQUEST_URI} !\.(webp|jpe?g|png)$ [NC]
+  RewriteRule ^ - [F,L]
   # Config files anywhere
   RewriteRule (^|/)config(\.example)?\.php$ - [F,L]
   # Backups, logs, source and package files

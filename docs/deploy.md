@@ -214,9 +214,13 @@ This sends `houseandshopappliances.co.uk` visitors and Google to the new site wi
 
 ---
 
+## Admin panel
+The admin panel (`/hs-admin/`) and database need a one-time setup: see [admin-setup.md](admin-setup.md).
+
 ## 8. Redeploying
 
 1. Make the changes, then run `npm run build`.
 2. Zip `out/` (step 3A) and upload, extracting it over `public_html` so existing files are replaced.
 3. **Delete any pages you removed** from `public_html` by hand. Extracting a zip doesn't delete old files.
+   **Never delete `public_html/uploads/`.** It holds images uploaded through the admin panel.
 4. `config.php` lives in `private/`, so it isn't affected.

@@ -60,6 +60,33 @@ return [
         'global_max' => 60,  // all visitors combined, per form, per hour
     ],
 
+    // MySQL database (hPanel → Databases → Management). On Hostinger the host is "localhost".
+    // Database name and user look like u123456789_hsdb / u123456789_hsuser.
+    'db' => [
+        'host' => 'localhost',
+        'port' => 3306,
+        'name' => 'u000000000_hsdb',
+        'user' => 'u000000000_hsuser',
+        'pass' => 'CHANGE-ME',
+        'charset' => 'utf8mb4',
+    ],
+
+    // Admin panel (/hs-admin/)
+    'admin' => [
+        // Needed ONCE by hs-admin/install.php to create the first admin. Use a long random string,
+        // then DELETE this line (and install.php) after installing.
+        'install_token' => 'CHANGE-ME-to-a-long-random-string',
+        'session_idle_minutes' => 120,   // auto logout after inactivity
+        'max_login_attempts' => 5,       // failed logins (per IP and per email)…
+        'lockout_minutes' => 15,         // …before a lockout of this long
+    ],
+
+    // Public URL patterns for "View" links and API responses
+    'public_paths' => [
+        'service' => '/services/{slug}/',
+        'post' => '/blog/{slug}/',
+    ],
+
     // Leave empty for auto: ../private/hs-data (outside public_html), else public_html/api/_data
     'storage_dir' => '',
 

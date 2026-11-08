@@ -12,3 +12,8 @@ public/api/config.php
 # Runtime data written by the PHP handlers (logs, rate limits, test mail)
 public/api/_data/
 private/
+
+# Admin image uploads (live content — never commit, never delete on redeploy)
+public/uploads/*
+!public/uploads/.htaccess
+!public/uploads/.gitkeep

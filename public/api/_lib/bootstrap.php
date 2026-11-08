@@ -12,6 +12,7 @@ if (!defined('HS_API')) {
     exit;
 }
 
+require_once __DIR__ . '/core.php';
 require __DIR__ . '/PHPMailer/Exception.php';
 require __DIR__ . '/PHPMailer/PHPMailer.php';
 require __DIR__ . '/PHPMailer/SMTP.php';
@@ -19,75 +20,10 @@ require __DIR__ . '/PHPMailer/SMTP.php';
 use PHPMailer\PHPMailer\PHPMailer;
 
 const HS_MAX_BODY_BYTES = 20 * 1024 * 1024; // whole request, incl. up to 3 x 5MB photos
-const HS_TIMEZONE = 'Europe/London';
 
 /* ───────────────────────────── Config ───────────────────────────── */
 
-function hs_default_config(): array
-{
-    return [
-        // 'smtp' sends real email. 'log' writes .eml files to storage/mail (local testing only).
-        'mail_transport' => 'smtp',
-        'smtp' => [
-            'host' => 'smtp.hostinger.com',
-            'port' => 465,
-            'secure' => 'ssl', // 'ssl' = implicit TLS on 465; 'tls' = STARTTLS on 587
-            'username' => '',
-            'password' => '',
-            'from_email' => '', // defaults to username — Hostinger requires From = the authenticated mailbox
-            'from_name' => 'HS Appliances Website',
-        ],
-        'business' => [
-            'name' => 'House & Shop Appliances',
-            'to_email' => 'house.shopappliances@gmail.com',
-            'to_name' => 'House & Shop Appliances',
-            'phone' => '07777 372586',
-            'website' => 'https://hsappliances.co.uk',
-        ],
-        'send_customer_confirmation' => true,
-        'recaptcha' => [
-            'secret' => '', // empty = reCAPTCHA disabled
-            'min_score' => 0.5,
-        ],
-        'allowed_origins' => ['https://hsappliances.co.uk'],
-        'rate_limit' => [
-            'max' => 5,            // submissions per IP per form...
-            'window' => 600,       // ...per 10 minutes
-            'global_max' => 60,    // all IPs combined, per form, per hour (limits abuse of confirmation emails)
-        ],
-        'storage_dir' => '',   // empty = auto (../private/hs-data outside public_html, else api/_data)
-        'hash_salt' => '',     // random string; used to hash IPs in logs/rate-limit files
-    ];
-}
 
-/** Loads config, looking outside public_html first. */
-function hs_config(): array
-{
-    static $config = null;
-    if ($config !== null) {
-        return $config;
-    }
-    $candidates = array_filter([
-        getenv('HS_CONFIG') ?: null,
-        dirname(__DIR__, 3) . '/private/config.php', // /home/uXXX/domains/hsappliances.co.uk/private/config.php
-        dirname(__DIR__) . '/config.php',            // public_html/api/config.php (blocked by .htaccess)
-    ]);
-    foreach ($candidates as $path) {
-        if (is_file($path)) {
-            $loaded = require $path;
-            if (is_array($loaded)) {
-                $config = array_replace_recursive(hs_default_config(), $loaded);
-                // Lists should replace, not merge by index
-                if (isset($loaded['allowed_origins']) && is_array($loaded['allowed_origins'])) {
-                    $config['allowed_origins'] = array_values($loaded['allowed_origins']);
-                }
-                return $config;
-            }
-        }
-    }
-    error_log('[hs-api] config.php not found');
-    hs_json(500, false, hs_fallback_message());
-}
 
 function hs_fallback_message(): string
 {
@@ -188,109 +124,15 @@ function hs_honeypot(array $in, string $form): void
     }
 }
 
-function hs_client_ip(): string
-{
-    // REMOTE_ADDR only: X-Forwarded-For is client-controlled and trivially spoofed.
-    return (string) ($_SERVER['REMOTE_ADDR'] ?? '0.0.0.0');
-}
 
-function hs_ip_hash(): string
-{
-    return substr(hash('sha256', hs_client_ip() . '|' . hs_config()['hash_salt']), 0, 12);
-}
 
 /* ───────────────────────────── Storage / logging ───────────────────────────── */
 
-function hs_storage(string $sub): string
-{
-    static $base = null;
-    if ($base === null) {
-        $configured = (string) hs_config()['storage_dir'];
-        $private = dirname(__DIR__, 3) . '/private/hs-data';
-        $fallback = dirname(__DIR__) . '/_data';
-        foreach ($configured !== '' ? [$configured] : [$private, $fallback] as $dir) {
-            if ((is_dir($dir) || @mkdir($dir, 0750, true)) && is_writable($dir)) {
-                $base = $dir;
-                break;
-            }
-        }
-        if ($base === null) {
-            throw new RuntimeException('No writable storage directory');
-        }
-        // Inside the web root? Make sure it's never served.
-        if ($base === $fallback && !is_file($base . '/.htaccess')) {
-            @file_put_contents($base . '/.htaccess', "Require all denied\n<IfModule !mod_authz_core.c>\n  Deny from all\n</IfModule>\n");
-        }
-    }
-    $dir = $base . '/' . $sub;
-    if (!is_dir($dir)) {
-        @mkdir($dir, 0750, true);
-    }
-    return $dir;
-}
 
-/** Logs operational events. Never log message content or contact details. */
-function hs_log(string $message): void
-{
-    $line = '[' . gmdate('Y-m-d H:i:s') . '] ' . preg_replace('/[\r\n]+/', ' ', $message) . "\n";
-    try {
-        @file_put_contents(hs_storage('logs') . '/api.log', $line, FILE_APPEND | LOCK_EX);
-    } catch (Throwable) {
-        error_log('[hs-api] ' . $message);
-    }
-}
 
 /* ───────────────────────────── Rate limiting ───────────────────────────── */
 
-/**
- * File-based sliding window. Called only after validation passes, so typos don't count.
- * Returns true if the request is allowed (and records it).
- */
-function hs_rate_hit(string $key, int $max, int $window): bool
-{
-    if ($max <= 0) {
-        return true;
-    }
-    $dir = hs_storage('ratelimit');
-    $file = $dir . '/' . hash('sha256', $key . '|' . hs_config()['hash_salt']) . '.json';
-    $fh = @fopen($file, 'c+');
-    if ($fh === false) {
-        hs_log('Rate limit storage unavailable');
-        return true; // fail open rather than lose genuine bookings
-    }
-    $allowed = true;
-    try {
-        flock($fh, LOCK_EX);
-        $times = json_decode((string) stream_get_contents($fh), true);
-        $now = time();
-        $times = array_values(array_filter(is_array($times) ? $times : [], static fn ($t) => is_int($t) && $t > $now - $window));
-        if (count($times) >= $max) {
-            $allowed = false;
-        } else {
-            $times[] = $now;
-            ftruncate($fh, 0);
-            rewind($fh);
-            fwrite($fh, json_encode($times));
-            fflush($fh);
-        }
-    } finally {
-        flock($fh, LOCK_UN);
-        fclose($fh);
-    }
-    if (random_int(1, 50) === 1) {
-        hs_rate_cleanup($dir, max($window, 3600));
-    }
-    return $allowed;
-}
 
-function hs_rate_cleanup(string $dir, int $maxAge): void
-{
-    foreach (glob($dir . '/*.json') ?: [] as $f) {
-        if (@filemtime($f) < time() - 2 * $maxAge) {
-            @unlink($f);
-        }
-    }
-}
 
 function hs_rate_limit(string $form): void
 {
