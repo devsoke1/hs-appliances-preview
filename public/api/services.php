@@ -85,4 +85,5 @@ $rows = db_all($sql, $params);
 api_respond([
     'services' => array_map(static fn ($s) => service_out($s, $full), $rows),
     'count' => count($rows),
+    'homepage_services_limit' => max(1, min(50, (int) setting('homepage_services_limit', '8'))),
 ]);

@@ -4,16 +4,17 @@ import { notFound } from "next/navigation";
 import { ArrowRight, Car, Landmark, MapPin, Phone } from "lucide-react";
 import { business, telHref } from "@/data/business";
 import { areaHref, areas, getArea } from "@/data/areas";
-import { commercialServices, domesticServices, getService, serviceHref } from "@/data/services";
+import { getService, serviceHref } from "@/data/services";
+import { areaImage, imagePath } from "@/data/media";
+import { buildPosts, buildServices } from "@/lib/build-data";
+import { LatestInsights } from "@/components/live/LatestInsights";
+import { SmartImage } from "@/components/ui/SmartImage";
 import { pageMeta } from "@/lib/seo";
 import { areaDescription, areaTitle } from "@/data/seo";
-import { postsForArea } from "@/lib/blog";
-import { PostCards } from "@/components/PostCards";
 import { Section, SectionHeader } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { PageHero } from "@/components/ui/PageHero";
-import { Placeholder } from "@/components/ui/Placeholder";
 import { ServiceIcon } from "@/components/ServiceIcon";
 import { PostcodeChecker } from "@/components/postcode/PostcodeChecker";
 import { CtaBand } from "@/components/CtaBand";
@@ -44,7 +45,10 @@ export default async function AreaPage({ params }: Props) {
   if (!area) notFound();
 
   const isBase = area.travel.miles === 0;
-  const guides = postsForArea(area.slug);
+  // Insights are tagged with the short area name, e.g. "Staines", "Kingston"
+  const areaTag = area.slug.charAt(0).toUpperCase() + area.slug.slice(1);
+  const [{ services }, guides] = await Promise.all([buildServices(), buildPosts(3, areaTag)]);
+  const img = areaImage(area.slug);
   const nearby = area.nearby.map(getArea).filter((a): a is NonNullable<typeof a> => Boolean(a));
   const key = area.keyServices
     .map((k) => ({ ...k, service: getService(k.slug) }))
@@ -67,6 +71,13 @@ export default async function AreaPage({ params }: Props) {
         eyebrow={`Areas we cover · ${area.postcodes.join(", ")}`}
         title={`Appliance Repair in ${area.name}`}
         intro={area.summary}
+        aside={
+          img ? (
+            <div className="aspect-[16/10] overflow-hidden rounded-[var(--radius-card)] ring-1 ring-white/15">
+              <SmartImage src={imagePath(img.name, 1024)} alt={img.alt} sizes="(min-width: 1024px) 40vw, 100vw" priority />
+            </div>
+          ) : undefined
+        }
       >
         <div className="flex flex-col gap-3 sm:flex-row">
           <Button href={`/book/?postcode=${area.postcodes[0]}`} size="lg">
@@ -153,17 +164,17 @@ export default async function AreaPage({ params }: Props) {
             <h2 className="text-h2 mb-6">Everything we repair in {area.name}</h2>
             <div className="grid gap-8 sm:grid-cols-2">
               {[
-                { title: "Domestic appliances", list: domesticServices },
-                { title: "Commercial refrigeration", list: commercialServices },
+                { title: "Domestic appliances", list: services.filter((x) => x.category === "domestic") },
+                { title: "Commercial refrigeration", list: services.filter((x) => x.category === "commercial") },
               ].map((g) => (
                 <div key={g.title}>
                   <h3 className="mb-3 border-b border-line pb-2 font-display text-sm font-bold uppercase tracking-[0.12em] text-muted">{g.title}</h3>
                   <ul className="space-y-1">
                     {g.list.map((s) => (
                       <li key={s.slug}>
-                        <Link href={serviceHref(s.slug)} className="flex items-center gap-2.5 rounded-lg py-1.5 font-semibold text-navy-900 hover:text-brand-600">
-                          <ServiceIcon slug={s.slug} className="size-4 text-brand-600" />
-                          {s.title} in {area.name}
+                        <Link href={s.url} className="flex min-h-11 items-center gap-2.5 rounded-lg py-1.5 font-semibold text-navy-900 hover:text-brand-600">
+                          <ServiceIcon icon={s.icon} slug={s.slug} className="size-4 text-brand-600" />
+                          {s.name} in {area.name}
                         </Link>
                       </li>
                     ))}
@@ -173,10 +184,6 @@ export default async function AreaPage({ params }: Props) {
             </div>
           </section>
 
-          <section className="mt-14">
-            <h2 className="text-h2 mb-6">Reviews from {area.name}</h2>
-            <Placeholder label={`[ADD REAL GOOGLE REVIEW from a customer in ${area.name} — name, date, text. Leave out until you have one.]`} className="min-h-32" />
-          </section>
         </article>
 
         <aside className="lg:col-span-4">
@@ -195,12 +202,7 @@ export default async function AreaPage({ params }: Props) {
         </aside>
       </Container>
 
-      {guides.length > 0 && (
-        <Section>
-          <SectionHeader eyebrow="Advice" title={`Guides for ${area.name} homes and businesses`} />
-          <PostCards posts={guides} />
-        </Section>
-      )}
+      <LatestInsights initial={guides} tag={areaTag} title={`Guides for ${area.name} homes and businesses`} />
 
       {nearby.length > 0 && (
         <Section tone="mist">

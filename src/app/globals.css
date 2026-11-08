@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+/* Scan the PHP templates too (services/insights pages), but not vendored PHP libraries */
+@source "../../public/includes";
+@source "../../public/services";
+@source "../../public/insights";
+@source "../../public/assets/js";
+@source not "../../public/api";
+@source not "../../public/hs-admin";
+@source not "../../scripts";
+@source not "../../database";
+
 /* ───────────────────────── Design tokens ─────────────────────────
    Navy  = trust / structure (header, footer, dark sections)
    Brand = working blue (links, icons, highlights)
@@ -73,13 +83,13 @@
 
 /* ───────────────────────── Type scale ───────────────────────── */
 @utility text-display {
-  font-size: clamp(2.25rem, 1.6rem + 2.8vw, 3.75rem);
+  font-size: clamp(2rem, 1.45rem + 2.8vw, 3.75rem);
   font-weight: 800;
   line-height: 1.05;
   letter-spacing: -0.03em;
 }
 @utility text-h1 {
-  font-size: clamp(2rem, 1.5rem + 2vw, 3.125rem);
+  font-size: clamp(1.875rem, 1.4rem + 2vw, 3.125rem);
   font-weight: 800;
   line-height: 1.08;
   letter-spacing: -0.025em;

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useId, useState } from "react";
 import { ArrowRight, CircleCheck, MapPin, Phone, Search } from "lucide-react";
-import { checkPostcode, type AreaIndexEntry, type PostcodeResult } from "@/data/areas";
+import { checkPostcode, type AreaIndexEntry, type PostcodeResult } from "@/data/postcodes";
 import { cn } from "@/lib/cn";
 import { buttonClasses } from "@/components/ui/Button";
 

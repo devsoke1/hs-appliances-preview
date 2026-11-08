@@ -26,6 +26,8 @@ You only do this once. It takes about 15 minutes.
    - default **settings** (homepage shows 8 services, plus your phone, email and address)
    - **no reviews**. Add your real Google reviews yourself in the admin.
 
+**Already imported `seed.sql` before the demo photos were added?** Import `database/update-images.sql` as well. It only fills service and post images that are still empty, so it never overwrites images you've uploaded.
+
 Import `seed.sql` **once**, into an empty database. Importing it twice gives "Duplicate entry" errors. If that happens, drop all the tables and import both files again.
 
 ## 3. Add the database details to config.php
@@ -96,8 +98,10 @@ Go to **https://hsappliances.co.uk/hs-admin/** and bookmark it on your phone. Yo
 
 **Images** are checked to be real JPG/PNG/WebP files, resized to a maximum of 1600px, converted to WebP and saved in `public_html/uploads/`. **Never delete `uploads/` when redeploying** the site, because it holds your live images. Extracting the site zip over `public_html` leaves it alone.
 
-## Phase 6 note
-Until Phase 6, the public service pages and blog are still the static versions built from the project files. Admin changes are stored in the database and available through the API (`/api/services.php`, `/api/posts.php`, `/api/reviews.php`). Phase 6 switches those pages to PHP so admin edits appear on the site instantly.
+## What updates where
+- **Service and Insights pages** (`/services/…`, `/insights/…`), the sitemap and the menus on those pages read the database directly, so changes are live as soon as you save. A new service gets its page, a menu entry and a sitemap entry automatically. Hiding a service makes its page return "not found" and removes it everywhere.
+- **Other pages** (home, areas, about…) load the latest services, reviews and insights in the browser a moment after opening. The next `npm run build` bakes the same content into the page HTML.
+- Insight URLs are `/insights/{slug}/`. Old `/blog/…` links redirect automatically.
 
 ---
 

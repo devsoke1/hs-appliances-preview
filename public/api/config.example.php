@@ -84,7 +84,7 @@ return [
     // Public URL patterns for "View" links and API responses
     'public_paths' => [
         'service' => '/services/{slug}/',
-        'post' => '/blog/{slug}/',
+        'post' => '/insights/{slug}/',
     ],
 
     // Leave empty for auto: ../private/hs-data (outside public_html), else public_html/api/_data

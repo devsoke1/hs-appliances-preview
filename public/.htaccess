@@ -33,8 +33,9 @@ ErrorDocument 403 /404.html
   # Internal PHP library and runtime data
   RewriteRule ^api/_(lib|data)(/|$) - [F,L]
   RewriteRule ^api/db\.php$ - [F,L]
-  # Admin internals
+  # Admin internals and PHP page templates
   RewriteRule ^hs-admin/_inc(/|$) - [F,L]
+  RewriteRule ^includes(/|$) - [F,L]
   # Uploads: images only, never scripts (also enforced by uploads/.htaccess)
   RewriteCond %{REQUEST_URI} ^/uploads/
   RewriteCond %{REQUEST_URI} !\.(webp|jpe?g|png)$ [NC]
@@ -55,6 +56,19 @@ ErrorDocument 403 /404.html
 
   # ── 3. Renamed pages ──
   RewriteRule ^faqs/?$ /faq/ [L,R=301]
+  # "Blog" is now "Insights"
+  RewriteRule ^blog/?$ /insights/ [L,R=301]
+  RewriteRule ^blog/(.+?)/?$ /insights/$1/ [L,R=301]
+
+  # ── 3b. PHP-rendered pages (live from the database) ──
+  # Renamed service/post slugs and real 404s are handled inside the PHP pages.
+  RewriteRule ^sitemap\.xml$ sitemap.php [L]
+  RewriteRule ^(services|insights)$ /$1/ [L,R=301]
+  RewriteRule ^(services|insights)/([a-z0-9-]+)$ /$1/$2/ [L,R=301]
+  RewriteRule ^services/$ services/index.php [L]
+  RewriteRule ^services/([a-z0-9-]+)/$ services/service.php?slug=$1 [L,QSA]
+  RewriteRule ^insights/$ insights/index.php [L,QSA]
+  RewriteRule ^insights/([a-z0-9-]+)/$ insights/post.php?slug=$1 [L,QSA]
 
   # ── 4. Clean URLs for the static export (trailingSlash: true) ──
   # /about/index.html → /about/   and   /index.html → /

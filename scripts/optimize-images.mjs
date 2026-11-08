@@ -16,8 +16,13 @@ const ROOT = process.cwd();
 const SRC = path.join(ROOT, "assets", "images");
 const OUT = path.join(ROOT, "public", "images");
 const MANIFEST = path.join(ROOT, "src", "data", "images.json");
-const WIDTHS = [480, 800, 1200, 1600];
-const QUALITY = 72;
+// Default widths for card/inline photos (shown ≤ ~600px wide). Wide images (hero, area banners, CTA)
+// are listed in scripts/image-sources.json with width 1920 and get larger sizes.
+const CARD_WIDTHS = [400, 800, 1200];
+const WIDE_WIDTHS = [640, 800, 1024, 1440, 1920];
+const QUALITY = 68;
+const sourcesFile = path.join(ROOT, "scripts", "image-sources.json");
+const wide = new Set(fs.existsSync(sourcesFile) ? JSON.parse(fs.readFileSync(sourcesFile, "utf8")).images.filter((i) => i.width >= 1920).map((i) => i.name) : []);
 
 fs.mkdirSync(SRC, { recursive: true });
 fs.mkdirSync(OUT, { recursive: true });
@@ -36,14 +41,15 @@ for (const file of files) {
   const isRotated = (meta.orientation ?? 1) >= 5;
   const width = isRotated ? meta.height : meta.width;
   const height = isRotated ? meta.width : meta.height;
-  const widths = WIDTHS.filter((w) => w <= width);
-  if (!widths.length || widths[widths.length - 1] < width) widths.push(Math.min(width, 2000));
+  const set = wide.has(name) ? WIDE_WIDTHS : CARD_WIDTHS;
+  const widths = set.filter((w) => w <= width);
+  if (!widths.length) widths.push(width);
 
   for (const w of widths) {
     await input
       .clone()
       .resize({ width: w, withoutEnlargement: true })
-      .webp({ quality: QUALITY, effort: 5 })
+      .webp({ quality: QUALITY, effort: 6, smartSubsample: true })
       .toFile(path.join(OUT, `${name}-${w}.webp`));
   }
   manifest[name] = { width, height, widths };

@@ -79,7 +79,7 @@ export function getAllPosts(): Post[] {
 export const getPost = (slug: string) => getAllPosts().find((p) => p.slug === slug);
 export const postsForService = (slug: string) => getAllPosts().filter((p) => p.service === slug);
 export const postsForArea = (slug: string) => getAllPosts().filter((p) => p.areas.includes(slug));
-export const postHref = (slug: string) => `/blog/${slug}/`;
+export const postHref = (slug: string) => `/insights/${slug}/`;
 
 export const formatDate = (iso: string) =>
   new Date(`${iso}T12:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "Europe/London" });

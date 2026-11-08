@@ -11,7 +11,12 @@
     "brand-assets": "node scripts/generate-brand-assets.mjs",
     "audit": "node scripts/audit.mjs",
     "postbuild": "node scripts/flatten-rsc-segments.mjs",
-    "db:seed-sql": "node --no-warnings --import ./scripts/ts-register.mjs scripts/generate-seed.mjs"
+    "db:seed-sql": "node --no-warnings --import ./scripts/ts-register.mjs scripts/generate-seed.mjs",
+    "export:php": "node --no-warnings --import ./scripts/ts-register.mjs scripts/export-php-data.mjs",
+    "build:css": "tailwindcss -i src/styles/php.css -o public/assets/css/site.css --minify",
+    "prebuild": "npm run export:php && npm run build:css",
+    "dev:db": "node scripts/dev/php.mjs scripts/dev/make-sqlite.php database/schema.sql database/seed.sql private/dev.sqlite",
+    "serve:php": "node scripts/dev/php.mjs -S localhost:8080 -t out scripts/dev/router.php"
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -23,6 +28,9 @@
     "react-dom": "^19.3.1"
   },
   "devDependencies": {
+    "@fontsource-variable/plus-jakarta-sans": "5.3.0",
+    "@fontsource-variable/source-sans-3": "5.3.1",
+    "@tailwindcss/cli": "4.3.5",
     "@tailwindcss/postcss": "^4.3.5",
     "@types/node": "^26.6.6",
     "@types/react": "^19.3.0",

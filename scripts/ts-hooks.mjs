@@ -31,5 +31,10 @@ export async function resolve(specifier, context, nextResolve) {
       if (url) return { url, shortCircuit: true };
     }
   }
-  return nextResolve(specifier, context);
+  const resolved = await nextResolve(specifier, context);
+  // The app imports JSON without `with { type: "json" }` (fine for Next.js); add it for Node.
+  if (resolved.url.endsWith(".json")) {
+    return { ...resolved, importAttributes: { ...(context.importAttributes ?? {}), type: "json" }, shortCircuit: true };
+  }
+  return resolved;
 }

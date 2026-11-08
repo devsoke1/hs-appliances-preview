@@ -19,6 +19,7 @@ import { marked } from "marked";
 import { services } from "../src/data/services/index.ts";
 import { business } from "../src/data/business.ts";
 import { serviceDescription, serviceTitle } from "../src/data/seo.ts";
+import { imagePath, postImage, serviceImage } from "../src/data/media.ts";
 
 const ROOT = process.cwd();
 const OUT = path.join(ROOT, "database", "seed.sql");
@@ -90,8 +91,8 @@ services.forEach((s, i) => {
     common_faults: jsonArrayOfObjects(s.faults.map((f) => ({ name: f.name, detail: f.detail })), ["name", "detail"]),
     faqs: jsonArrayOfObjects(s.faqs.map((f) => ({ question: f.question, answer: f.answer })), ["question", "answer"]),
     compliance_note: q(s.complianceNote ?? null),
-    image: "NULL",
-    image_alt: "NULL",
+    image: q(serviceImage(s.slug) ? imagePath(serviceImage(s.slug).name, 800) : null),
+    image_alt: q(serviceImage(s.slug)?.alt ?? null),
     icon: q(ICONS[s.slug] ?? "Wrench"),
     meta_title: q(serviceTitle(s)),
     meta_description: q(serviceDescription(s)),
@@ -121,13 +122,14 @@ for (const file of files) {
   const svc = data.service ? serviceBySlug[data.service] : undefined;
   const tags = [svc?.name, ...(data.areas ?? []).map((a) => a.charAt(0).toUpperCase() + a.slice(1))].filter(Boolean).join(", ");
   const html = marked.parse(content, { async: false, gfm: true }).trim();
+  const img = postImage(file.replace(/.md$/, ""));
   const cols = {
     slug: q(file.replace(/\.md$/, "")),
     title: q(data.title),
     excerpt: q(data.description),
     content: q(html),
-    featured_image: "NULL",
-    image_alt: "NULL",
+    featured_image: q(img ? imagePath(img.name, 1200) : null),
+    image_alt: q(img?.alt ?? null),
     category: q(CATEGORY_BY_SERVICE[data.service] ?? "Guides"),
     tags: q(tags),
     author: q(business.name),
@@ -168,3 +170,17 @@ out("-- No reviews are seeded on purpose: add real reviews in /hs-admin/.");
 fs.mkdirSync(path.dirname(OUT), { recursive: true });
 fs.writeFileSync(OUT, lines.join("\n") + "\n");
 console.log(`✓ ${path.relative(ROOT, OUT)}: ${services.length} services, ${files.length} posts, settings, redirects`);
+
+/* ── For databases that were seeded before images existed ── */
+const upd = ["-- Adds demo images to existing rows that have none (safe to run more than once).", "SET NAMES utf8mb4;"];
+for (const s of services) {
+  const img = serviceImage(s.slug);
+  if (img) upd.push(`UPDATE services SET image = ${q(imagePath(img.name, 800))}, image_alt = ${q(img.alt)} WHERE slug = ${q(s.slug)} AND (image IS NULL OR image = '');`);
+}
+for (const file of files) {
+  const slug = file.replace(/\.md$/, "");
+  const img = postImage(slug);
+  if (img) upd.push(`UPDATE posts SET featured_image = ${q(imagePath(img.name, 1200))}, image_alt = ${q(img.alt)} WHERE slug = ${q(slug)} AND (featured_image IS NULL OR featured_image = '');`);
+}
+fs.writeFileSync(path.join(ROOT, "database", "update-images.sql"), upd.join("\n") + "\n");
+console.log("✓ database/update-images.sql");

@@ -20,7 +20,7 @@ export function Breadcrumb({ items, tone = "dark", className }: { items: Crumb[]
                 {c.href && !last ? (
                   <Link
                     href={c.href}
-                    className={cn("transition-colors", tone === "dark" ? "text-white/65 hover:text-white" : "text-muted hover:text-brand-600")}
+                    className={cn("-my-3 inline-block min-w-11 py-3 text-center transition-colors", tone === "dark" ? "text-white/75 hover:text-white" : "text-muted hover:text-brand-600")}
                   >
                     {c.label}
                   </Link>

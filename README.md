@@ -1,12 +1,19 @@
 # HS Appliances — hsappliances.co.uk
 
-Next.js (App Router, TypeScript, Tailwind v4) as a **static export**, with **PHP form handlers**. It runs on Hostinger Single Web Hosting, which has no Node.js on the server.
+Next.js (App Router, TypeScript, Tailwind v4) as a **static export**, plus **PHP** for everything that changes from the admin panel. It runs on Hostinger Single Web Hosting, which has no Node.js on the server.
+
+- **Static (Next.js):** home, about, areas, contact, book, FAQ and legal pages. Each one is built with fallback data, then refreshes the services menu, reviews and latest insights from the JSON API in the browser.
+- **PHP (rendered from MySQL):** `/services/`, `/services/{slug}/`, `/insights/`, `/insights/{slug}/` and `/sitemap.xml`. Admin edits show up instantly. These pages share the same Tailwind build and look identical.
 
 ```bash
 npm install
 npm run dev     # http://localhost:3000 (forms need PHP, see docs/deploy.md §5.3)
-npm run build   # static site → out/ (postbuild fixes Next 16 prefetch file names)
-npm run audit   # SEO/link/schema/redirect audit of out/ → docs/seo-audit.md
+npm run build   # static site → out/ (prebuild: export:php + build:css; postbuild fixes Next 16 prefetch file names)
+npm run dev:db      # local SQLite DB (private/dev.sqlite) from database/schema.sql + seed.sql
+npm run serve:php   # whole site incl. PHP pages on http://localhost:8080 (emulates .htaccess)
+npm run audit   # crawls the running site (BASE, default :8080) → docs/seo-audit.md
+npm run export:php  # src/data → public/includes/generated/*.json (+ fonts) for the PHP templates
+npm run build:css   # Tailwind → public/assets/css/site.css (inlined by the PHP <head>)
 npm run images  # assets/images/* → optimised WebP in public/images/ + src/data/images.json
 npm run brand-assets  # regenerate OG image + icons
 npm run db:seed-sql   # regenerate database/seed.sql from src/data + content/blog
@@ -31,7 +38,9 @@ npm run db:seed-sql   # regenerate database/seed.sql from src/data + content/blo
 | Old → new URL map | `docs/url-map.md` |
 | Titles & meta descriptions | `src/data/seo.ts` |
 | JSON-LD builders (typed with schema-dts) | `src/lib/schema.ts` |
-| Blog posts (markdown + frontmatter) | `content/blog/*.md` — see `src/lib/blog.ts` for fields |
+| PHP page templates | `public/services/`, `public/insights/`, shared includes in `public/includes/` (blocked from the web) |
+| Demo photos (originals + credits) | `assets/images/`, `scripts/image-sources.json`, `docs/image-credits.md` |
+| Original blog posts (seed source) | `content/blog/*.md` → imported into the DB by `npm run db:seed-sql` |
 | Search Console / launch SEO | `docs/search-console.md` |
 | Admin panel (PHP) | `public/hs-admin/` — setup: `docs/admin-setup.md` |
 | Database schema + seed | `database/schema.sql`, `database/seed.sql`, one-time `database/install.php` |
@@ -46,6 +55,7 @@ npm run db:seed-sql   # regenerate database/seed.sql from src/data + content/blo
 | `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` | `.env.local` (build time) | Optional reCAPTCHA v3 site key. Leave it empty to disable. |
 | `NEXT_PUBLIC_GA4_ID` | `.env.local` | Optional GA4 ID — loaded only after cookie consent; enables the banner |
 | `NEXT_PUBLIC_GSC_VERIFICATION` | `.env.local` | Optional Search Console HTML-tag code |
+| `HS_BUILD_API_BASE` | build shell | Where the build reads live services/reviews/posts (default `https://hsappliances.co.uk`). Set it to empty to build offline from `src/data`. |
 | SMTP password, reCAPTCHA secret | `config.php` on the server | Never in the repo or `.env` files. |
 
 Before launch, search for `[ADD` and `[CONFIRM` and replace every placeholder with real data.

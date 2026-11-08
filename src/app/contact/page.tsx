@@ -50,10 +50,10 @@ export default function ContactPage() {
                   {business.address.postcode}
                 </span>
               </p>
-              <a href={telHref} className="flex items-center gap-3 font-display text-lg font-bold text-navy-900 hover:text-brand-600">
+              <a href={telHref} className="flex min-h-11 items-center gap-3 font-display text-lg font-bold text-navy-900 hover:text-brand-600">
                 <Phone className="size-5 shrink-0 text-brand-600" aria-hidden /> {business.phone.display}
               </a>
-              <a href={mailHref} className="flex items-center gap-3 break-all font-semibold text-navy-900 hover:text-brand-600">
+              <a href={mailHref} className="flex min-h-11 items-center gap-3 break-all font-semibold text-navy-900 hover:text-brand-600">
                 <Mail className="size-5 shrink-0 text-brand-600" aria-hidden /> {business.email}
               </a>
             </address>

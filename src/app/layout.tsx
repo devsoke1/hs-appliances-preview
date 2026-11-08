@@ -10,19 +10,20 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { MobileBottomBar } from "@/components/layout/MobileBottomBar";
 import { CookieConsent } from "@/components/CookieConsent";
+import { buildServices } from "@/lib/build-data";
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   weight: ["600", "700", "800"],
   variable: "--font-jakarta",
-  display: "swap",
+  display: "optional",
 });
 
 const source = Source_Sans_3({
   subsets: ["latin"],
   weight: ["400", "600", "700"],
   variable: "--font-source",
-  display: "swap",
+  display: "optional",
 });
 
 /**
@@ -45,7 +46,8 @@ export const viewport: Viewport = {
   themeColor: "#0b1d3a",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const services = await buildServices();
   return (
     <html lang="en-GB" className={`${jakarta.variable} ${source.variable}`}>
       <body className="pb-mobile-bar">
@@ -55,9 +57,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Skip to content
         </a>
-        <Header />
+        <Header services={services} />
         <main id="main">{children}</main>
-        <Footer />
+        <Footer services={services} />
         <MobileBottomBar />
         <CookieConsent />
         <JsonLd data={siteGraph()} />

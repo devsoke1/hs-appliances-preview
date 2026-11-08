@@ -59,7 +59,7 @@ export function Field({
         )}
       </label>
       {children}
-      {hint && !error && <p className="mt-1.5 text-sm text-muted">{hint}</p>}
+      {hint && !error && <p className="mt-1.5 text-base text-muted">{hint}</p>}
       <FieldError id={htmlFor} message={error} />
     </div>
   );

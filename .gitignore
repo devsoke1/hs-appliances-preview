@@ -17,3 +17,8 @@ private/
 public/uploads/*
 !public/uploads/.htaccess
 !public/uploads/.gitkeep
+
+# Generated at build (npm run prebuild)
+public/includes/generated/
+public/assets/css/site.css
+public/fonts/

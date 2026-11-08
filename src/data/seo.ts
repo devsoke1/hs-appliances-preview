@@ -46,8 +46,9 @@ export const staticPageSeo = {
     description:
       "Book an appliance repair online: choose your appliance, describe the fault and pick a morning or afternoon slot. We'll call to confirm. Feltham-based.",
   },
-  blog: {
-    title: `Appliance Repair Advice & Guides | ${BRAND}`,
+  // Used by the PHP-rendered /insights/ page (exported via public/includes/generated/site.json)
+  insights: {
+    title: `Appliance Repair Insights & Guides | ${BRAND}`,
     description:
       "Practical guides from our Feltham engineers: fixing common washing machine, fridge and commercial refrigeration faults, and when to call a pro.",
   },

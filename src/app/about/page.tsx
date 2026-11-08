@@ -7,6 +7,8 @@ import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { PageHero } from "@/components/ui/PageHero";
 import { Placeholder } from "@/components/ui/Placeholder";
+import { ResponsiveImage } from "@/components/ui/ResponsiveImage";
+import { siteImages } from "@/data/media";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { CtaBand } from "@/components/CtaBand";
 import { AreaLinks, WhyChooseUs } from "@/components/sections";
@@ -60,7 +62,13 @@ export default function AboutPage() {
           <Placeholder label="[ADD: your story — when the business started, who runs it, background/experience of the engineers. Real details only.]" className="min-h-36" />
         </div>
         <div className="space-y-5 lg:col-span-5">
-          <Placeholder label="[ADD REAL PHOTO: owner / team / van outside 209 Hounslow Road]" className="aspect-[4/3]" />
+          {siteImages.about ? (
+            <div className="aspect-[4/3] overflow-hidden rounded-[var(--radius-card)]">
+              <ResponsiveImage name={siteImages.about.name} alt={siteImages.about.alt} sizes="(min-width: 1024px) 40vw, 100vw" priority className="h-full" />
+            </div>
+          ) : (
+            <Placeholder label="[ADD REAL PHOTO: owner / team / van outside 209 Hounslow Road]" className="aspect-[4/3]" />
+          )}
           <div className="rounded-[var(--radius-card)] border border-line bg-mist p-5">
             <p className="flex items-start gap-2 font-semibold text-ink">
               <MapPin className="mt-1 size-4 shrink-0 text-brand-600" aria-hidden />

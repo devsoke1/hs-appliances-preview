@@ -283,7 +283,7 @@ export function BookingForm({ domestic, commercial, brands }: { domestic: Option
         <SubmitButton submitting={submitting} busyLabel={files.length ? "Uploading…" : "Sending…"} icon={<CalendarCheck className="size-5" aria-hidden />}>
           Request booking
         </SubmitButton>
-        <p className="text-sm text-muted">This is a booking request — we&rsquo;ll call or email to confirm your appointment.</p>
+        <p className="text-base text-muted">This is a booking request — we&rsquo;ll call or email to confirm your appointment.</p>
         <RecaptchaNotice />
       </div>
     </form>

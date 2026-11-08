@@ -71,7 +71,10 @@ export const business = {
    * (name = the file name in assets/images without extension).
    * Leave null to show the placeholder.
    */
-  heroImage: null as { name: string; alt: string } | null,
+  heroImage: {
+    name: "appliance-repair-engineer-washing-machine-motor",
+    alt: "Inside a washing machine during a repair, showing the drive motor, belt and wiring",
+  } as { name: string; alt: string } | null,
 
   /** Leave empty until real, verifiable details exist. Rendered only when filled. */
   accreditations: [] as { name: string; id: string; verifyUrl?: string }[],

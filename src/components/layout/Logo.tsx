@@ -9,7 +9,7 @@ import { business } from "@/data/business";
 export function Logo({ tone = "dark", className }: { tone?: "dark" | "light"; className?: string }) {
   const light = tone === "light";
   return (
-    <Link href="/" className={cn("group inline-flex items-center gap-2.5", className)}>
+    <Link href="/" className={cn("group inline-flex min-h-11 items-center gap-2.5", className)}>
       <svg viewBox="0 0 40 40" className="size-10 shrink-0" aria-hidden>
         <rect width="40" height="40" rx="9" className={light ? "fill-white" : "fill-navy-900"} />
         <path d="M11 11v18M11 20h9M20 11v18" className={light ? "stroke-navy-900" : "stroke-white"} strokeWidth="3.2" strokeLinecap="round" fill="none" />

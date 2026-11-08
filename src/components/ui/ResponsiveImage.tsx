@@ -19,12 +19,15 @@ export function ResponsiveImage({
   alt,
   sizes = "100vw",
   priority = false,
+  priorityMedia,
   className,
 }: {
   name: string;
   alt: string;
   sizes?: string;
   priority?: boolean;
+  /** Only preload / prioritise at this media query (e.g. when the image is below the fold on phones). */
+  priorityMedia?: string;
   className?: string;
 }) {
   const e = images[name];
@@ -33,7 +36,7 @@ export function ResponsiveImage({
   const fallback = `/images/${name}-${e.widths.find((w) => w >= 800) ?? e.widths[e.widths.length - 1]}.webp`;
 
   if (priority) {
-    preload(fallback, { as: "image", imageSrcSet: srcSet, imageSizes: sizes, fetchPriority: "high" });
+    preload(fallback, { as: "image", imageSrcSet: srcSet, imageSizes: sizes, fetchPriority: "high", ...(priorityMedia ? { media: priorityMedia } : {}) });
   }
 
   return (
@@ -45,10 +48,10 @@ export function ResponsiveImage({
       alt={alt}
       width={e.width}
       height={e.height}
-      loading={priority ? "eager" : "lazy"}
+      loading={priority && !priorityMedia ? "eager" : "lazy"}
       decoding="async"
-      fetchPriority={priority ? "high" : "auto"}
-      className={cn("h-auto w-full object-cover", className)}
+      fetchPriority={priority && !priorityMedia ? "high" : "auto"}
+      className={cn("h-full w-full object-cover", className)}
     />
   );
 }

@@ -53,7 +53,16 @@ On your computer, in the project folder:
 ```bash
 npm ci          # first time, or after dependencies change
 npm run build   # creates the out/ folder
-npm run audit   # optional: checks every page, link, schema block and redirect
+```
+
+The build reads the live services, reviews and posts from `https://hsappliances.co.uk/api/` and uses them as the starting content of the static pages. If the site isn't live yet (or you're offline), it falls back to the project's own data automatically. To force the fallback: `HS_BUILD_API_BASE= npm run build`.
+
+To check the whole site locally before uploading (including the PHP pages):
+
+```bash
+npm run dev:db      # local SQLite copy of the database
+npm run serve:php   # http://localhost:8080
+npm run audit       # in a second terminal: checks every page, link, schema block and redirect
 ```
 
 `out/` now contains the whole site, including the hidden files the server needs:
@@ -71,7 +80,14 @@ out/
     ├── booking.php
     ├── config.example.php     ← template only (blocked from the web)
     └── _lib/                  ← PHPMailer + shared code (blocked from the web)
+├── services/, insights/       ← PHP pages, read from the database
+├── includes/                  ← PHP templates (blocked from the web)
+├── assets/css/site.css        ← stylesheet inlined by the PHP pages
+├── sitemap.php                ← served as /sitemap.xml
+└── hs-admin/                  ← admin panel
 ```
+
+**The service and insights pages need the database.** Do the admin setup ([admin-setup.md](admin-setup.md)) before or straight after the first upload, or those pages show a "temporarily unavailable" message.
 
 PHPMailer is already included in `api/_lib/PHPMailer/` (v7.1.1). There's nothing to install on the server.
 
@@ -142,6 +158,11 @@ curl -I http://hsappliances.co.uk/                 # → 301 to https://hsapplia
 curl -I https://www.hsappliances.co.uk/about       # → 301 to https://hsappliances.co.uk/about (then /about/)
 curl -I https://hsappliances.co.uk/about           # → 301 to /about/
 curl -I https://hsappliances.co.uk/faqs/           # → 301 to /faq/
+curl -I https://hsappliances.co.uk/blog/           # → 301 to /insights/
+curl -I https://hsappliances.co.uk/services/washing-machine-repair/   # → 200 (PHP page)
+curl -I https://hsappliances.co.uk/services/no-such-service/          # → 404
+curl -I https://hsappliances.co.uk/sitemap.xml     # → 200 application/xml
+curl -I https://hsappliances.co.uk/includes/head.php                  # → 403
 curl -I https://hsappliances.co.uk/no-such-page/   # → 404 (custom page)
 curl -I https://hsappliances.co.uk/api/config.example.php    # → 403
 curl -I https://hsappliances.co.uk/api/_lib/bootstrap.php    # → 403
@@ -175,7 +196,7 @@ php -S localhost:8000 -t out
 
 Open <http://localhost:8000> and submit the forms. Instead of sending, the emails are written as `.eml` files to `private/hs-data/mail/`, and you can open them in any email program. (`private/` is git-ignored.)
 
-PHP's built-in server ignores `.htaccess`, so redirects and blocked files can only be tested on Hostinger. Also, `npm run dev` doesn't run PHP: in dev mode the forms show an error state, which is expected.
+Plain `php -S` ignores `.htaccess`. `npm run serve:php` (port 8080) uses a small router that copies the important rules (clean URLs, the PHP pages, redirects, blocked folders), but always re-test on Hostinger itself. Also, `npm run dev` doesn't run PHP: in dev mode the forms show an error state, which is expected.
 
 ---
 

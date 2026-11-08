@@ -173,7 +173,7 @@ if ($errors) {
         </div>
         <div class="field">
           <label for="slug">URL slug</label>
-          <div class="input-prefix"><span>/blog/</span><input id="slug" name="slug" maxlength="160" value="<?= e($p['slug']) ?>" pattern="[a-z0-9]+(-[a-z0-9]+)*" data-slug-target<?= $existing ? ' data-slug-locked' : '' ?><?= invalid_attr($errors, 'slug') ?>></div>
+          <div class="input-prefix"><span>/insights/</span><input id="slug" name="slug" maxlength="160" value="<?= e($p['slug']) ?>" pattern="[a-z0-9]+(-[a-z0-9]+)*" data-slug-target<?= $existing ? ' data-slug-locked' : '' ?><?= invalid_attr($errors, 'slug') ?>></div>
           <?= field_error($errors, 'slug') ?>
         </div>
         <div class="field">

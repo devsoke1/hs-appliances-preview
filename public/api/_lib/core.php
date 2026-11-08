@@ -61,7 +61,7 @@ function hs_default_config(): array
         // Where public pages live — used for "View" links in the admin and in API responses.
         'public_paths' => [
             'service' => '/services/{slug}/',
-            'post' => '/blog/{slug}/',
+            'post' => '/insights/{slug}/',
         ],
     ];
 }

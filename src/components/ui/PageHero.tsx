@@ -24,9 +24,9 @@ export function PageHero({
   return (
     <section className={cn("relative overflow-hidden bg-navy-900 bg-blueprint text-white", className)}>
       <div aria-hidden className="pointer-events-none absolute -top-48 -right-32 size-[30rem] rounded-full bg-brand-600/20 blur-3xl" />
-      <Container className="relative py-10 sm:py-14 lg:py-16">
+      <Container className="relative py-8 sm:py-14 lg:py-16">
         <Breadcrumb items={crumbs} />
-        <div className={cn("mt-8 grid gap-10", aside && "lg:grid-cols-12 lg:items-center")}>
+        <div className={cn("mt-6 grid gap-8 sm:mt-8 lg:gap-10", aside && "lg:grid-cols-12 lg:items-center")}>
           <div className={cn(aside ? "lg:col-span-7" : "max-w-3xl")}>
             {eyebrow && <Eyebrow tone="dark">{eyebrow}</Eyebrow>}
             <h1 className="text-h1 text-white">{title}</h1>

@@ -3,27 +3,30 @@ import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import { business, fullAddress, groupedHours, mailHref, telHref } from "@/data/business";
 import { featuredAreas } from "@/data/areas";
 import { brandDisclaimer } from "@/data/brands";
-import { companyLinks, legalLinks, serviceMenu } from "@/lib/nav";
+import { companyLinks, legalLinks } from "@/lib/nav";
+import type { ServicesPayload } from "@/lib/live-types";
 import { Container } from "@/components/ui/Container";
-import { Logo } from "./Logo";
 import { CookieSettingsLink } from "@/components/CookieConsent";
+import { FooterServiceLinks } from "./FooterServiceLinks";
+import { Logo } from "./Logo";
 
-export function Footer() {
-  const areas = featuredAreas(10);
+/** Mirrored in PHP: public/includes/footer.php. Links are ≥44px tall on mobile. */
+export const footerLinkClass = "inline-flex min-h-11 min-w-11 items-center transition-colors hover:text-white lg:min-h-0 lg:min-w-0";
+
+export function Footer({ services }: { services: ServicesPayload }) {
+  const areas = featuredAreas(12);
   const year = new Date().getFullYear();
 
   return (
     <footer className="bg-navy-950 text-[0.9375rem] text-white/65">
-      <Container className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
-        {/* NAP */}
-        <div className="sm:col-span-2 lg:col-span-4">
+      <Container className="grid grid-cols-2 gap-x-6 gap-y-10 py-12 sm:py-14 lg:grid-cols-12 lg:gap-8">
+        <div className="col-span-2 lg:col-span-4">
           <Logo tone="light" />
-          <p className="mt-5 max-w-sm">
-            Repair, installation and maintenance for domestic appliances and commercial refrigeration across{" "}
-            {business.serviceAreaSummary}.
+          <p className="mt-5 max-w-sm text-base">
+            Repair, installation and maintenance for domestic appliances and commercial refrigeration across {business.serviceAreaSummary}.
           </p>
-          <address className="mt-6 space-y-3 not-italic">
-            <p className="flex items-start gap-3">
+          <address className="mt-6 space-y-1 not-italic">
+            <p className="flex items-start gap-3 py-1">
               <MapPin className="mt-1 size-4 shrink-0 text-accent-400" aria-hidden />
               <span>
                 {business.name}
@@ -31,57 +34,46 @@ export function Footer() {
                 {fullAddress}
               </span>
             </p>
-            <a href={telHref} className="flex items-center gap-3 font-semibold text-white hover:text-accent-400">
+            <a href={telHref} className="flex min-h-11 items-center gap-3 font-semibold text-white hover:text-accent-400">
               <Phone className="size-4 shrink-0 text-accent-400" aria-hidden /> {business.phone.display}
             </a>
-            <a href={mailHref} className="flex items-center gap-3 break-all hover:text-white">
+            <a href={mailHref} className="flex min-h-11 items-center gap-3 break-all hover:text-white">
               <Mail className="size-4 shrink-0 text-accent-400" aria-hidden /> {business.email}
             </a>
           </address>
-          <div className="mt-6 flex items-start gap-3">
+          <div className="mt-4 flex items-start gap-3">
             <Clock className="mt-1 size-4 shrink-0 text-accent-400" aria-hidden />
             <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1">
               {groupedHours().map((h) => (
                 <div key={h.label} className="contents">
-                  <dt className="text-white/50">{h.label}</dt>
+                  <dt className="text-white/60">{h.label}</dt>
                   <dd className="text-white/85">{h.value}</dd>
                 </div>
               ))}
             </dl>
           </div>
-          {!business.hoursConfirmed && (
-            <p className="mt-2 pl-7 font-mono text-[0.6875rem] uppercase tracking-wide text-accent-400">[CONFIRM HOURS]</p>
-          )}
+          {!business.hoursConfirmed && <p className="mt-2 pl-7 font-mono text-[0.6875rem] tracking-wide text-accent-400 uppercase">[CONFIRM HOURS]</p>}
         </div>
 
-        <FooterCol title="Domestic" className="lg:col-span-2">
-          {serviceMenu.domestic.map((l) => (
-            <FooterLink key={l.href} href={l.href}>{l.label} Repair</FooterLink>
-          ))}
-        </FooterCol>
-
-        <FooterCol title="Commercial" className="lg:col-span-2">
-          {serviceMenu.commercial.map((l) => (
-            <FooterLink key={l.href} href={l.href}>{l.label} Repair</FooterLink>
-          ))}
-        </FooterCol>
+        <FooterServiceLinks initial={services} />
 
         <FooterCol title="Areas" className="lg:col-span-2">
-          {areas.length > 0 ? (
-            <>
-              {areas.map((a) => (
-                <FooterLink key={a.slug} href={`/areas/${a.slug}/`}>{a.name}</FooterLink>
-              ))}
-              <FooterLink href="/areas/">All areas →</FooterLink>
-            </>
-          ) : (
-            <li className="font-mono text-xs uppercase tracking-wide text-accent-400">[ADD AREAS — src/data/areas.ts]</li>
-          )}
+          {areas.map((a) => (
+            <li key={a.slug}>
+              <Link href={`/areas/${a.slug}/`} className={footerLinkClass}>
+                {a.name}
+              </Link>
+            </li>
+          ))}
         </FooterCol>
 
         <FooterCol title="Company" className="lg:col-span-2">
           {companyLinks.map((l) => (
-            <FooterLink key={l.href} href={l.href}>{l.label}</FooterLink>
+            <li key={l.href}>
+              <Link href={l.href} className={footerLinkClass}>
+                {l.label}
+              </Link>
+            </li>
           ))}
         </FooterCol>
       </Container>
@@ -94,14 +86,16 @@ export function Footer() {
             </p>
             <p className="max-w-3xl text-white/60">{brandDisclaimer}</p>
           </div>
-          <ul className="flex flex-wrap gap-x-5 gap-y-2">
+          <ul className="flex flex-wrap gap-x-5">
             {legalLinks.map((l) => (
               <li key={l.href}>
-                <Link href={l.href} className="hover:text-white">{l.label}</Link>
+                <Link href={l.href} className={footerLinkClass}>
+                  {l.label}
+                </Link>
               </li>
             ))}
             <li>
-              <CookieSettingsLink className="hover:text-white" />
+              <CookieSettingsLink className={footerLinkClass} />
             </li>
           </ul>
         </Container>
@@ -110,19 +104,11 @@ export function Footer() {
   );
 }
 
-function FooterCol({ title, className, children }: { title: string; className?: string; children: React.ReactNode }) {
+export function FooterCol({ title, className, children }: { title: string; className?: string; children: React.ReactNode }) {
   return (
     <div className={className}>
-      <p className="mb-4 font-display text-sm font-bold uppercase tracking-[0.12em] text-white">{title}</p>
-      <ul className="space-y-2.5">{children}</ul>
+      <p className="mb-2 font-display text-sm font-bold tracking-[0.12em] text-white uppercase lg:mb-4">{title}</p>
+      <ul className="lg:space-y-2.5">{children}</ul>
     </div>
-  );
-}
-
-function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
-  return (
-    <li>
-      <Link href={href} className="transition-colors hover:text-white">{children}</Link>
-    </li>
   );
 }

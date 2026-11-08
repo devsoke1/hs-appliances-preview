@@ -1,1 +1,352 @@
-{}
+{
+  "air-conditioning-repair": {
+    "width": 1600,
+    "height": 1067,
+    "widths": [
+      400,
+      800,
+      1200
+    ]
+  },
+  "aircraft-taxiing-airport": {
+    "width": 1920,
+    "height": 1440,
+    "widths": [
+      640,
+      800,
+      1024,
+      1440,
+      1920
+    ]
+  },
+  "american-fridge-freezer-repair": {
+    "width": 1600,
+    "height": 1067,
+    "widths": [
+      400,
+      800,
+      1200
+    ]
+  },
+  "appliance-fault-diagnosis-multimeter": {
+    "width": 1600,
+    "height": 1200,
+    "widths": [
+      400,
+      800,
+      1200
+    ]
+  },
+  "appliance-repair-engineer-washing-machine-motor": {
+    "width": 1920,
+    "height": 2946,
+    "widths": [
+      640,
+      800,
+      1024,
+      1440,
+      1920
+    ]
+  },
+  "appliance-repair-van-west-london": {
+    "width": 1600,
+    "height": 901,
+    "widths": [
+      400,
+      800,
+      1200
+    ]
+  },
+  "bar-cooler-repair": {
+    "width": 1600,
+    "height": 1200,
+    "widths": [
+      400,
+      800,
+      1200
+    ]
+  },
+  "brick-chimney-rooftop": {
+    "width": 1920,
+    "height": 2880,
+    "widths": [
+      640,
+      800,
+      1024,
+      1440,
+      1920
+    ]
+  },
+  "brick-house-chimney": {
+    "width": 1920,
+    "height": 1229,
+    "widths": [
+      640,
+      800,
+      1024,
+      1440,
+      1920
+    ]
+  },
+  "cellar-cooler-repair": {
+    "width": 1600,
+    "height": 2133,
+    "widths": [
+      400,
+      800,
+      1200
+    ]
+  },
+  "cobbled-residential-mews": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [
+      640,
+      800,
+      1024,
+      1440,
+      1920
+    ]
+  },
+  "cold-room-repair": {
+    "width": 1600,
+    "height": 2844,
+    "widths": [
+      400,
+      800,
+      1200
+    ]
+  },
+  "commercial-display-freezer": {
+    "width": 1600,
+    "height": 2000,
+    "widths": [
+      400,
+      800,
+      1200
+    ]
+  },
+  "dairy-cabinet-repair": {
+    "width": 1600,
+    "height": 2000,
+    "widths": [
+      400,
+      800,
+      1200
+    ]
+  },
+  "dishwasher-repair-west-london": {
+    "width": 1600,
+    "height": 2133,
+    "widths": [
+      400,
+      800,
+      1200
+    ]
+  },
+  "display-fridge-repair": {
+    "width": 1600,
+    "height": 1067,
+    "widths": [
+      400,
+      800,
+      1200
+    ]
+  },
+  "electric-oven-repair": {
+    "width": 1600,
+    "height": 1067,
+    "widths": [
+      400,
+      800,
+      1200
+    ]
+  },
+  "engineer-tool-wall": {
+    "width": 1600,
+    "height": 1067,
+    "widths": [
+      400,
+      800,
+      1200
+    ]
+  },
+  "fridge-door-open-shelves": {
+    "width": 1600,
+    "height": 2400,
+    "widths": [
+      400,
+      800,
+      1200
+    ]
+  },
+  "fridge-freezer-repair-feltham": {
+    "width": 1600,
+    "height": 2400,
+    "widths": [
+      400,
+      800,
+      1200
+    ]
+  },
+  "gas-cooker-repair": {
+    "width": 1600,
+    "height": 2400,
+    "widths": [
+      400,
+      800,
+      1200
+    ]
+  },
+  "gas-hob-repair": {
+    "width": 1600,
+    "height": 1067,
+    "widths": [
+      400,
+      800,
+      1200
+    ]
+  },
+  "ice-machine-repair": {
+    "width": 1600,
+    "height": 2133,
+    "widths": [
+      400,
+      800,
+      1200
+    ]
+  },
+  "induction-hob-repair": {
+    "width": 1600,
+    "height": 1067,
+    "widths": [
+      400,
+      800,
+      1200
+    ]
+  },
+  "kingston-riverside": {
+    "width": 1920,
+    "height": 1201,
+    "widths": [
+      640,
+      800,
+      1024,
+      1440,
+      1920
+    ]
+  },
+  "microwave-repair": {
+    "width": 1600,
+    "height": 1067,
+    "widths": [
+      400,
+      800,
+      1200
+    ]
+  },
+  "red-brick-residential-street": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [
+      640,
+      800,
+      1024,
+      1440,
+      1920
+    ]
+  },
+  "riverside-buildings-sunset": {
+    "width": 1920,
+    "height": 1241,
+    "widths": [
+      640,
+      800,
+      1024,
+      1440,
+      1920
+    ]
+  },
+  "riverside-houses-thames": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [
+      640,
+      800,
+      1024,
+      1440,
+      1920
+    ]
+  },
+  "service-van-feltham": {
+    "width": 1600,
+    "height": 901,
+    "widths": [
+      400,
+      800,
+      1200
+    ]
+  },
+  "terraced-houses-street": {
+    "width": 1920,
+    "height": 2880,
+    "widths": [
+      640,
+      800,
+      1024,
+      1440,
+      1920
+    ]
+  },
+  "tree-lined-riverbank": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [
+      640,
+      800,
+      1024,
+      1440,
+      1920
+    ]
+  },
+  "twickenham-stadium": {
+    "width": 1920,
+    "height": 1395,
+    "widths": [
+      640,
+      800,
+      1024,
+      1440,
+      1920
+    ]
+  },
+  "view-from-richmond-hill": {
+    "width": 1920,
+    "height": 1080,
+    "widths": [
+      640,
+      800,
+      1024,
+      1440,
+      1920
+    ]
+  },
+  "washing-machine-drum-close-up": {
+    "width": 1600,
+    "height": 1067,
+    "widths": [
+      400,
+      800,
+      1200
+    ]
+  },
+  "washing-machine-repair-feltham": {
+    "width": 1600,
+    "height": 1067,
+    "widths": [
+      400,
+      800,
+      1200
+    ]
+  }
+}
