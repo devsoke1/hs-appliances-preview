@@ -5,7 +5,10 @@ Next.js (App Router, TypeScript, Tailwind v4) as a **static export**, with **PHP
 ```bash
 npm install
 npm run dev     # http://localhost:3000 (forms need PHP, see docs/deploy.md §5.3)
-npm run build   # static site → out/
+npm run build   # static site → out/ (postbuild fixes Next 16 prefetch file names)
+npm run audit   # SEO/link/schema/redirect audit of out/ → docs/seo-audit.md
+npm run images  # assets/images/* → optimised WebP in public/images/ + src/data/images.json
+npm run brand-assets  # regenerate OG image + icons
 ```
 
 **Deploy:** see [docs/deploy.md](docs/deploy.md). The short version: upload the *contents* of `out/` (including hidden `.htaccess` files) to `public_html`, and put `config.php` in `../private/`.
@@ -25,12 +28,18 @@ npm run build   # static site → out/
 | Site `.htaccess` (HTTPS, caching, security headers) | `public/.htaccess` |
 | Old-domain 301 redirects | `old-domain-htaccess/.htaccess` |
 | Old → new URL map | `docs/url-map.md` |
+| Titles & meta descriptions | `src/data/seo.ts` |
+| JSON-LD builders (typed with schema-dts) | `src/lib/schema.ts` |
+| Blog posts (markdown + frontmatter) | `content/blog/*.md` — see `src/lib/blog.ts` for fields |
+| Search Console / launch SEO | `docs/search-console.md` |
 
 ## Environment
 
 | Variable | Where | Purpose |
 |---|---|---|
 | `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` | `.env.local` (build time) | Optional reCAPTCHA v3 site key. Leave it empty to disable. |
+| `NEXT_PUBLIC_GA4_ID` | `.env.local` | Optional GA4 ID — loaded only after cookie consent; enables the banner |
+| `NEXT_PUBLIC_GSC_VERIFICATION` | `.env.local` | Optional Search Console HTML-tag code |
 | SMTP password, reCAPTCHA secret | `config.php` on the server | Never in the repo or `.env` files. |
 
 Before launch, search for `[ADD` and `[CONFIRM` and replace every placeholder with real data.

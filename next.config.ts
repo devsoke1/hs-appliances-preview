@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
   output: "export",
   trailingSlash: true,
   images: { unoptimized: true },
+  experimental: {
+    // Inline the (small, ~10KB compressed) Tailwind CSS into each page: removes the render-blocking
+    // stylesheet request, which was the main LCP cost on mobile.
+    inlineCss: true,
+  },
 };
 
 export default nextConfig;

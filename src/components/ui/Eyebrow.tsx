@@ -10,7 +10,7 @@ export function Eyebrow({ children, tone = "light", className }: { children: Rea
         className,
       )}
     >
-      <span aria-hidden className="h-0.5 w-5 rounded-full bg-accent-500" />
+      <span aria-hidden className="h-0.5 w-5 rounded-full bg-accent-600" />
       {children}
     </p>
   );

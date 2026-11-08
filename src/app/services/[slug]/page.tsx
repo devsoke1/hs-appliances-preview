@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import { AlertTriangle, ArrowRight, CalendarCheck, Clock, Phone, Wrench } from "lucide-react";
+import { AlertTriangle, ArrowRight, CalendarCheck, Clock, MapPin, Phone, Wrench } from "lucide-react";
 import { business, groupedHours, telHref } from "@/data/business";
 import { getService, services } from "@/data/services";
+import { areaHref, areas } from "@/data/areas";
 import { brandsForService } from "@/data/brands";
+import { serviceDescription, serviceTitle } from "@/data/seo";
 import { pageMeta } from "@/lib/seo";
+import { serviceSchema } from "@/lib/schema";
+import { postsForService } from "@/lib/blog";
+import { JsonLd } from "@/components/JsonLd";
+import { PostCards } from "@/components/PostCards";
 import { Section, SectionHeader } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
@@ -13,7 +20,7 @@ import { Placeholder } from "@/components/ui/Placeholder";
 import { FaqAccordion } from "@/components/ui/FaqAccordion";
 import { ServiceIcon } from "@/components/ServiceIcon";
 import { CtaBand } from "@/components/CtaBand";
-import { AreaLinks, BrandStrip, ProcessSteps, ServiceGrid, TrustList } from "@/components/sections";
+import { BrandStrip, ProcessSteps, ServiceGrid, TrustList } from "@/components/sections";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -27,7 +34,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const s = getService(slug);
   if (!s) return {};
-  return pageMeta({ title: `${s.title} in ${business.mainArea}`, description: s.shortDescription, path: `/services/${s.slug}/` });
+  return pageMeta({ title: serviceTitle(s), description: serviceDescription(s), path: `/services/${s.slug}/` });
 }
 
 export default async function ServicePage({ params }: Props) {
@@ -36,6 +43,7 @@ export default async function ServicePage({ params }: Props) {
   if (!service) notFound();
 
   const brands = brandsForService(service.slug);
+  const guides = postsForService(service.slug);
   const related = services.filter((s) => s.category === service.category && s.slug !== service.slug).slice(0, 3);
   const bookHref = `/book/?service=${service.slug}`;
   const lower = service.name.toLowerCase();
@@ -177,8 +185,30 @@ export default async function ServicePage({ params }: Props) {
 
       <Section tone="mist">
         <SectionHeader eyebrow="Areas covered" title={`${service.title} across West London`} intro={`Based in Feltham, we cover ${business.serviceAreaSummary}, including:`} />
-        <AreaLinks compact />
+        <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+          {areas.map((a) => (
+            <li key={a.slug}>
+              <Link
+                href={areaHref(a.slug)}
+                className="flex items-center gap-2.5 rounded-lg border border-line bg-white px-4 py-3 font-semibold text-navy-900 transition-colors hover:border-brand-500 hover:text-brand-600"
+              >
+                <MapPin className="size-4 shrink-0 text-brand-600" aria-hidden />
+                <span>
+                  {service.name} repair in {a.name}
+                  <span className="ml-1.5 text-sm font-normal text-muted">{a.postcodes.join(", ")}</span>
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </Section>
+
+      {guides.length > 0 && (
+        <Section>
+          <SectionHeader eyebrow="Advice" title={`${service.name} guides`} />
+          <PostCards posts={guides} />
+        </Section>
+      )}
 
       {related.length > 0 && (
         <Section>
@@ -195,6 +225,7 @@ export default async function ServicePage({ params }: Props) {
         </Section>
       )}
 
+      <JsonLd data={serviceSchema(service)} />
       <CtaBand title={`Need ${aLower} repair?`} bookHref={bookHref} />
     </>
   );

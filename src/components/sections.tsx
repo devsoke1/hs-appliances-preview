@@ -16,7 +16,7 @@ export function TrustList({ tone = "dark", className }: { tone?: "dark" | "light
     <ul className={cn("grid gap-x-6 gap-y-2.5 sm:grid-cols-2", className)}>
       {trustPoints.map((t) => (
         <li key={t} className={cn("flex items-center gap-2.5 font-semibold", tone === "dark" ? "text-white/90" : "text-ink")}>
-          <span className={cn("grid size-5 shrink-0 place-items-center rounded-full", tone === "dark" ? "bg-accent-500 text-white" : "bg-accent-50 text-accent-600")}>
+          <span className={cn("grid size-5 shrink-0 place-items-center rounded-full", tone === "dark" ? "bg-accent-600 text-white" : "bg-accent-50 text-accent-600")}>
             <Check className="size-3.5" strokeWidth={3} aria-hidden />
           </span>
           {t}
@@ -33,7 +33,7 @@ export function ProcessSteps() {
       {processSteps.map((s, i) => (
         <li key={s.title} className="relative">
           <Card className="h-full">
-            <span className="font-display text-5xl font-extrabold text-brand-100">0{i + 1}</span>
+            <span className="font-display text-5xl font-extrabold text-accent-600">0{i + 1}</span>
             <h3 className="text-h3 mt-3">{s.title}</h3>
             <p className="mt-2 text-muted">{s.body}</p>
           </Card>
@@ -56,7 +56,7 @@ export function WhyChooseUs() {
         const Icon = whyIcons[w.icon];
         return (
           <div key={w.title} className="flex gap-4 rounded-[var(--radius-card)] border border-white/10 bg-white/[0.04] p-6">
-            <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-accent-500 text-white">
+            <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-accent-600 text-white">
               <Icon className="size-6" aria-hidden strokeWidth={1.75} />
             </span>
             <div>

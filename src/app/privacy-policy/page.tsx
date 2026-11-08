@@ -1,15 +1,13 @@
 import { business, fullAddress, mailHref } from "@/data/business";
 import { pageMeta } from "@/lib/seo";
+import { staticPageSeo } from "@/data/seo";
 import { Container } from "@/components/ui/Container";
 import { PageHero } from "@/components/ui/PageHero";
 import { Prose, Todo } from "@/components/ui/Prose";
 import { recaptchaEnabled } from "@/lib/recaptcha";
+import { analyticsEnabled } from "@/lib/analytics";
 
-export const metadata = pageMeta({
-  title: "Privacy Policy",
-  description: `How ${business.name} collects, uses and protects your personal information.`,
-  path: "/privacy-policy/",
-});
+export const metadata = pageMeta({ ...staticPageSeo.privacy, path: "/privacy-policy/" });
 
 /**
  * Template privacy policy written for UK GDPR. Have it reviewed before launch,
@@ -82,14 +80,32 @@ export default function PrivacyPolicyPage() {
             as long as required for tax and accounting purposes (usually six years).
           </p>
 
-          <h2>Cookies and third-party content</h2>
+          <h2 id="cookies">Cookies and third-party content</h2>
           <p>
-            This website does not use advertising or analytics cookies. Our fonts are served from our own website. Our contact page includes
-            an embedded Google Map. When it loads, Google may set cookies and collect data under the{" "}
+            This website does not use advertising cookies, and our fonts are served from our own website. Your cookie choice (if you make one)
+            is stored in your browser&rsquo;s local storage so we don&rsquo;t ask again.
+          </p>
+          {analyticsEnabled ? (
+            <p>
+              <strong>Analytics (optional):</strong> with your consent, we use Google Analytics 4 to understand how visitors use the site — for
+              example which pages are viewed. Google Analytics sets cookies (named <code>_ga</code> and <code>_ga_*</code>) that last up to two
+              years. These cookies are <strong>only set if you click &ldquo;Accept analytics&rdquo;</strong>. You can change your choice at any
+              time using &ldquo;Cookie settings&rdquo; in the footer. Data is processed by Google under the{" "}
+              <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">
+                Google Privacy Policy
+              </a>
+              .
+            </p>
+          ) : (
+            <p>This website does not use analytics cookies.</p>
+          )}
+          <p>
+            <strong>Maps:</strong> the map on our contact page only loads when you click &ldquo;Show map&rdquo;. Once loaded, Google may set
+            cookies and collect data under the{" "}
             <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">
               Google Privacy Policy
             </a>
-            . <Todo>[UPDATE if you add analytics or other tracking — you'll then need a cookie consent banner.]</Todo>
+            .
           </p>
           {recaptchaEnabled && (
             <p>

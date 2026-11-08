@@ -42,6 +42,8 @@ The forms already have a honeypot field, an origin check and rate limiting. Add 
 3. Put the **secret key** in `config.php` under `recaptcha.secret`. Never put it in `.env.local`.
 4. Rebuild and re-upload (step 2 onwards). The privacy policy adds its reCAPTCHA paragraph automatically when the site key is set.
 
+The same `.env.local` file can also hold `NEXT_PUBLIC_GA4_ID` (analytics, loaded only after cookie consent) and `NEXT_PUBLIC_GSC_VERIFICATION`. See [search-console.md](search-console.md).
+
 ---
 
 ## 2. Build
@@ -51,6 +53,7 @@ On your computer, in the project folder:
 ```bash
 npm ci          # first time, or after dependencies change
 npm run build   # creates the out/ folder
+npm run audit   # optional: checks every page, link, schema block and redirect
 ```
 
 `out/` now contains the whole site, including the hidden files the server needs:

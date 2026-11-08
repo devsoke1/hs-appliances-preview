@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/cn";
-import { absoluteUrl } from "@/lib/seo";
+import { breadcrumbSchema } from "@/lib/schema";
 import { JsonLd } from "@/components/JsonLd";
 
 export type Crumb = { label: string; href?: string };
@@ -35,18 +35,7 @@ export function Breadcrumb({ items, tone = "dark", className }: { items: Crumb[]
           })}
         </ol>
       </nav>
-      <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "BreadcrumbList",
-          itemListElement: all.map((c, i) => ({
-            "@type": "ListItem",
-            position: i + 1,
-            name: c.label,
-            ...(c.href ? { item: absoluteUrl(c.href) } : {}),
-          })),
-        }}
-      />
+      <JsonLd data={breadcrumbSchema(all)} />
     </>
   );
 }

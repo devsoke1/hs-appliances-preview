@@ -10,7 +10,7 @@ export function MobileBottomBar() {
         <a href={telHref} className="flex h-12 items-center justify-center gap-2 rounded-lg bg-navy-900 font-display font-bold text-white active:bg-navy-700">
           <Phone className="size-5" aria-hidden /> Call now
         </a>
-        <Link href="/book/" className="flex h-12 items-center justify-center gap-2 rounded-lg bg-accent-500 font-display font-bold text-white active:bg-accent-600">
+        <Link href="/book/" className="flex h-12 items-center justify-center gap-2 rounded-lg bg-accent-600 font-display font-bold text-white active:bg-accent-700">
           <CalendarCheck className="size-5" aria-hidden /> Book a repair
         </Link>
       </div>

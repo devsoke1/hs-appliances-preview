@@ -1,14 +1,11 @@
 import { business, fullAddress, mailHref } from "@/data/business";
 import { pageMeta } from "@/lib/seo";
+import { staticPageSeo } from "@/data/seo";
 import { Container } from "@/components/ui/Container";
 import { PageHero } from "@/components/ui/PageHero";
 import { Prose, Todo } from "@/components/ui/Prose";
 
-export const metadata = pageMeta({
-  title: "Terms & Conditions",
-  description: `Terms and conditions for appliance repair, installation and maintenance services from ${business.name}.`,
-  path: "/terms/",
-});
+export const metadata = pageMeta({ ...staticPageSeo.terms, path: "/terms/" });
 
 /** Template terms — every [ADD]/[CONFIRM] must be filled in, and the whole page reviewed, before launch. */
 export default function TermsPage() {

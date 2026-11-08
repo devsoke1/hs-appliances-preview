@@ -6,6 +6,9 @@ import { business, telHref } from "@/data/business";
 import { areaHref, areas, getArea } from "@/data/areas";
 import { commercialServices, domesticServices, getService, serviceHref } from "@/data/services";
 import { pageMeta } from "@/lib/seo";
+import { areaDescription, areaTitle } from "@/data/seo";
+import { postsForArea } from "@/lib/blog";
+import { PostCards } from "@/components/PostCards";
 import { Section, SectionHeader } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
@@ -29,8 +32,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const a = getArea(slug);
   if (!a) return {};
   return pageMeta({
-    title: `Appliance Repair in ${a.name} (${a.postcodes.join(", ")})`,
-    description: `Domestic appliance and commercial refrigeration repair in ${a.name} — ${a.summary.replace(/\.$/, "")}. Call ${business.phone.display} or book online.`,
+    title: areaTitle(a),
+    description: areaDescription(a),
     path: areaHref(a.slug),
   });
 }
@@ -41,6 +44,7 @@ export default async function AreaPage({ params }: Props) {
   if (!area) notFound();
 
   const isBase = area.travel.miles === 0;
+  const guides = postsForArea(area.slug);
   const nearby = area.nearby.map(getArea).filter((a): a is NonNullable<typeof a> => Boolean(a));
   const key = area.keyServices
     .map((k) => ({ ...k, service: getService(k.slug) }))
@@ -159,7 +163,7 @@ export default async function AreaPage({ params }: Props) {
                       <li key={s.slug}>
                         <Link href={serviceHref(s.slug)} className="flex items-center gap-2.5 rounded-lg py-1.5 font-semibold text-navy-900 hover:text-brand-600">
                           <ServiceIcon slug={s.slug} className="size-4 text-brand-600" />
-                          {s.title}
+                          {s.title} in {area.name}
                         </Link>
                       </li>
                     ))}
@@ -190,6 +194,13 @@ export default async function AreaPage({ params }: Props) {
           </div>
         </aside>
       </Container>
+
+      {guides.length > 0 && (
+        <Section>
+          <SectionHeader eyebrow="Advice" title={`Guides for ${area.name} homes and businesses`} />
+          <PostCards posts={guides} />
+        </Section>
+      )}
 
       {nearby.length > 0 && (
         <Section tone="mist">

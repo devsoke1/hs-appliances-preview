@@ -1,17 +1,14 @@
 import { business } from "@/data/business";
 import { coveredPostcodes } from "@/data/areas";
 import { pageMeta } from "@/lib/seo";
+import { staticPageSeo } from "@/data/seo";
 import { Section, SectionHeader } from "@/components/ui/Section";
 import { PageHero } from "@/components/ui/PageHero";
 import { PostcodeChecker } from "@/components/postcode/PostcodeChecker";
 import { CtaBand } from "@/components/CtaBand";
 import { AreaLinks } from "@/components/sections";
 
-export const metadata = pageMeta({
-  title: "Areas We Cover",
-  description: `Appliance repair across West London, Middlesex and Surrey from our Feltham base — Hounslow, Twickenham, Ashford, Staines, Isleworth, Hayes, Southall, Richmond, Kingston, Ealing and Heathrow.`,
-  path: "/areas/",
-});
+export const metadata = pageMeta({ ...staticPageSeo.areas, path: "/areas/" });
 
 export default function AreasPage() {
   return (

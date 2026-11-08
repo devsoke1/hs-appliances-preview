@@ -14,16 +14,13 @@ import { PostcodeChecker } from "@/components/postcode/PostcodeChecker";
 import { ServiceTabs } from "@/components/ServiceTabs";
 import { CtaBand } from "@/components/CtaBand";
 import { AreaLinks, BrandStrip, ProcessSteps, ReviewsPlaceholder, ServiceGrid, TrustList, WhyChooseUs } from "@/components/sections";
+import { ResponsiveImage, hasImage } from "@/components/ui/ResponsiveImage";
+import { PostCards } from "@/components/PostCards";
+import { getAllPosts } from "@/lib/blog";
+import { pageMeta } from "@/lib/seo";
+import { staticPageSeo } from "@/data/seo";
 
-const description =
-  "Domestic appliance repair and commercial refrigeration repair across West London, from our base in Feltham. Washing machines, fridges, cookers, dishwashers, cold rooms and more.";
-
-export const metadata: Metadata = {
-  title: { absolute: `Appliance Repair in West London & Surrounding Areas | ${business.shortName}` },
-  description,
-  alternates: { canonical: "/" },
-  openGraph: { title: `${business.name} — Appliance Repair in West London`, description, url: "/" },
-};
+export const metadata: Metadata = pageMeta({ ...staticPageSeo.home, path: "/" });
 
 export default function HomePage() {
   return (
@@ -53,7 +50,17 @@ export default function HomePage() {
           </div>
           <div className="space-y-5 lg:col-span-5">
             <PostcodeChecker />
-            <Placeholder tone="dark" label="[ADD REAL PHOTO: engineer at work or branded van — no stock images]" className="aspect-[16/10]" />
+            {business.heroImage && hasImage(business.heroImage.name) ? (
+              <ResponsiveImage
+                name={business.heroImage.name}
+                alt={business.heroImage.alt}
+                sizes="(min-width: 1024px) 40vw, 100vw"
+                priority
+                className="aspect-[16/10] rounded-[var(--radius-card)]"
+              />
+            ) : (
+              <Placeholder tone="dark" label="[ADD REAL PHOTO: engineer at work or branded van — no stock images]" className="aspect-[16/10]" />
+            )}
           </div>
         </Container>
       </section>
@@ -112,8 +119,24 @@ export default function HomePage() {
         <ReviewsPlaceholder />
       </Section>
 
+      {/* ── Latest advice ── */}
+      {getAllPosts().length > 0 && (
+        <Section tone="mist">
+          <SectionHeader
+            eyebrow="Advice"
+            title="Guides from our engineers"
+            action={
+              <Button href="/blog/" variant="outline">
+                All guides <ArrowRight className="size-4" aria-hidden />
+              </Button>
+            }
+          />
+          <PostCards posts={getAllPosts().slice(0, 3)} />
+        </Section>
+      )}
+
       {/* ── FAQ ── */}
-      <Section tone="mist">
+      <Section>
         <div className="grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <Eyebrow>FAQ</Eyebrow>

@@ -6,6 +6,7 @@ import { brandDisclaimer } from "@/data/brands";
 import { companyLinks, legalLinks, serviceMenu } from "@/lib/nav";
 import { Container } from "@/components/ui/Container";
 import { Logo } from "./Logo";
+import { CookieSettingsLink } from "@/components/CookieConsent";
 
 export function Footer() {
   const areas = featuredAreas(10);
@@ -91,7 +92,7 @@ export function Footer() {
             <p>
               © {year} {business.name}. {business.legalName} · {business.companyNumber}
             </p>
-            <p className="max-w-3xl text-white/40">{brandDisclaimer}</p>
+            <p className="max-w-3xl text-white/60">{brandDisclaimer}</p>
           </div>
           <ul className="flex flex-wrap gap-x-5 gap-y-2">
             {legalLinks.map((l) => (
@@ -99,6 +100,9 @@ export function Footer() {
                 <Link href={l.href} className="hover:text-white">{l.label}</Link>
               </li>
             ))}
+            <li>
+              <CookieSettingsLink className="hover:text-white" />
+            </li>
           </ul>
         </Container>
       </div>

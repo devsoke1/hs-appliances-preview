@@ -23,12 +23,12 @@
   --color-accent-100: #ffe0cc;
   --color-accent-400: #ff8445;
   --color-accent-500: #ff6a1f;
-  --color-accent-600: #e5560c;
-  --color-accent-700: #bf4508;
+  --color-accent-600: #cc4409; /* white text 4.8:1 — use for filled buttons / bands */
+  --color-accent-700: #a8380a;
 
   --color-ink: #0f1a2e;
   --color-body: #3b4759;
-  --color-muted: #66748a;
+  --color-muted: #5b6880; /* 5.2:1 on mist, 5.6:1 on white */
   --color-line: #dfe5ee;
   --color-mist: #f4f7fb;
 

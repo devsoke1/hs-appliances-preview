@@ -15,11 +15,11 @@ export function CtaBand({
   bookHref?: string;
 }) {
   return (
-    <section className="bg-accent-500">
+    <section className="bg-accent-600">
       <Container className="flex flex-col items-start justify-between gap-6 py-10 sm:py-12 md:flex-row md:items-center">
         <div>
           <p className="font-display text-2xl font-extrabold text-white sm:text-[1.875rem]">{title}</p>
-          <p className="mt-1 text-lg text-white/90">{text}</p>
+          <p className="mt-1 text-lg text-white">{text}</p>
         </div>
         <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
           <a href={telHref} className={buttonClasses("secondary", "lg")}>

@@ -6,6 +6,7 @@ export const mainNav: NavLink[] = [
   { label: "Areas", href: "/areas/" },
   { label: "About", href: "/about/" },
   { label: "FAQ", href: "/faq/" },
+  { label: "Advice", href: "/blog/" },
   { label: "Contact", href: "/contact/" },
 ];
 
@@ -19,6 +20,7 @@ export const companyLinks: NavLink[] = [
   { label: "All Services", href: "/services/" },
   { label: "Areas We Cover", href: "/areas/" },
   { label: "FAQs", href: "/faq/" },
+  { label: "Repair Advice", href: "/blog/" },
   { label: "Book a Repair", href: "/book/" },
   { label: "Contact", href: "/contact/" },
 ];

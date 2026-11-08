@@ -158,7 +158,7 @@ export function FormSuccess({ title, message, resetLabel, onReset }: { title: st
   return (
     <div ref={ref} tabIndex={-1} role="status" className="rounded-[var(--radius-card)] border border-emerald-200 bg-emerald-50 p-6 outline-none sm:p-8">
       <CheckCircle2 className="size-10 text-emerald-600" aria-hidden />
-      <h3 className="mt-4 font-display text-2xl font-extrabold text-ink">{title}</h3>
+      <h2 className="mt-4 font-display text-2xl font-extrabold text-ink">{title}</h2>
       <p className="mt-2 text-lead text-body">{message}</p>
       <p className="mt-4 text-[0.9375rem] text-muted">
         Need us urgently? Call{" "}

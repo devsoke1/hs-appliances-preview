@@ -1,6 +1,7 @@
 import { ArrowRight, Building2, ClipboardCheck, Home, MapPin } from "lucide-react";
 import { business, fullAddress } from "@/data/business";
 import { pageMeta } from "@/lib/seo";
+import { staticPageSeo } from "@/data/seo";
 import { Section, SectionHeader } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
@@ -10,11 +11,7 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 import { CtaBand } from "@/components/CtaBand";
 import { AreaLinks, WhyChooseUs } from "@/components/sections";
 
-export const metadata = pageMeta({
-  title: "About Us",
-  description: `About ${business.name} — a Feltham-based appliance repair company serving homes and businesses across West London from ${fullAddress}.`,
-  path: "/about/",
-});
+export const metadata = pageMeta({ ...staticPageSeo.about, path: "/about/" });
 
 const pillars = [
   {

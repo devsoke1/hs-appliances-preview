@@ -31,8 +31,11 @@ export const business = {
     country: "GB",
   },
 
-  /** [CONFIRM] Exact coordinates from Google Business Profile — used in LocalBusiness schema */
-  geo: { lat: null as number | null, lng: null as number | null },
+  /**
+   * Coordinates for LocalBusiness schema. Currently the TW13 6AD postcode centroid (postcodes.io).
+   * [CONFIRM] Replace with the exact pin from your Google Business Profile if it differs.
+   */
+  geo: { lat: 51.440108 as number | null, lng: -0.389958 as number | null },
 
   /**
    * [CONFIRM HOURS] Placeholder hours — replace with the hours on your Google Business Profile.
@@ -52,11 +55,23 @@ export const business = {
   /** Short summary used in copy until areas.ts is populated */
   serviceAreaSummary: "Feltham, Hounslow and the surrounding West London, Middlesex and Surrey areas",
 
+  /**
+   * Profiles for schema `sameAs` and footer links. Only full https:// URLs are used — empty = omitted.
+   * [ADD] Google Business Profile: the share link from Google Maps, e.g. https://maps.app.goo.gl/xxxx
+   */
   social: {
-    googleBusinessProfile: "[ADD: Google Business Profile URL]",
-    facebook: "",
-    instagram: "",
+    googleBusinessProfile: "" as string,
+    facebook: "" as string,
+    instagram: "" as string,
   },
+
+  /**
+   * Hero photo for the homepage. [ADD] Put the original in /assets/images/, run `npm run images`,
+   * then set e.g. { name: "hero-engineer", alt: "HS Appliances engineer repairing a washing machine in Feltham" }
+   * (name = the file name in assets/images without extension).
+   * Leave null to show the placeholder.
+   */
+  heroImage: null as { name: string; alt: string } | null,
 
   /** Leave empty until real, verifiable details exist. Rendered only when filled. */
   accreditations: [] as { name: string; id: string; verifyUrl?: string }[],

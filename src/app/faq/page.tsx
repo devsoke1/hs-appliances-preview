@@ -3,6 +3,8 @@ import { ArrowRight } from "lucide-react";
 import { allGeneralFaqs, faqGroups } from "@/data/content";
 import { commercialServices, domesticServices, serviceHref } from "@/data/services";
 import { pageMeta } from "@/lib/seo";
+import { faqSchema } from "@/lib/schema";
+import { staticPageSeo } from "@/data/seo";
 import { Container } from "@/components/ui/Container";
 import { Section, SectionHeader } from "@/components/ui/Section";
 import { PageHero } from "@/components/ui/PageHero";
@@ -11,11 +13,7 @@ import { ServiceIcon } from "@/components/ServiceIcon";
 import { JsonLd } from "@/components/JsonLd";
 import { CtaBand } from "@/components/CtaBand";
 
-export const metadata = pageMeta({
-  title: "Frequently Asked Questions",
-  description: "Answers to common questions about booking an appliance repair, call-out charges, areas covered, brands, parts and commercial refrigeration.",
-  path: "/faq/",
-});
+export const metadata = pageMeta({ ...staticPageSeo.faq, path: "/faq/" });
 
 const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 
@@ -84,17 +82,7 @@ export default function FaqPage() {
         </div>
       </Section>
 
-      <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          mainEntity: allGeneralFaqs.map((f) => ({
-            "@type": "Question",
-            name: f.question,
-            acceptedAnswer: { "@type": "Answer", text: f.answer },
-          })),
-        }}
-      />
+      <JsonLd data={faqSchema(allGeneralFaqs)} />
       <CtaBand title="Still have a question?" text="Call us — we're happy to talk it through." />
     </>
   );

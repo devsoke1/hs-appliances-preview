@@ -2,18 +2,14 @@ import { ArrowRight, Phone } from "lucide-react";
 import { business, telHref } from "@/data/business";
 import { commercialServices, domesticServices } from "@/data/services";
 import { pageMeta } from "@/lib/seo";
+import { staticPageSeo } from "@/data/seo";
 import { Section, SectionHeader } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { PageHero } from "@/components/ui/PageHero";
 import { CtaBand } from "@/components/CtaBand";
 import { ProcessSteps, ServiceGrid } from "@/components/sections";
 
-export const metadata = pageMeta({
-  title: "Appliance Repair Services",
-  description:
-    "Repair, installation and maintenance for domestic appliances and commercial refrigeration in West London — washing machines, fridges, cookers, hobs, dishwashers, cold rooms, display fridges and more.",
-  path: "/services/",
-});
+export const metadata = pageMeta({ ...staticPageSeo.services, path: "/services/" });
 
 export default function ServicesPage() {
   return (

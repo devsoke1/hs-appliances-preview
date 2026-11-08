@@ -1,16 +1,14 @@
 import { CalendarCheck, Clock, ExternalLink, Mail, MapPin, Phone } from "lucide-react";
 import { business, fullAddress, groupedHours, mailHref, telHref } from "@/data/business";
 import { pageMeta } from "@/lib/seo";
+import { staticPageSeo } from "@/data/seo";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { PageHero } from "@/components/ui/PageHero";
 import { ContactForm } from "@/components/forms/ContactForm";
+import { MapEmbed } from "@/components/MapEmbed";
 
-export const metadata = pageMeta({
-  title: "Contact Us",
-  description: `Contact ${business.name}, ${fullAddress}. Call ${business.phone.display}, email us or send a message about your appliance repair.`,
-  path: "/contact/",
-});
+export const metadata = pageMeta({ ...staticPageSeo.contact, path: "/contact/" });
 
 export default function ContactPage() {
   return (
@@ -76,14 +74,7 @@ export default function ContactPage() {
           </div>
 
           <div className="overflow-hidden rounded-[var(--radius-card)] border border-line">
-            <iframe
-              title={`Map showing ${business.name}, ${fullAddress}`}
-              src={business.mapEmbedUrl}
-              className="block aspect-[4/3] w-full border-0"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              allowFullScreen
-            />
+            <MapEmbed src={business.mapEmbedUrl} title={`Map showing ${business.name}, ${fullAddress}`} address={fullAddress} />
             <a
               href={business.mapLinkUrl}
               target="_blank"

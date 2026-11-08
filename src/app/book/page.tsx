@@ -3,16 +3,13 @@ import { business, groupedHours, telHref } from "@/data/business";
 import { commercialServices, domesticServices } from "@/data/services";
 import { brands } from "@/data/brands";
 import { pageMeta } from "@/lib/seo";
+import { staticPageSeo } from "@/data/seo";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { PageHero } from "@/components/ui/PageHero";
 import { BookingForm } from "@/components/forms/BookingForm";
 
-export const metadata = pageMeta({
-  title: "Book a Repair",
-  description: `Book an appliance repair with ${business.name}. Choose your appliance, describe the fault and pick a morning or afternoon slot — we'll confirm by phone.`,
-  path: "/book/",
-});
+export const metadata = pageMeta({ ...staticPageSeo.book, path: "/book/" });
 
 const nextSteps = [
   "We review your request and check engineer availability.",

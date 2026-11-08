@@ -2,6 +2,7 @@ import { Plus } from "lucide-react";
 import type { FAQ } from "@/data/types";
 import { cn } from "@/lib/cn";
 import { JsonLd } from "@/components/JsonLd";
+import { faqSchema } from "@/lib/schema";
 
 /**
  * Native <details> accordion — works without JavaScript and is fully static.
@@ -23,19 +24,7 @@ export function FaqAccordion({ faqs, schema = false, className }: { faqs: FAQ[];
           </details>
         ))}
       </div>
-      {schema && (
-        <JsonLd
-          data={{
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            mainEntity: faqs.map((f) => ({
-              "@type": "Question",
-              name: f.question,
-              acceptedAnswer: { "@type": "Answer", text: f.answer },
-            })),
-          }}
-        />
-      )}
+      {schema && <JsonLd data={faqSchema(faqs)} />}
     </>
   );
 }

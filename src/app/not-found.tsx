@@ -7,7 +7,7 @@ import { AreaLinks } from "@/components/sections";
 import { commercialServices, domesticServices, serviceHref } from "@/data/services";
 import Link from "next/link";
 
-export const metadata = { title: "Page not found", robots: { index: false } };
+export const metadata = { title: { absolute: "Page Not Found | HS Appliances" }, robots: { index: false, follow: true } };
 
 export default function NotFound() {
   return (
