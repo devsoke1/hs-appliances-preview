@@ -3,6 +3,7 @@ import { pageMeta } from "@/lib/seo";
 import { Container } from "@/components/ui/Container";
 import { PageHero } from "@/components/ui/PageHero";
 import { Prose, Todo } from "@/components/ui/Prose";
+import { recaptchaEnabled } from "@/lib/recaptcha";
 
 export const metadata = pageMeta({
   title: "Privacy Policy",
@@ -39,6 +40,10 @@ export default function PrivacyPolicyPage() {
             <li>your preferred appointment date and time slot;</li>
             <li>records of our calls, emails and messages with you.</li>
           </ul>
+          <p>
+            Photos uploaded with a booking are attached to the email sent to us and are not stored on our web server. To protect our forms
+            from abuse, we temporarily keep a one-way hashed (anonymised) record of the IP address a form was sent from, for rate limiting.
+          </p>
           <p>
             Our hosting provider may also record basic technical information (such as IP address and browser type) in server logs for
             security and to keep the site running.
@@ -86,6 +91,20 @@ export default function PrivacyPolicyPage() {
             </a>
             . <Todo>[UPDATE if you add analytics or other tracking — you'll then need a cookie consent banner.]</Todo>
           </p>
+          {recaptchaEnabled && (
+            <p>
+              Our contact and booking forms use Google reCAPTCHA to protect against spam. reCAPTCHA collects hardware and software
+              information and sends it to Google for analysis, under the{" "}
+              <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">
+                Google Privacy Policy
+              </a>{" "}
+              and{" "}
+              <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">
+                Terms of Service
+              </a>
+              . We use it on the basis of our legitimate interest in preventing spam and abuse.
+            </p>
+          )}
 
           <h2>Your rights</h2>
           <p>

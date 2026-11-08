@@ -1,0 +1,41 @@
+# ─────────────────────────────────────────────────────────────────────────────
+#  OLD DOMAIN: houseandshopappliances.co.uk  →  NEW: https://hsappliances.co.uk
+#  Upload as public_html/.htaccess on the OLD domain, replacing WordPress's file.
+#  Source of truth: docs/url-map.md. Keep live for at least 12 months.
+# ─────────────────────────────────────────────────────────────────────────────
+
+Options -Indexes
+RewriteEngine On
+RewriteBase /
+
+# Let SSL certificate validation through (keeps HTTPS working on the old domain,
+# so https:// links and bookmarks still redirect instead of showing a certificate error)
+RewriteRule ^\.well-known/ - [L]
+
+# ── Page-by-page 301s (http/https and www/non-www all match) ──
+RewriteRule ^about-us/?$                 https://hsappliances.co.uk/about/ [R=301,L,NC]
+RewriteRule ^contact-us/?$               https://hsappliances.co.uk/contact/ [R=301,L,NC]
+RewriteRule ^services/?$                 https://hsappliances.co.uk/services/ [R=301,L,NC]
+RewriteRule ^faqs/?$                     https://hsappliances.co.uk/faq/ [R=301,L,NC]
+RewriteRule ^book-appointment/?$         https://hsappliances.co.uk/book/ [R=301,L,NC]
+RewriteRule ^washing-machine/?$          https://hsappliances.co.uk/services/washing-machine-repair/ [R=301,L,NC]
+RewriteRule ^fridge-freezer/?$           https://hsappliances.co.uk/services/fridge-freezer-repair/ [R=301,L,NC]
+RewriteRule ^american-fridge/?$          https://hsappliances.co.uk/services/american-fridge-repair/ [R=301,L,NC]
+RewriteRule ^dishwasher/?$               https://hsappliances.co.uk/services/dishwasher-repair/ [R=301,L,NC]
+RewriteRule ^electric-hob/?$             https://hsappliances.co.uk/services/electric-hob-repair/ [R=301,L,NC]
+RewriteRule ^electric-cooker/?$          https://hsappliances.co.uk/services/electric-cooker-repair/ [R=301,L,NC]
+RewriteRule ^gas-hob/?$                  https://hsappliances.co.uk/services/gas-hob-repair/ [R=301,L,NC]
+RewriteRule ^gas-cooker/?$               https://hsappliances.co.uk/services/gas-cooker-repair/ [R=301,L,NC]
+RewriteRule ^microwave/?$                https://hsappliances.co.uk/services/microwave-repair/ [R=301,L,NC]
+RewriteRule ^air-conditioning/?$         https://hsappliances.co.uk/services/air-conditioning-repair/ [R=301,L,NC]
+RewriteRule ^refrigeration-cold-room/?$  https://hsappliances.co.uk/services/cold-room-repair/ [R=301,L,NC]
+RewriteRule ^dairy-cabinet/?$            https://hsappliances.co.uk/services/dairy-cabinet-repair/ [R=301,L,NC]
+RewriteRule ^display-fridge/?$           https://hsappliances.co.uk/services/display-fridge-repair/ [R=301,L,NC]
+RewriteRule ^bar-cooler/?$               https://hsappliances.co.uk/services/bar-cooler-repair/ [R=301,L,NC]
+RewriteRule ^celler-cooler/?$            https://hsappliances.co.uk/services/cellar-cooler-repair/ [R=301,L,NC]
+RewriteRule ^cellar-cooler/?$            https://hsappliances.co.uk/services/cellar-cooler-repair/ [R=301,L,NC]
+RewriteRule ^ice-machine/?$              https://hsappliances.co.uk/services/ice-machine-repair/ [R=301,L,NC]
+
+# ── Catch-all: homepage, WordPress leftovers (/?p=…, /feed/, /wp-admin/, /category/…) and anything unmapped ──
+# The trailing "?" drops old query strings (e.g. ?p=123, ?page_id=45).
+RewriteRule ^ https://hsappliances.co.uk/? [R=301,L]

@@ -58,7 +58,11 @@ Check Google Search Console (old property → **Pages**) and any backlink tool f
 ## Redirect rules for the OLD domain
 
 Because the domain is changing, the redirects must be served **by the old domain**. Keep
-`houseandshopappliances.co.uk` registered and pointed at hosting, and replace its `.htaccess` with:
+`houseandshopappliances.co.uk` registered and pointed at hosting, and replace its `.htaccess`.
+
+> **The ready-to-upload file is [`old-domain-htaccess/.htaccess`](../old-domain-htaccess/.htaccess).** It contains the rules below,
+> plus a `.well-known` passthrough so SSL keeps renewing, case-insensitive matching, a `/cellar-cooler/` alias, and query-string
+> stripping on the catch-all. Upload steps are in [deploy.md §6](deploy.md#6-old-domain-redirects). The rules below are for reference:
 
 ```apache
 RewriteEngine On

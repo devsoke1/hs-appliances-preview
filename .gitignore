@@ -4,7 +4,11 @@ out/
 next-env.d.ts
 *.tsbuildinfo
 .env*
+!.env.example
 .DS_Store
 Thumbs.db
 # PHP secrets live on the server, never in the repo
 public/api/config.php
+# Runtime data written by the PHP handlers (logs, rate limits, test mail)
+public/api/_data/
+private/

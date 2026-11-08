@@ -1,49 +1,76 @@
 "use client";
 
-import { useState } from "react";
 import { Send } from "lucide-react";
-import { buttonClasses } from "@/components/ui/Button";
-import { ConsentCheckbox, Field, Honeypot, Input, NotConnectedNotice, PHONE_PATTERN, Textarea } from "./fields";
-
-const ENDPOINT = "/api/contact.php";
+import { useFormSubmit } from "./useFormSubmit";
+import {
+  aria,
+  ConsentCheckbox,
+  Field,
+  FormError,
+  FormSuccess,
+  Honeypot,
+  Input,
+  PHONE_PATTERN,
+  RecaptchaNotice,
+  SubmitButton,
+  Textarea,
+} from "./fields";
 
 export function ContactForm() {
-  const [submitted, setSubmitted] = useState(false);
+  const { status, message, errors, reset, formProps } = useFormSubmit({ endpoint: "/api/contact.php", action: "contact" });
+  const submitting = status === "submitting";
+
+  if (status === "success") {
+    return <FormSuccess title="Message sent" message={message} resetLabel="Send another message" onReset={reset} />;
+  }
 
   return (
-    <form
-      action={ENDPOINT}
-      method="post"
-      className="relative space-y-5"
-      onSubmit={(e) => {
-        // UI-only for now: validate in the browser, don't send.
-        e.preventDefault();
-        if (e.currentTarget.reportValidity()) setSubmitted(true);
-      }}
-    >
+    <form action="/api/contact.php" method="post" className="relative space-y-5" {...formProps}>
       <Honeypot />
-      <div className="grid gap-5 sm:grid-cols-2">
-        <Field label="Your name" htmlFor="c-name" required>
-          <Input id="c-name" name="name" autoComplete="name" required maxLength={100} />
+      <fieldset disabled={submitting} className="space-y-5">
+        <div className="grid gap-5 sm:grid-cols-2">
+          <Field label="Your name" htmlFor="c-name" required error={errors.name}>
+            <Input id="c-name" name="name" autoComplete="name" required minLength={2} maxLength={100} {...aria(errors, "name", "c-name")} />
+          </Field>
+          <Field label="Phone" htmlFor="c-phone" required error={errors.phone}>
+            <Input
+              id="c-phone"
+              name="phone"
+              type="tel"
+              autoComplete="tel"
+              required
+              pattern={PHONE_PATTERN}
+              title="Please enter a valid phone number."
+              {...aria(errors, "phone", "c-phone")}
+            />
+          </Field>
+        </div>
+        <Field label="Email" htmlFor="c-email" required error={errors.email}>
+          <Input id="c-email" name="email" type="email" autoComplete="email" required maxLength={150} {...aria(errors, "email", "c-email")} />
         </Field>
-        <Field label="Phone" htmlFor="c-phone" required>
-          <Input id="c-phone" name="phone" type="tel" autoComplete="tel" required pattern={PHONE_PATTERN} title="Please enter a valid phone number" />
+        <Field label="Postcode" htmlFor="c-postcode" error={errors.postcode}>
+          <Input id="c-postcode" name="postcode" autoComplete="postal-code" maxLength={10} className="uppercase sm:max-w-48" {...aria(errors, "postcode", "c-postcode")} />
         </Field>
-      </div>
-      <Field label="Email" htmlFor="c-email" required>
-        <Input id="c-email" name="email" type="email" autoComplete="email" required maxLength={150} />
-      </Field>
-      <Field label="Postcode" htmlFor="c-postcode">
-        <Input id="c-postcode" name="postcode" autoComplete="postal-code" maxLength={10} className="uppercase sm:max-w-48" />
-      </Field>
-      <Field label="How can we help?" htmlFor="c-message" required>
-        <Textarea id="c-message" name="message" required maxLength={3000} placeholder="Appliance, make & model, and what it's doing…" />
-      </Field>
-      <ConsentCheckbox />
-      <button type="submit" className={buttonClasses("primary", "lg", "w-full sm:w-auto")}>
-        <Send className="size-5" aria-hidden /> Send message
-      </button>
-      {submitted && <NotConnectedNotice endpoint={ENDPOINT} />}
+        <Field label="How can we help?" htmlFor="c-message" required error={errors.message}>
+          <Textarea
+            id="c-message"
+            name="message"
+            required
+            minLength={10}
+            maxLength={3000}
+            placeholder="Appliance, make & model, and what it's doing…"
+            {...aria(errors, "message", "c-message")}
+          />
+        </Field>
+        <ConsentCheckbox id="c-consent" error={errors.consent} />
+      </fieldset>
+
+      {status === "error" && <FormError message={message} />}
+
+      <SubmitButton submitting={submitting} icon={<Send className="size-5" aria-hidden />}>
+        Send message
+      </SubmitButton>
+      <RecaptchaNotice />
     </form>
   );
 }
