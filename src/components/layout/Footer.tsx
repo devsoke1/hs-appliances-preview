@@ -5,7 +5,6 @@ import { featuredAreas } from "@/data/areas";
 import { brandDisclaimer } from "@/data/brands";
 import { companyLinks, legalLinks, serviceMenu } from "@/lib/nav";
 import { Container } from "@/components/ui/Container";
-import { buttonClasses } from "@/components/ui/Button";
 import { Logo } from "./Logo";
 
 export function Footer() {
@@ -14,24 +13,6 @@ export function Footer() {
 
   return (
     <footer className="bg-navy-950 text-[0.9375rem] text-white/65">
-      {/* CTA band */}
-      <div className="border-b border-white/10 bg-navy-900 bg-blueprint">
-        <Container className="flex flex-col items-start justify-between gap-6 py-10 md:flex-row md:items-center">
-          <div>
-            <p className="font-display text-2xl font-extrabold text-white sm:text-[1.75rem]">Appliance playing up?</p>
-            <p className="mt-1 text-white/70">Call us or book online — tell us the make, model and what it&rsquo;s doing.</p>
-          </div>
-          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
-            <a href={telHref} className={buttonClasses("outline-light", "lg")}>
-              <Phone className="size-5" aria-hidden /> {business.phone.display}
-            </a>
-            <Link href="/book/" className={buttonClasses("primary", "lg")}>
-              Book a Repair
-            </Link>
-          </div>
-        </Container>
-      </div>
-
       <Container className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
         {/* NAP */}
         <div className="sm:col-span-2 lg:col-span-4">

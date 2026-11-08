@@ -2,22 +2,54 @@ import { Phone } from "lucide-react";
 import { business, telHref } from "@/data/business";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
-import { Eyebrow } from "@/components/ui/Eyebrow";
+import { PageHero } from "@/components/ui/PageHero";
+import { AreaLinks } from "@/components/sections";
+import { commercialServices, domesticServices, serviceHref } from "@/data/services";
+import Link from "next/link";
+
+export const metadata = { title: "Page not found", robots: { index: false } };
 
 export default function NotFound() {
   return (
-    <Section className="text-center">
-      <div className="mx-auto max-w-xl py-10">
-        <Eyebrow>Error 404</Eyebrow>
-        <h1 className="text-display">Page not found</h1>
-        <p className="text-lead mt-4 text-muted">
-          The page you&rsquo;re looking for has moved or doesn&rsquo;t exist. Try our services, or give us a call.
-        </p>
-        <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-          <Button href="/services/" variant="secondary">View services</Button>
-          <Button href={telHref}><Phone className="size-4" aria-hidden /> {business.phone.display}</Button>
+    <>
+      <PageHero
+        crumbs={[{ label: "Page not found" }]}
+        eyebrow="Error 404"
+        title="Sorry, we can't find that page"
+        intro="It may have moved when we updated our website. Try one of the links below, or give us a call."
+      >
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <Button href="/" size="lg">
+            Go to homepage
+          </Button>
+          <Button href={telHref} variant="outline-light" size="lg">
+            <Phone className="size-5" aria-hidden /> {business.phone.display}
+          </Button>
         </div>
-      </div>
-    </Section>
+      </PageHero>
+      <Section>
+        <div className="grid gap-10 md:grid-cols-2">
+          {[
+            { title: "Domestic repairs", list: domesticServices },
+            { title: "Commercial refrigeration", list: commercialServices },
+          ].map((g) => (
+            <div key={g.title}>
+              <h2 className="text-h3 mb-4">{g.title}</h2>
+              <ul className="grid gap-x-6 gap-y-2 sm:grid-cols-2">
+                {g.list.map((s) => (
+                  <li key={s.slug}>
+                    <Link href={serviceHref(s.slug)} className="font-semibold text-brand-600 hover:underline">
+                      {s.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+        <h2 className="text-h3 mt-12 mb-4">Areas we cover</h2>
+        <AreaLinks compact />
+      </Section>
+    </>
   );
 }

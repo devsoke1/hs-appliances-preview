@@ -12,7 +12,7 @@ All new URLs use a trailing slash (`trailingSlash: true`).
 | 2 | `/about-us/` | `/about/` | |
 | 3 | `/contact-us/` | `/contact/` | |
 | 4 | `/services/` | `/services/` | Hub: all services, Domestic / Commercial |
-| 5 | `/faqs/` | `/faqs/` | Unchanged |
+| 5 | `/faqs/` | `/faq/` | Renamed (new site also 301s `/faqs/` → `/faq/`) |
 | 6 | `/book-appointment/` | `/book/` | Booking form (PHP handler in `/api/`) |
 | 7 | `/washing-machine/` | `/services/washing-machine-repair/` | |
 | 8 | `/fridge-freezer/` | `/services/fridge-freezer-repair/` | |
@@ -37,8 +37,10 @@ The service mappings also live in code as `legacyPath` on each item in `src/data
 
 | New URL | Purpose |
 |---------|---------|
-| `/areas/` and `/areas/{slug}/` | Local area pages (populated from `src/data/areas.ts`) |
-| `/privacy-policy/`, `/terms/`, `/cookie-policy/` | Legal pages |
+| `/areas/` | Areas index + postcode list |
+| `/areas/{feltham,hounslow,twickenham,ashford,staines,isleworth,hayes,southall,richmond,kingston,ealing,heathrow}/` | 12 local area pages (`src/data/areas.ts`) |
+| `/privacy-policy/`, `/terms/` | Legal pages (cookie info is inside the privacy policy) |
+| `/sitemap.xml`, `/robots.txt` | Generated at build |
 
 ## WordPress leftovers to catch
 
@@ -65,7 +67,7 @@ RewriteEngine On
 RewriteRule ^about-us/?$                 https://hsappliances.co.uk/about/ [R=301,L]
 RewriteRule ^contact-us/?$               https://hsappliances.co.uk/contact/ [R=301,L]
 RewriteRule ^services/?$                 https://hsappliances.co.uk/services/ [R=301,L]
-RewriteRule ^faqs/?$                     https://hsappliances.co.uk/faqs/ [R=301,L]
+RewriteRule ^faqs/?$                     https://hsappliances.co.uk/faq/ [R=301,L]
 RewriteRule ^book-appointment/?$         https://hsappliances.co.uk/book/ [R=301,L]
 RewriteRule ^washing-machine/?$          https://hsappliances.co.uk/services/washing-machine-repair/ [R=301,L]
 RewriteRule ^fridge-freezer/?$           https://hsappliances.co.uk/services/fridge-freezer-repair/ [R=301,L]

@@ -8,6 +8,13 @@ export const business = {
   url: "https://hsappliances.co.uk",
   legacyUrl: "https://houseandshopappliances.co.uk",
   tagline: "Domestic & commercial appliance repair in West London",
+  /** Used in service page H1s: "[Appliance] Repair in {mainArea}" */
+  mainArea: "Feltham & West London",
+  /** [ADD] Call-out price, shown on service pages when filled in (e.g. "£65") */
+  callOutPrice: "" as string,
+  /** Google Maps embed (no API key needed) */
+  mapEmbedUrl: "https://www.google.com/maps?q=209+Hounslow+Road,+Feltham+TW13+6AD&output=embed",
+  mapLinkUrl: "https://www.google.com/maps/search/?api=1&query=209+Hounslow+Road%2C+Feltham+TW13+6AD",
 
   phone: {
     display: "07777 372586",
@@ -43,7 +50,7 @@ export const business = {
   ] satisfies OpeningHours[],
 
   /** Short summary used in copy until areas.ts is populated */
-  serviceAreaSummary: "Feltham, Hounslow and surrounding West London & Middlesex areas",
+  serviceAreaSummary: "Feltham, Hounslow and the surrounding West London, Middlesex and Surrey areas",
 
   social: {
     googleBusinessProfile: "[ADD: Google Business Profile URL]",

@@ -9,6 +9,9 @@ RewriteCond %{HTTPS} off [OR]
 RewriteCond %{HTTP_HOST} ^www\. [NC]
 RewriteRule ^(.*)$ https://hsappliances.co.uk/$1 [L,R=301]
 
+# Renamed pages
+RewriteRule ^faqs/?$ /faq/ [L,R=301]
+
 # Add trailing slash to extensionless URLs (matches trailingSlash: true)
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_URI} !(\.[a-zA-Z0-9]{1,5}|/)$
