@@ -86,7 +86,7 @@ $share = [
 require dirname(__DIR__) . '/includes/head.php';
 require dirname(__DIR__) . '/includes/header.php';
 
-$meta = '<p class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-white/80">'
+$meta = '<p class="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-white/80">'
     . '<span>By ' . e($p['author'] ?: $b['name']) . ' · <time datetime="' . e(iso_date($p['published_at'])) . '">' . e(fmt_date($p['published_at'])) . '</time></span>'
     . ($p['updated_at'] && substr($p['updated_at'], 0, 10) > substr($p['published_at'], 0, 10) ? '<span>Updated <time datetime="' . e(iso_date($p['updated_at'])) . '">' . e(fmt_date($p['updated_at'])) . '</time></span>' : '')
     . '<span class="inline-flex items-center gap-1">' . icon('Clock', 'size-4') . ' ' . $minutes . ' min read</span></p>';

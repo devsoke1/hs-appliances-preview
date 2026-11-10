@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { ArrowRight, Phone } from "lucide-react";
 import { business, telHref } from "@/data/business";
 import { brands } from "@/data/brands";
@@ -15,6 +16,7 @@ import { FaqAccordion } from "@/components/ui/FaqAccordion";
 import { ResponsiveImage } from "@/components/ui/ResponsiveImage";
 import { PostcodeChecker } from "@/components/postcode/PostcodeChecker";
 import { CtaBand } from "@/components/CtaBand";
+import { CategoryCards } from "@/components/CategoryCards";
 import { AreaLinks, BrandStrip, ProcessSteps, TrustList, WhyChooseUs } from "@/components/sections";
 import { ServicesShowcase } from "@/components/live/ServicesShowcase";
 import { ReviewsSection } from "@/components/live/ReviewsSection";
@@ -33,17 +35,17 @@ export default async function HomePage() {
         <div aria-hidden className="pointer-events-none absolute -top-40 -right-40 size-[36rem] rounded-full bg-brand-600/25 blur-3xl" />
         <Container className="relative grid gap-8 py-8 sm:py-16 lg:grid-cols-12 lg:items-center lg:gap-12 lg:py-24">
           <div className="lg:col-span-7">
-            <Eyebrow tone="dark">Domestic &amp; commercial · Based in Feltham</Eyebrow>
+            <Eyebrow tone="dark">Over 10 years&rsquo; experience · Based in Feltham</Eyebrow>
             <h1 className="text-display text-white">
-              Appliance Repair in <span className="text-accent-400">West London</span> &amp; Surrounding Areas
+              Appliance Repair in <span className="text-accent-500">West London</span> &amp; Surrounding Areas
             </h1>
             <p className="text-lead mt-4 max-w-xl text-white/80 sm:mt-6">
-              Repair, installation and maintenance for household appliances and commercial refrigeration — from washing machines and
-              ovens to cold rooms and bar coolers.
+              The leading local appliance repair business in Feltham and West London, with over 10 years of experience repairing,
+              installing and maintaining household appliances, commercial refrigeration and air conditioning.
             </p>
             <div className="mt-6 grid grid-cols-1 gap-3 sm:mt-8 sm:flex">
               <Button href="/book/" size="lg" className="w-full sm:w-auto">
-                Book a Repair <ArrowRight className="size-5" aria-hidden />
+                Book Now <ArrowRight className="size-5" aria-hidden />
               </Button>
               <Button href={telHref} variant="outline-light" size="lg" className="w-full sm:w-auto">
                 <Phone className="size-5" aria-hidden /> {business.phone.display}
@@ -52,7 +54,8 @@ export default async function HomePage() {
             <TrustList className="mt-6 max-w-lg sm:mt-8" />
           </div>
           <div className="flex flex-col gap-5 lg:col-span-5">
-            {/* Phones: postcode checker first, photo just below the fold (so the H1 is the LCP). Desktop: photo first. */}
+            {/* [REPLACE] Client's own photo goes here (business.heroImage in src/data/business.ts) — run `npm run images` after adding it.
+                Phones: postcode checker first, photo just below the fold (so the H1 is the LCP). Desktop: photo first. */}
             {hero && (
               <div className="order-2 aspect-[16/10] overflow-hidden rounded-[var(--radius-card)] ring-1 ring-white/15 lg:order-1">
                 <ResponsiveImage name={hero.name} alt={hero.alt} sizes="(min-width: 1024px) 40vw, 100vw" priority priorityMedia="(min-width: 1024px)" className="h-full" />
@@ -64,6 +67,12 @@ export default async function HomePage() {
           </div>
         </Container>
       </section>
+
+      {/* ── Domestic / Commercial / Air Conditioning ── */}
+      <Section tone="mist">
+        <SectionHeader eyebrow="How can we help?" title="Domestic, commercial and air conditioning" />
+        <CategoryCards />
+      </Section>
 
       {/* ── How it works ── */}
       <Section>
@@ -83,7 +92,9 @@ export default async function HomePage() {
       {/* ── Services ── */}
       <Section tone="mist" id="services">
         <SectionHeader eyebrow="Our services" title="What we repair" intro="Choose your appliance to see common faults, what's involved and answers to frequent questions." />
-        <ServicesShowcase initial={services} />
+        <Suspense fallback={null}>
+          <ServicesShowcase initial={services} />
+        </Suspense>
       </Section>
 
       {/* ── Why choose us ── */}
@@ -123,9 +134,12 @@ export default async function HomePage() {
       </Section>
 
       {/* ── Reviews (live, real reviews only) ── */}
-      <ReviewsSection initial={reviews} />
+      <Suspense fallback={null}>
+        <ReviewsSection initial={reviews} fiveStarOnly shuffle />
+      </Suspense>
 
       {/* ── Insights ── */}
+      <Suspense fallback={null}>
       <LatestInsights
         initial={posts}
         tone="mist"
@@ -136,6 +150,7 @@ export default async function HomePage() {
           </Button>
         }
       />
+      </Suspense>
 
       {/* ── FAQ ── */}
       <Section>

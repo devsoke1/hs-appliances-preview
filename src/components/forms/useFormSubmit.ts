@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from "react";
 import { getRecaptchaToken, loadRecaptcha } from "@/lib/recaptcha";
-import { submitForm, type FieldErrors } from "@/lib/submitForm";
+import { submitForm, type FieldErrors, type SubmitResult } from "@/lib/submitForm";
 
 export type FormStatus = "idle" | "submitting" | "success" | "error";
 
@@ -44,12 +44,15 @@ export function useFormSubmit({
   endpoint,
   action,
   validate,
+  onResult,
 }: {
   endpoint: string;
   /** reCAPTCHA action name — must match the PHP handler */
   action: "contact" | "booking";
   /** Extra client-side checks beyond native constraints */
   validate?: (form: HTMLFormElement) => FieldErrors;
+  /** Called with every server response (e.g. to read extra fields or react to a 409). */
+  onResult?: (result: SubmitResult) => void;
 }) {
   const [status, setStatus] = useState<FormStatus>("idle");
   const [message, setMessage] = useState("");
@@ -83,6 +86,7 @@ export function useFormSubmit({
       }
 
       const result = await submitForm(endpoint, data);
+      onResult?.(result);
       setMessage(result.message);
       if (result.success) {
         setStatus("success");
@@ -95,7 +99,7 @@ export function useFormSubmit({
         }
       }
     },
-    [action, endpoint, status, validate],
+    [action, endpoint, status, validate, onResult],
   );
 
   /** Clears a field's error as soon as the user edits it. */

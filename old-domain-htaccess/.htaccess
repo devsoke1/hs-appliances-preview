@@ -27,7 +27,7 @@ RewriteRule ^electric-cooker/?$          https://hsappliances.co.uk/services/ele
 RewriteRule ^gas-hob/?$                  https://hsappliances.co.uk/services/gas-hob-repair/ [R=301,L,NC]
 RewriteRule ^gas-cooker/?$               https://hsappliances.co.uk/services/gas-cooker-repair/ [R=301,L,NC]
 RewriteRule ^microwave/?$                https://hsappliances.co.uk/services/microwave-repair/ [R=301,L,NC]
-RewriteRule ^air-conditioning/?$         https://hsappliances.co.uk/services/air-conditioning-repair/ [R=301,L,NC]
+RewriteRule ^air-conditioning/?$         https://hsappliances.co.uk/air-conditioning/ [R=301,L,NC]
 RewriteRule ^refrigeration-cold-room/?$  https://hsappliances.co.uk/services/cold-room-repair/ [R=301,L,NC]
 RewriteRule ^dairy-cabinet/?$            https://hsappliances.co.uk/services/dairy-cabinet-repair/ [R=301,L,NC]
 RewriteRule ^display-fridge/?$           https://hsappliances.co.uk/services/display-fridge-repair/ [R=301,L,NC]

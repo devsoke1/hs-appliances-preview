@@ -1,6 +1,6 @@
 /*
  * Behaviour for the PHP-rendered pages (/services/, /insights/). Vanilla JS, no dependencies.
- * Mirrors the React components: header (mega menu, mobile drawer, scroll shadow), review carousel,
+ * Mirrors the React components: header (drop-down menus, mobile drawer, scroll shadow), review carousel,
  * "Read more", copy-link and the GA4 cookie consent banner.
  */
 (function () {
@@ -13,39 +13,52 @@
   var header = $("#site-header");
   if (header) {
     var scrolledCls = (header.getAttribute("data-scrolled-class") || "").split(" ").filter(Boolean);
-    var mega = $("[data-mega-panel]");
-    var megaBtn = $("[data-mega-button]");
-    var trigger = $("[data-mega-trigger]");
-    var megaOpen = false;
+    var dds = $$("[data-dd]");
+    var openDd = null;
     var closeTimer;
 
     var updateShadow = function () {
-      var on = window.scrollY > 8 || megaOpen;
+      var on = window.scrollY > 8 || !!openDd;
       scrolledCls.forEach(function (c) { header.classList.toggle(c, on); });
       header.classList.toggle("border-transparent", !on);
     };
-    var setMega = function (open) {
-      if (!mega || !megaBtn) return;
-      megaOpen = open;
-      mega.hidden = !open;
-      megaBtn.setAttribute("aria-expanded", String(open));
-      var chev = megaBtn.querySelector("svg");
+    var setDd = function (dd, open) {
+      var btn = $("[data-dd-button]", dd);
+      var panel = $("[data-dd-panel]", dd);
+      var link = $("[data-dd-link]", dd);
+      panel.hidden = !open;
+      btn.setAttribute("aria-expanded", String(open));
+      var chev = btn.querySelector("svg");
       if (chev) chev.classList.toggle("rotate-180", open);
-      megaBtn.classList.toggle("text-brand-600", open || location.pathname.indexOf("/services") === 0);
+      [btn, link].forEach(function (el) {
+        if (!el || el.getAttribute("aria-current")) return;
+        el.classList.toggle("text-brand-600", open);
+        el.classList.toggle("text-navy-900", !open);
+      });
+    };
+    var show = function (dd) {
+      clearTimeout(closeTimer);
+      if (openDd && openDd !== dd) setDd(openDd, false);
+      openDd = dd;
+      if (dd) setDd(dd, true);
       updateShadow();
     };
-    var openMega = function () { clearTimeout(closeTimer); setMega(true); };
-    var scheduleClose = function () { clearTimeout(closeTimer); closeTimer = setTimeout(function () { setMega(false); }, 140); };
+    var hideAll = function () {
+      clearTimeout(closeTimer);
+      if (openDd) setDd(openDd, false);
+      openDd = null;
+      updateShadow();
+    };
+    var scheduleClose = function () { clearTimeout(closeTimer); closeTimer = setTimeout(hideAll, 140); };
 
     window.addEventListener("scroll", updateShadow, { passive: true });
     updateShadow();
-    if (megaBtn) megaBtn.addEventListener("click", function () { setMega(!megaOpen); });
-    [trigger, mega].forEach(function (el) {
-      if (!el) return;
-      el.addEventListener("mouseenter", openMega);
-      el.addEventListener("mouseleave", scheduleClose);
+    dds.forEach(function (dd) {
+      dd.addEventListener("mouseenter", function () { show(dd); });
+      dd.addEventListener("mouseleave", scheduleClose);
+      $("[data-dd-button]", dd).addEventListener("click", function () { if (openDd === dd) hideAll(); else show(dd); });
     });
-    document.addEventListener("mousedown", function (e) { if (megaOpen && !header.contains(e.target)) setMega(false); });
+    document.addEventListener("mousedown", function (e) { if (openDd && !header.contains(e.target)) hideAll(); });
 
     var menuBtn = $("[data-menu-button]");
     var menu = $("#mobile-menu");
@@ -76,7 +89,7 @@
       });
     });
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") { setMega(false); setMenu(false); }
+      if (e.key === "Escape") { hideAll(); setMenu(false); }
     });
   }
 

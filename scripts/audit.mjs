@@ -170,8 +170,8 @@ while (queue.length && results.length < 400) {
       if (!linkIssues.has(key)) linkIssues.set(key, new Set());
       linkIssues.get(key).add(route);
     }
-    // crawl HTML pages we haven't seen (skip booking query strings)
-    const clean = href.startsWith("/book/?") ? "/book/" : href;
+    // crawl HTML pages we haven't seen (booking pre-fill links like ?service= / ?postcode= are the same page)
+    const clean = /[?&](service|ref|postcode)=/.test(href) ? href.split("?")[0] : href;
     if (st.code === 200 && !seen.has(clean) && !/^\/(api|hs-admin)\//.test(clean)) {
       seen.add(clean);
       queue.push(clean);

@@ -1,9 +1,10 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/ui/SiteLink";
 import { ArrowRight } from "lucide-react";
 import { useLiveServices } from "@/lib/live";
 import { homepagePick, type ServicesPayload } from "@/lib/live-types";
+import { isAcService } from "@/lib/booking";
 import { buttonClasses } from "@/components/ui/Button";
 import { ServiceCardGrid } from "@/components/ServiceCard";
 import { ServiceTabs } from "@/components/ServiceTabs";
@@ -13,7 +14,8 @@ import { ServiceTabs } from "@/components/ServiceTabs";
  * featured first then sort order. Build-time fallback is rendered immediately; live data replaces it.
  */
 export function ServicesShowcase({ initial }: { initial: ServicesPayload }) {
-  const { services, homepageLimit } = useLiveServices(initial);
+  const { services: all, homepageLimit } = useLiveServices(initial);
+  const services = all.filter((s) => !isAcService(s.slug)); // air conditioning has its own page
   return (
     <>
       <ServiceTabs

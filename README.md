@@ -26,7 +26,10 @@ npm run db:seed-sql   # regenerate database/seed.sql from src/data + content/blo
 | What | Where |
 |---|---|
 | Business details, services, areas, brands, FAQs | `src/data/` |
-| Postcode coverage list | `src/data/areas.ts` → `coveredPostcodes` |
+| Booking postcode coverage (Domestic list, AC areas) | `src/data/coverage.json` — shared by the booking form and the PHP booking API |
+| Booking references, AC options, 2-hour slots | `src/lib/booking.ts` (mirrored in `public/api/_lib/booking.php`) |
+| Booking form / Domestic, Commercial, AC pages | `src/components/forms/BookingForm.tsx`, `src/components/booking/`, `src/app/{domestic,commercial,air-conditioning,book}/` |
+| Booking API + availability + Google Calendar | `public/api/booking.php`, `public/api/availability.php`, `public/api/_lib/{booking,gcal}.php` — setup: `docs/google-calendar.md` |
 | Design tokens | `src/app/globals.css` (`@theme`) |
 | UI / layout components | `src/components/ui/`, `src/components/layout/` |
 | Forms (client) | `src/components/forms/` |
@@ -43,7 +46,7 @@ npm run db:seed-sql   # regenerate database/seed.sql from src/data + content/blo
 | Original blog posts (seed source) | `content/blog/*.md` → imported into the DB by `npm run db:seed-sql` |
 | Search Console / launch SEO | `docs/search-console.md` |
 | Admin panel (PHP) | `public/hs-admin/` — setup: `docs/admin-setup.md` |
-| Database schema + seed | `database/schema.sql`, `database/seed.sql`, one-time `database/install.php` |
+| Database schema + seed | `database/schema.sql`, `database/seed.sql`, one-time `database/install.php`; upgrades: `database/update-bookings.sql`, `database/update-images.sql` |
 | Read-only JSON API | `public/api/services.php`, `posts.php`, `reviews.php` (DB access: `public/api/db.php`) |
 | Vendored PHP libs | PHPMailer 7.1.1, HTMLPurifier 4.19.1 in `public/api/_lib/`; Quill 2.0.3 in `public/hs-admin/assets/vendor/` |
 | Admin uploads (live, not in git) | `public_html/uploads/` — never delete on redeploy |

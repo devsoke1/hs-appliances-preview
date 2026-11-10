@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, ExternalLink, Star } from "lucide-react";
 import { useLiveReviews } from "@/lib/live";
 import type { ReviewItem, ReviewsPayload } from "@/lib/live-types";
@@ -13,8 +13,30 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
  * Mobile: one card + peek of the next, swipe, dots + arrows, autoplay that pauses on touch/hover/focus.
  * CSS scroll-snap does the heavy lifting — no slider library. Mirrored in public/assets/js/site.js.
  */
-export function ReviewsSection({ initial }: { initial: ReviewsPayload }) {
-  const [{ reviews, summary }, loaded] = useLiveReviews(initial);
+export function ReviewsSection({
+  initial,
+  fiveStarOnly = false,
+  shuffle = false,
+}: {
+  initial: ReviewsPayload;
+  /** Homepage: only 5-star reviews */
+  fiveStarOnly?: boolean;
+  /** Random order on every visit, so returning visitors rarely see the same review first */
+  shuffle?: boolean;
+}) {
+  const [{ reviews: all, summary }, loaded] = useLiveReviews(initial);
+  const filtered = useMemo(() => (fiveStarOnly ? all.filter((r) => r.rating === 5) : all), [all, fiveStarOnly]);
+  const [order, setOrder] = useState<number[] | null>(null);
+  useEffect(() => {
+    if (!shuffle || !loaded) return;
+    const idx = filtered.map((_, i) => i);
+    for (let i = idx.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [idx[i], idx[j]] = [idx[j], idx[i]];
+    }
+    setOrder(idx);
+  }, [shuffle, loaded, filtered]);
+  const reviews = order && order.length === filtered.length ? order.map((i) => filtered[i]) : filtered;
   if (loaded && !reviews.length && !summary.google_reviews_url) return null;
 
   return (

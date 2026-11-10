@@ -14,7 +14,7 @@ const OUT = process.argv[3] || "mobile-audit";
 const B = process.env.BASE || "http://localhost:8080";
 fs.mkdirSync(OUT, { recursive: true });
 
-const PAGES = ["/", "/services/", "/services/washing-machine-repair/", "/insights/", "/insights/washing-machine-not-draining/", "/areas/hounslow/", "/about/", "/contact/", "/book/", "/faq/"];
+const PAGES = ["/", "/domestic/", "/commercial/", "/air-conditioning/", "/services/", "/services/washing-machine-repair/", "/insights/", "/insights/washing-machine-not-draining/", "/areas/hounslow/", "/about/", "/contact/", "/book/", "/faq/"];
 const WIDTHS = [360, 390, 414, 768];
 
 const browser = await puppeteer.launch({ executablePath: process.env.CHROME || "C:/Program Files/Google/Chrome/Application/chrome.exe", headless: true, args: ["--no-sandbox"] });
@@ -29,8 +29,9 @@ for (const w of WIDTHS) {
       const vw = window.innerWidth;
       const overflow = document.documentElement.scrollWidth - vw;
       const offenders = [];
-      if (overflow > 1) {
-        for (const el of document.querySelectorAll("body *")) {
+      // Always scan: body may clip overflow (so scrollWidth looks fine) while content is still cut off
+      {
+        for (const el of document.querySelectorAll("main *")) {
           const b = el.getBoundingClientRect();
           if (b.width && b.right > vw + 1 && getComputedStyle(el).position !== "fixed" && !el.closest("[class*='overflow-x-auto'], [class*='overflow-hidden']")) {
             offenders.push(el.tagName.toLowerCase() + "." + String(el.className).split(" ").slice(0, 3).join("."));
@@ -77,7 +78,7 @@ for (const w of WIDTHS) {
       return { overflow, offenders, small, tinyText, ctaBottom, vh: window.innerHeight };
     });
     const issues = [];
-    if (r.overflow > 1) issues.push(`horizontal scroll ${r.overflow}px (${r.offenders.join(", ")})`);
+    if (r.overflow > 1 || r.offenders.length) issues.push(`content wider than the screen ${Math.max(r.overflow, 0)}px (${r.offenders.join(", ")})`);
     if (r.small.length) issues.push(`${r.small.length} small tap targets: ${r.small.slice(0, 4).join(" | ")}`);
     if (r.tinyText.length) issues.push(`${r.tinyText.length} text blocks <16px: ${r.tinyText.slice(0, 2).join(" | ")}`);
     if (w < 768 && (p === "/" || p.startsWith("/services/")) && (r.ctaBottom === null || r.ctaBottom > r.vh)) issues.push(`hero CTA not above the fold (bottom ${r.ctaBottom}px, viewport ${r.vh}px)`);

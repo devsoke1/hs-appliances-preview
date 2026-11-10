@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/ui/SiteLink";
 import { useLiveServices } from "@/lib/live";
 import type { ServicesPayload } from "@/lib/live-types";
 

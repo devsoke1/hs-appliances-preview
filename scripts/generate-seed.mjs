@@ -161,6 +161,10 @@ const settings = {
   phone: business.phone.display,
   email: business.email,
   address,
+  // Online booking (editable in /hs-admin/ → Settings)
+  booking_days: "1,2,3,4,5,6",   // ISO weekdays that take bookings: 1 = Monday … 7 = Sunday
+  booking_days_ahead: "30",      // how far ahead customers can book
+  booking_lead_minutes: "120",   // minimum notice before a slot starts
 };
 out("-- Settings");
 for (const [k, v] of Object.entries(settings)) out(`INSERT INTO settings (setting_key, setting_value) VALUES (${q(k)}, ${q(v)});`);
@@ -184,3 +188,23 @@ for (const file of files) {
 }
 fs.writeFileSync(path.join(ROOT, "database", "update-images.sql"), upd.join("\n") + "\n");
 console.log("✓ database/update-images.sql");
+
+/* ── For databases created before the booking system (copies the tables from schema.sql) ── */
+const schema = fs.readFileSync(path.join(ROOT, "database", "schema.sql"), "utf8");
+const from = schema.indexOf("-- ── Bookings");
+if (from < 0) throw new Error("schema.sql: bookings section not found");
+const bookingSettings = Object.entries(settings).filter(([k]) => k.startsWith("booking_"));
+fs.writeFileSync(
+  path.join(ROOT, "database", "update-bookings.sql"),
+  [
+    "-- Adds the online booking tables and settings to a database created before the booking system.",
+    "-- Safe to run more than once (tables are only created if missing; settings are only added if missing).",
+    "SET NAMES utf8mb4;",
+    "SET time_zone = '+00:00';",
+    "",
+    schema.slice(from).trim(),
+    "",
+    ...bookingSettings.map(([k, v]) => `INSERT IGNORE INTO settings (setting_key, setting_value) VALUES (${q(k)}, ${q(v)});`),
+  ].join("\n") + "\n",
+);
+console.log("✓ database/update-bookings.sql");

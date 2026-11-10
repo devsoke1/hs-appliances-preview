@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/ui/SiteLink";
 import { useId, useState } from "react";
 import { ArrowRight, CircleCheck, MapPin, Phone, Search } from "lucide-react";
 import { checkPostcode, type AreaIndexEntry, type PostcodeResult } from "@/data/postcodes";
@@ -35,7 +35,7 @@ export function PostcodeCheckerClient({
         noValidate
       >
         <label htmlFor={id} className={cn("mb-2 flex items-center gap-2 font-display font-bold", dark ? "text-white" : "text-ink")}>
-          <MapPin className={cn("size-4", dark ? "text-accent-400" : "text-brand-600")} aria-hidden />
+          <MapPin className={cn("size-4", dark ? "text-accent-500" : "text-brand-600")} aria-hidden />
           Do we cover your area?
         </label>
         <div className="flex gap-2">
@@ -92,7 +92,7 @@ export function PostcodeCheckerClient({
           </div>
         )}
         {result?.status === "invalid" && (
-          <p className={cn("mt-3 text-sm font-semibold", dark ? "text-accent-400" : "text-accent-700")}>
+          <p className={cn("mt-3 text-sm font-semibold", dark ? "text-accent-500" : "text-accent-700")}>
             Please enter a valid UK postcode, e.g. TW13 6AD.
           </p>
         )}

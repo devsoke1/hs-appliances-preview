@@ -31,7 +31,7 @@ $urls[] = ['/insights/', $latestPost, 'weekly', '0.7'];
 foreach ($posts as $p) {
     $urls[] = [post_url($p['slug']), max($day($p['updated_at']), $day($p['published_at'])), 'monthly', '0.6'];
 }
-foreach ([['/about/', '0.5'], ['/contact/', '0.6'], ['/faq/', '0.5'], ['/book/', '0.7'], ['/privacy-policy/', '0.2'], ['/terms/', '0.2']] as [$path, $prio]) {
+foreach ([['/domestic/', '0.9'], ['/commercial/', '0.9'], ['/air-conditioning/', '0.9'], ['/about/', '0.5'], ['/contact/', '0.6'], ['/faq/', '0.5'], ['/book/', '0.7'], ['/privacy-policy/', '0.2'], ['/terms/', '0.2']] as [$path, $prio]) {
     $urls[] = [$path, $built, $prio === '0.2' ? 'yearly' : 'monthly', $prio];
 }
 

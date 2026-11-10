@@ -68,7 +68,7 @@ function btn_class(string $variant = 'primary', string $size = 'md', string $ext
 {
     $base = 'inline-flex items-center justify-center gap-2 rounded-lg font-display font-bold whitespace-nowrap transition-[background-color,color,box-shadow,transform] duration-150 active:translate-y-px disabled:pointer-events-none disabled:opacity-50';
     $variants = [
-        'primary' => 'bg-accent-600 text-white shadow-[0_1px_0_rgb(0_0_0/0.08),0_6px_16px_-6px_rgb(255_106_31/0.6)] hover:bg-accent-700',
+        'primary' => 'bg-accent-600 text-white shadow-[0_1px_0_rgb(0_0_0/0.08),0_6px_16px_-6px_rgb(242_92_0/0.5)] hover:bg-accent-700',
         'secondary' => 'bg-navy-900 text-white hover:bg-navy-700',
         'outline' => 'border-2 border-navy-900/15 bg-white text-navy-900 hover:border-navy-900/40',
         'outline-light' => 'border-2 border-white/25 text-white hover:border-white/60 hover:bg-white/5',

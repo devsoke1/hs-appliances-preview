@@ -14,29 +14,30 @@
    Navy  = trust / structure (header, footer, dark sections)
    Brand = working blue (links, icons, highlights)
    Accent = signal orange — reserved for primary CTAs (Call / Book) only
+   Client brand colours: Navy #00243A, Blue #0061A5, Orange #F25C00
 ------------------------------------------------------------------- */
 @theme {
-  --color-navy-950: #061229;
-  --color-navy-900: #0b1d3a;
-  --color-navy-800: #12294f;
-  --color-navy-700: #1b3a6b;
-  --color-navy-600: #2a4d85;
+  --color-navy-950: #001a2b;
+  --color-navy-900: #00243a; /* brand Navy Blue */
+  --color-navy-800: #003352;
+  --color-navy-700: #0a4468;
+  --color-navy-600: #1a5a85;
 
-  --color-brand-50: #eef4fd;
-  --color-brand-100: #dce8fb;
-  --color-brand-200: #b9d0f6;
-  --color-brand-500: #2f74e8;
-  --color-brand-600: #1f5fd1;
-  --color-brand-700: #184bab;
+  --color-brand-50: #eaf3fa;
+  --color-brand-100: #d4e7f5;
+  --color-brand-200: #a9cfeb;
+  --color-brand-500: #1a7cc4;
+  --color-brand-600: #0061a5; /* brand Blue */
+  --color-brand-700: #004f87;
 
-  --color-accent-50: #fff2ea;
-  --color-accent-100: #ffe0cc;
-  --color-accent-400: #ff8445;
-  --color-accent-500: #ff6a1f;
-  --color-accent-600: #cc4409; /* white text 4.8:1 — use for filled buttons / bands */
-  --color-accent-700: #a8380a;
+  --color-accent-50: #fff1e8;
+  --color-accent-100: #ffdcc6;
+  --color-accent-400: #ff7a2e;
+  --color-accent-500: #f25c00; /* brand Orange — highlights, icons, text on navy (4.7:1) */
+  --color-accent-600: #cc4e00; /* deeper brand orange for filled buttons: white text 4.6:1 (WCAG AA) */
+  --color-accent-700: #a83f00;
 
-  --color-ink: #0f1a2e;
+  --color-ink: #00243a;
   --color-body: #3b4759;
   --color-muted: #5b6880; /* 5.2:1 on mist, 5.6:1 on white */
   --color-line: #dfe5ee;
@@ -46,8 +47,8 @@
   --font-sans: var(--font-source), ui-sans-serif, system-ui, sans-serif;
 
   --radius-card: 0.875rem;
-  --shadow-card: 0 1px 2px rgb(11 29 58 / 0.04), 0 4px 16px -4px rgb(11 29 58 / 0.08);
-  --shadow-lift: 0 2px 4px rgb(11 29 58 / 0.06), 0 16px 32px -8px rgb(11 29 58 / 0.16);
+  --shadow-card: 0 1px 2px rgb(0 36 58 / 0.04), 0 4px 16px -4px rgb(0 36 58 / 0.08);
+  --shadow-lift: 0 2px 4px rgb(0 36 58 / 0.06), 0 16px 32px -8px rgb(0 36 58 / 0.16);
 
   --animate-fade-down: fade-down 160ms ease-out;
   @keyframes fade-down {

@@ -24,7 +24,7 @@ export default function ContactPage() {
             <Phone className="size-5" aria-hidden /> {business.phone.display}
           </Button>
           <Button href="/book/" variant="outline-light" size="lg">
-            <CalendarCheck className="size-5" aria-hidden /> Book a Repair
+            <CalendarCheck className="size-5" aria-hidden /> Book Now
           </Button>
         </div>
       </PageHero>

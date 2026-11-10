@@ -8,14 +8,14 @@ DirectoryIndex disabled
 </FilesMatch>
 
 # …then allow just the endpoints. (Later sections override earlier ones.)
-<FilesMatch "^(contact|booking|services|reviews|posts)\.php$">
+<FilesMatch "^(contact|booking|availability|services|reviews|posts)\.php$">
   Require all granted
 </FilesMatch>
 
 <IfModule !mod_authz_core.c>
   Order deny,allow
   Deny from all
-  <FilesMatch "^(contact|booking|services|reviews|posts)\.php$">
+  <FilesMatch "^(contact|booking|availability|services|reviews|posts)\.php$">
     Allow from all
   </FilesMatch>
 </IfModule>

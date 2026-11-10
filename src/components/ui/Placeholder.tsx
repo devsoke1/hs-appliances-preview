@@ -9,7 +9,7 @@ export function Placeholder({ label, className, tone = "light" }: { label: strin
     <div
       className={cn(
         "grid min-h-24 place-items-center rounded-[var(--radius-card)] border-2 border-dashed p-4 text-center font-mono text-xs font-semibold uppercase tracking-wide",
-        tone === "dark" ? "border-white/25 text-white/60" : "border-accent-400/60 bg-accent-50/50 text-accent-700",
+        tone === "dark" ? "border-white/25 text-white/60" : "border-accent-500/60 bg-accent-50/50 text-accent-700",
         className,
       )}
     >

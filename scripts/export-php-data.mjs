@@ -15,10 +15,12 @@ import { business, groupedHours, fullAddress } from "../src/data/business.ts";
 import { areas, coveredPostcodes } from "../src/data/areas.ts";
 import { brands, brandDisclaimer, featuredBrandSlugs } from "../src/data/brands.ts";
 import { processSteps, trustPoints, whyChooseUs, faqGroups } from "../src/data/content.ts";
-import { mainNav, companyLinks, legalLinks } from "../src/lib/nav.ts";
+import { mainNav, companyLinks, legalLinks, categoryNav } from "../src/lib/nav.ts";
 import { SAME_DAY_IN_TITLES, staticPageSeo } from "../src/data/seo.ts";
 import { siteImages, areaImage } from "../src/data/media.ts";
 import manifest from "../src/data/images.json" with { type: "json" };
+import coverage from "../src/data/coverage.json" with { type: "json" };
+import { AC_OPTIONS, OTHER_REFS, TIME_SLOTS } from "../src/lib/booking.ts";
 
 const ROOT = process.cwd();
 const OUT = path.join(ROOT, "public", "includes", "generated");
@@ -48,7 +50,7 @@ const site = {
   },
   areas: areas.map((a) => ({ slug: a.slug, name: a.name, postcodes: a.postcodes, summary: a.summary, borough: a.borough, image: areaImage(a.slug) })),
   coveredPostcodes,
-  nav: { main: mainNav, company: companyLinks, legal: legalLinks },
+  nav: { main: mainNav, company: companyLinks, legal: legalLinks, categories: categoryNav },
   brands,
   featuredBrandSlugs,
   brandDisclaimer,
@@ -63,6 +65,12 @@ const site = {
 };
 fs.writeFileSync(path.join(OUT, "site.json"), JSON.stringify(site));
 
+/* ── Booking rules for the PHP booking API (same source as the booking form) ── */
+const booking = { coverage, acOptions: AC_OPTIONS, otherRefs: OTHER_REFS, slots: TIME_SLOTS };
+fs.writeFileSync(path.join(OUT, "booking.json"), JSON.stringify(booking));
+site.booking = booking;
+fs.writeFileSync(path.join(OUT, "site.json"), JSON.stringify(site));
+
 /* ── Icons: render Lucide React components to static SVG, keep the inner markup ── */
 const ICONS = [
   // services
@@ -72,6 +80,7 @@ const ICONS = [
   "Phone", "MapPin", "Clock", "Mail", "ChevronDown", "ChevronRight", "ChevronLeft", "Menu", "X", "ArrowRight", "ArrowLeft",
   "Check", "CircleCheck", "Star", "CalendarCheck", "AlertTriangle", "Home", "Building2", "Tag", "ShieldCheck", "ClipboardCheck",
   "Share2", "Link", "MessageCircle", "Send", "Copy", "Plus", "Car", "Landmark", "Quote", "BookOpen", "List", "ExternalLink",
+  "Settings", "Calendar", "Sun", "Leaf", "Gauge",
 ];
 const icons = {};
 for (const name of ICONS) {

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/ui/SiteLink";
 import { ArrowRight } from "lucide-react";
 import { allGeneralFaqs, faqGroups } from "@/data/content";
 import { commercialServices, domesticServices, serviceHref } from "@/data/services";

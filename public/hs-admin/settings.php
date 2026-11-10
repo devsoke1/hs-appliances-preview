@@ -3,14 +3,30 @@ declare(strict_types=1);
 require __DIR__ . '/_inc/bootstrap.php';
 require_admin();
 
-$keys = ['homepage_services_limit', 'google_rating', 'google_review_count', 'google_reviews_url', 'phone', 'email', 'address'];
-$values = array_merge(array_fill_keys($keys, ''), array_intersect_key(settings_all(), array_flip($keys)));
+$keys = ['homepage_services_limit', 'google_rating', 'google_review_count', 'google_reviews_url', 'phone', 'email', 'address', 'booking_days', 'booking_days_ahead', 'booking_lead_minutes'];
+$values = array_merge(array_fill_keys($keys, ''), ['booking_days' => '1,2,3,4,5,6', 'booking_days_ahead' => '30', 'booking_lead_minutes' => '120'], array_intersect_key(settings_all(), array_flip($keys)));
+const WEEKDAYS = [1 => 'Mon', 2 => 'Tue', 3 => 'Wed', 4 => 'Thu', 5 => 'Fri', 6 => 'Sat', 7 => 'Sun'];
 $errors = [];
 
 if (is_post()) {
     csrf_check();
     foreach ($keys as $k) {
-        $values[$k] = post_str($k, $k === 'address' ? 300 : 255);
+        if ($k !== 'booking_days') {
+            $values[$k] = post_str($k, $k === 'address' ? 300 : 255);
+        }
+    }
+    $days = array_values(array_intersect(array_keys(WEEKDAYS), array_map('intval', (array) ($_POST['booking_days'] ?? []))));
+    $values['booking_days'] = implode(',', $days);
+    if (!$days) {
+        $errors['booking_days'] = 'Choose at least one day.';
+    }
+    foreach (['booking_days_ahead' => [1, 365], 'booking_lead_minutes' => [0, 10080]] as $k => [$min, $max]) {
+        $n = filter_var($values[$k], FILTER_VALIDATE_INT, ['options' => ['min_range' => $min, 'max_range' => $max]]);
+        if ($n === false) {
+            $errors[$k] = "Enter a number from {$min} to {$max}.";
+        } else {
+            $values[$k] = (string) $n;
+        }
     }
     $limit = filter_var($values['homepage_services_limit'], FILTER_VALIDATE_INT, ['options' => ['min_range' => 1, 'max_range' => 50]]);
     if ($limit === false) {
@@ -71,6 +87,23 @@ $field = static function (string $key, string $label, string $type = 'text', str
   <section class="card stack">
     <h2>Homepage</h2>
     <?php $field('homepage_services_limit', 'Number of services on the homepage', 'number', 'Featured services are shown first.', ['min' => '1', 'max' => '50']); ?>
+  </section>
+  <section class="card stack">
+    <h2>Online booking</h2>
+    <fieldset class="field">
+      <legend>Days customers can book</legend>
+      <div class="toggles">
+        <?php $on = array_map('intval', explode(',', $values['booking_days'])); foreach (WEEKDAYS as $n => $label): ?>
+          <label class="check"><input type="checkbox" name="booking_days[]" value="<?= $n ?>" <?= in_array($n, $on, true) ? 'checked' : '' ?>> <?= e($label) ?></label>
+        <?php endforeach; ?>
+      </div>
+      <?= field_error($errors, 'booking_days') ?>
+    </fieldset>
+    <div class="field-row">
+      <?php $field('booking_days_ahead', 'How many days ahead', 'number', 'e.g. 30', ['min' => '1', 'max' => '365']); ?>
+      <?php $field('booking_lead_minutes', 'Minimum notice (minutes)', 'number', 'e.g. 120 = slots starting within 2 hours can’t be booked.', ['min' => '0', 'max' => '10080']); ?>
+    </div>
+    <p class="hint">Slots are 09:00–11:00, 11:00–13:00, 13:00–15:00, 15:00–17:00 and 17:00–19:00. Block holidays or single slots in <a href="<?= e(admin_url('bookings.php')) ?>">Bookings</a>.</p>
   </section>
   <section class="card stack">
     <h2>Google reviews</h2>

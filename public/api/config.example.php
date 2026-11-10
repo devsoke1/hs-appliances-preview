@@ -81,6 +81,13 @@ return [
         'lockout_minutes' => 15,         // …before a lockout of this long
     ],
 
+    // Google Calendar two-way sync for online bookings (optional — see docs/google-calendar.md).
+    // Leave calendar_id empty to manage slots only in /hs-admin/ → Bookings.
+    'google_calendar' => [
+        'calendar_id' => '',          // e.g. 'house.shopappliances@gmail.com' (the calendar you shared with the service account)
+        'credentials_file' => '',     // e.g. '/home/u123456789/domains/hsappliances.co.uk/private/google-service-account.json'
+    ],
+
     // Public URL patterns for "View" links and API responses
     'public_paths' => [
         'service' => '/services/{slug}/',

@@ -23,7 +23,7 @@ All new URLs use a trailing slash (`trailingSlash: true`).
 | 13 | `/gas-hob/` | `/services/gas-hob-repair/` | Gas Safe number required before launch |
 | 14 | `/gas-cooker/` | `/services/gas-cooker-repair/` | Gas Safe number required before launch |
 | 15 | `/microwave/` | `/services/microwave-repair/` | |
-| 16 | `/air-conditioning/` | `/services/air-conditioning-repair/` | |
+| 16 | `/air-conditioning/` | `/air-conditioning/` | Same path: the new Air Conditioning page (quotation, installation, servicing, repair). Repair details stay at `/services/air-conditioning-repair/`. |
 | 17 | `/refrigeration-cold-room/` | `/services/cold-room-repair/` | Shorter, clearer slug |
 | 18 | `/dairy-cabinet/` | `/services/dairy-cabinet-repair/` | |
 | 19 | `/display-fridge/` | `/services/display-fridge-repair/` | |
@@ -82,7 +82,7 @@ RewriteRule ^electric-cooker/?$          https://hsappliances.co.uk/services/ele
 RewriteRule ^gas-hob/?$                  https://hsappliances.co.uk/services/gas-hob-repair/ [R=301,L]
 RewriteRule ^gas-cooker/?$               https://hsappliances.co.uk/services/gas-cooker-repair/ [R=301,L]
 RewriteRule ^microwave/?$                https://hsappliances.co.uk/services/microwave-repair/ [R=301,L]
-RewriteRule ^air-conditioning/?$         https://hsappliances.co.uk/services/air-conditioning-repair/ [R=301,L]
+RewriteRule ^air-conditioning/?$         https://hsappliances.co.uk/air-conditioning/ [R=301,L]
 RewriteRule ^refrigeration-cold-room/?$  https://hsappliances.co.uk/services/cold-room-repair/ [R=301,L]
 RewriteRule ^dairy-cabinet/?$            https://hsappliances.co.uk/services/dairy-cabinet-repair/ [R=301,L]
 RewriteRule ^display-fridge/?$           https://hsappliances.co.uk/services/display-fridge-repair/ [R=301,L]

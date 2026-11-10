@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import Link from "@/components/ui/SiteLink";
 import { notFound } from "next/navigation";
 import { ArrowRight, Car, Landmark, MapPin, Phone } from "lucide-react";
 import { business, telHref } from "@/data/business";

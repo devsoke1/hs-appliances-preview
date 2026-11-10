@@ -97,7 +97,7 @@ function trust_list(string $tone = 'dark', string $class = ''): string
     return $html . '</ul>';
 }
 
-function hero_actions(string $bookHref = '/book/', string $bookLabel = 'Book a Repair'): string
+function hero_actions(string $bookHref = '/book/', string $bookLabel = 'Book Now'): string
 {
     return '<div class="flex flex-col gap-3 sm:flex-row">'
         . '<a href="' . e($bookHref) . '" class="' . e(btn_class('primary', 'lg')) . '">' . e($bookLabel) . ' ' . icon('ArrowRight', 'size-5') . '</a>'
@@ -278,7 +278,7 @@ function cta_band(string $title = 'Appliance playing up?', string $text = "Call 
         . '<p class="mt-1 text-lg text-white">' . e($text) . '</p></div></div>'
         . '<div class="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">'
         . '<a href="' . e(tel_href()) . '" class="' . e(btn_class('secondary', 'lg')) . '">' . icon('Phone', 'size-5') . ' ' . e(biz()['phone']['display']) . '</a>'
-        . '<a href="' . e($bookHref) . '" class="' . e(btn_class('outline-light', 'lg', 'border-white/70 hover:border-white hover:bg-white/10')) . '">Book a Repair</a>'
+        . '<a href="' . e($bookHref) . '" class="' . e(btn_class('outline-light', 'lg', 'border-white/70 hover:border-white hover:bg-white/10')) . '">Book Now</a>'
         . '</div></div></section>';
 }
 

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/Button";
 import { PageHero } from "@/components/ui/PageHero";
 import { AreaLinks } from "@/components/sections";
 import { commercialServices, domesticServices, serviceHref } from "@/data/services";
-import Link from "next/link";
+import Link from "@/components/ui/SiteLink";
 
 export const metadata = { title: { absolute: "Page Not Found | HS Appliances" }, robots: { index: false, follow: true } };
 

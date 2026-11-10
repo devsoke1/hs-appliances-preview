@@ -31,7 +31,7 @@ if (!headers_sent() && http_response_code() === 200) {
 <link rel="canonical" href="<?= e($canonical) ?>">
 <?php if ($p['noindex']): ?><meta name="robots" content="noindex, follow">
 <?php endif; ?>
-<meta name="theme-color" content="#0b1d3a">
+<meta name="theme-color" content="#00243a">
 <meta property="og:title" content="<?= e($p['title']) ?>">
 <meta property="og:description" content="<?= e($p['description']) ?>">
 <meta property="og:url" content="<?= e($canonical) ?>">

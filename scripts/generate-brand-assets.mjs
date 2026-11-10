@@ -13,8 +13,8 @@ import path from "node:path";
 import sharp from "sharp";
 
 const ROOT = process.cwd();
-const NAVY = "#0b1d3a";
-const ORANGE = "#ff6a1f";
+const NAVY = "#00243a";
+const ORANGE = "#f25c00";
 const ORANGE_LIGHT = "#ff8445";
 
 const mark = (size, x = 0, y = 0) => `
@@ -34,8 +34,8 @@ const ogSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"
       <path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity="0.05" stroke-width="1"/>
     </pattern>
     <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0" stop-color="#1f5fd1" stop-opacity="0.45"/>
-      <stop offset="1" stop-color="#1f5fd1" stop-opacity="0"/>
+      <stop offset="0" stop-color="#0061a5" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#0061a5" stop-opacity="0"/>
     </radialGradient>
   </defs>
   <rect width="1200" height="630" fill="${NAVY}"/>

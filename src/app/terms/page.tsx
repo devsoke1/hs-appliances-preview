@@ -26,9 +26,9 @@ export default function TermsPage() {
 
           <h2>2. Bookings</h2>
           <p>
-            A booking request made online is not a confirmed appointment until we&rsquo;ve confirmed it by phone or email. Appointment slots
-            (morning or afternoon) are estimates, and we&rsquo;ll let you know if we&rsquo;re delayed. An adult must be present at the
-            property for the visit.
+            When you book online you choose a 2-hour arrival window, and the booking is confirmed on screen and by email. We aim to arrive
+            within that window; if we&rsquo;re delayed or need to move your appointment, we&rsquo;ll contact you as soon as possible. To
+            change or cancel a booking, call us and quote your booking reference. An adult must be present at the property for the visit.
           </p>
 
           <h2>3. Call-out charge and quotes</h2>

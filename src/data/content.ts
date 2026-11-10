@@ -69,7 +69,7 @@ export const faqGroups: { title: string; faqs: FAQ[] }[] = [
       {
         question: "How quickly can you come out?",
         answer:
-          "We offer same-day and next-day visits subject to availability. Call us for the earliest slot, or book online and choose a morning or afternoon slot that suits you.",
+          "We offer same-day and next-day visits subject to availability. Call us for the earliest slot, or book online and choose a 2-hour time slot that suits you — your booking is confirmed straight away.",
       },
       {
         question: "Which areas do you cover?",

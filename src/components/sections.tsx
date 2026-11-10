@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/ui/SiteLink";
 import { ArrowRight, Building2, Check, ClipboardCheck, Clock, MapPin, ShieldCheck, Tag } from "lucide-react";
 import type { Brand } from "@/data/types";
 import { areas, areaHref } from "@/data/areas";

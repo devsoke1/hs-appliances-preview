@@ -18,13 +18,15 @@ You only do this once. It takes about 15 minutes.
 
 ## 2. Import the tables and content
 1. In the same list, click **Enter phpMyAdmin** next to the new database.
-2. Go to **Import → Choose file**, select `database/schema.sql` from this project, and click **Import** (bottom of the page). You should see 6 tables: `admin_users`, `posts`, `reviews`, `services`, `settings`, `slug_redirects`.
+2. Go to **Import → Choose file**, select `database/schema.sql` from this project, and click **Import** (bottom of the page). You should see 8 tables: `admin_users`, `blocked_slots`, `bookings`, `posts`, `reviews`, `services`, `settings`, `slug_redirects`.
 3. Import again, this time with `database/seed.sql`. That adds:
    - all **16 services**, with full content, common faults, FAQs, compliance notes and SEO titles
    - the **3 existing blog posts** as published Insights
    - **16 redirects** from the old WordPress URLs (e.g. `washing-machine` → `washing-machine-repair`)
    - default **settings** (homepage shows 8 services, plus your phone, email and address)
    - **no reviews**. Add your real Google reviews yourself in the admin.
+
+**Database created before the online booking system?** Import `database/update-bookings.sql` as well. It adds the `bookings` and `blocked_slots` tables and the booking settings. It's safe to run more than once.
 
 **Already imported `seed.sql` before the demo photos were added?** Import `database/update-images.sql` as well. It only fills service and post images that are still empty, so it never overwrites images you've uploaded.
 
@@ -80,6 +82,11 @@ Go to **https://hsappliances.co.uk/hs-admin/** and bookmark it on your phone. Yo
 
 ## Using the admin
 
+- **Bookings:**
+  - Every online booking, with its date, 2-hour slot, booking reference (e.g. `AC - Repair`), customer details and problem description.
+  - **Cancel** frees the slot and removes the Google Calendar event. Remember to tell the customer.
+  - **Block a day or slot** stops online bookings for holidays, training or jobs taken by phone.
+  - To connect Google Calendar (two-way sync), follow [google-calendar.md](google-calendar.md).
 - **Services:**
   - Search, filter by category, and change the sort order (lower numbers come first).
   - Show or hide a service, or feature it on the homepage, with one tap.
@@ -92,6 +99,7 @@ Go to **https://hsappliances.co.uk/hs-admin/** and bookmark it on your phone. Yo
   - Every image needs **alt text**: a short description for blind visitors and Google.
 - **Reviews:** paste in real reviews only, exactly as written. You can link a review to a service.
 - **Settings:**
+  - Online booking: which days take bookings, how many days ahead, and the minimum notice.
   - Homepage service count.
   - Google rating, number of reviews and reviews link. These stay hidden on the site until they're filled in.
   - Contact details. Keep them identical to your Google Business Profile.

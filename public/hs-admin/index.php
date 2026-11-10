@@ -13,6 +13,9 @@ $counts = [
     'reviews' => (int) db_value('SELECT COUNT(*) FROM reviews'),
     'reviews_active' => (int) db_value('SELECT COUNT(*) FROM reviews WHERE is_active = 1'),
 ];
+$todayUk = (new DateTimeImmutable('today', uk_tz()))->format('Y-m-d');
+$counts['bookings'] = (int) db_value("SELECT COUNT(*) FROM bookings WHERE status = 'confirmed' AND slot_date >= ?", [$todayUk]);
+$counts['bookings_today'] = (int) db_value("SELECT COUNT(*) FROM bookings WHERE status = 'confirmed' AND slot_date = ?", [$todayUk]);
 $recent = db_all('SELECT id, title, status, published_at, updated_at FROM posts ORDER BY updated_at DESC, id DESC LIMIT 5');
 $installLeft = is_file(__DIR__ . '/install.php');
 
@@ -24,6 +27,10 @@ page_head('Dashboard', '', 'Signed in as ' . $user['email']);
 <?php endif; ?>
 
 <div class="stat-grid">
+  <a class="stat" href="<?= e(admin_url('bookings.php')) ?>">
+    <span class="stat-label">Upcoming bookings</span><span class="stat-value"><?= $counts['bookings'] ?></span>
+    <span class="stat-sub"><?= $counts['bookings_today'] ?> today</span>
+  </a>
   <a class="stat" href="<?= e(admin_url('services.php')) ?>">
     <span class="stat-label">Services</span><span class="stat-value"><?= $counts['services'] ?></span>
     <span class="stat-sub"><?= $counts['services_active'] ?> active</span>

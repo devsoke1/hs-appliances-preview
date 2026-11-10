@@ -1,7 +1,7 @@
 import { business } from "@/data/business";
 
 export type FieldErrors = Record<string, string>;
-export type SubmitResult = { success: boolean; message: string; errors?: FieldErrors };
+export type SubmitResult = { success: boolean; message: string; errors?: FieldErrors; status?: number; data?: Record<string, unknown> };
 
 const FALLBACK = `Sorry, we couldn't send that. Please try again, or call us on ${business.phone.display}.`;
 
@@ -33,6 +33,8 @@ export async function submitForm(endpoint: string, body: FormData, timeoutMs = 4
         success: j.success === true,
         message: typeof j.message === "string" && j.message ? j.message : FALLBACK,
         errors,
+        status: res.status,
+        data: j,
       };
     }
     if (res.status === 413) {

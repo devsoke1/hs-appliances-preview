@@ -42,9 +42,24 @@ export const staticPageSeo = {
       "Answers on booking an appliance repair, call-out charges, areas covered, brands, parts and commercial refrigeration in Feltham and West London.",
   },
   book: {
-    title: `Book an Appliance Repair in West London | ${BRAND}`,
+    title: `Book an Appliance Repair or AC Visit Online | ${BRAND}`,
     description:
-      "Book an appliance repair online: choose your appliance, describe the fault and pick a morning or afternoon slot. We'll call to confirm. Feltham-based.",
+      "Book online: choose the service, describe the problem and pick a 2-hour slot. Instant confirmation by email. Domestic, commercial and air conditioning.",
+  },
+  domestic: {
+    title: `Domestic Appliance Repair West London | ${BRAND}`,
+    description:
+      "Washing machine, fridge freezer, oven, hob, dishwasher and microwave repairs at home across West London. All major brands. Book a 2-hour slot online.",
+  },
+  commercial: {
+    title: `Commercial Refrigeration Repair London | ${BRAND}`,
+    description:
+      "Cold room, display fridge, dairy cabinet, bar cooler, cellar cooler and ice machine repairs for London businesses. Book a 2-hour slot online.",
+  },
+  airConditioning: {
+    title: `Air Conditioning London, Berkshire & Reading | ${BRAND}`,
+    description:
+      "Air conditioning that cools and heats: free quotations, supply & installation, servicing and repair across London, Berkshire and Reading. Book online.",
   },
   // Used by the PHP-rendered /insights/ page (exported via public/includes/generated/site.json)
   insights: {

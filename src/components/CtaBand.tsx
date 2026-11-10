@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/ui/SiteLink";
 import { Phone } from "lucide-react";
 import { business, telHref } from "@/data/business";
 import { imagePath, siteImages } from "@/data/media";
@@ -36,7 +36,7 @@ export function CtaBand({
             <Phone className="size-5" aria-hidden /> {business.phone.display}
           </a>
           <Link href={bookHref} className={buttonClasses("outline-light", "lg", "border-white/70 hover:border-white hover:bg-white/10")}>
-            Book a Repair
+            Book Now
           </Link>
         </div>
       </Container>

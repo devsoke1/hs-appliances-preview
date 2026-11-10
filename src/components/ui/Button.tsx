@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/ui/SiteLink";
 import { cn } from "@/lib/cn";
 
 type Variant = "primary" | "secondary" | "outline" | "outline-light" | "ghost";
@@ -9,7 +9,7 @@ const base =
 
 const variants: Record<Variant, string> = {
   /** Orange — the ONE action we want (Book / Call). Use once or twice per view. */
-  primary: "bg-accent-600 text-white shadow-[0_1px_0_rgb(0_0_0/0.08),0_6px_16px_-6px_rgb(255_106_31/0.6)] hover:bg-accent-700",
+  primary: "bg-accent-600 text-white shadow-[0_1px_0_rgb(0_0_0/0.08),0_6px_16px_-6px_rgb(242_92_0/0.5)] hover:bg-accent-700",
   secondary: "bg-navy-900 text-white hover:bg-navy-700",
   outline: "border-2 border-navy-900/15 bg-white text-navy-900 hover:border-navy-900/40",
   "outline-light": "border-2 border-white/25 text-white hover:border-white/60 hover:bg-white/5",

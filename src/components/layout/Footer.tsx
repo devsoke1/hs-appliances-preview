@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/ui/SiteLink";
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import { business, fullAddress, groupedHours, mailHref, telHref } from "@/data/business";
 import { featuredAreas } from "@/data/areas";
@@ -27,22 +27,22 @@ export function Footer({ services }: { services: ServicesPayload }) {
           </p>
           <address className="mt-6 space-y-1 not-italic">
             <p className="flex items-start gap-3 py-1">
-              <MapPin className="mt-1 size-4 shrink-0 text-accent-400" aria-hidden />
+              <MapPin className="mt-1 size-4 shrink-0 text-accent-500" aria-hidden />
               <span>
                 {business.name}
                 <br />
                 {fullAddress}
               </span>
             </p>
-            <a href={telHref} className="flex min-h-11 items-center gap-3 font-semibold text-white hover:text-accent-400">
-              <Phone className="size-4 shrink-0 text-accent-400" aria-hidden /> {business.phone.display}
+            <a href={telHref} className="flex min-h-11 items-center gap-3 font-semibold text-white hover:text-accent-500">
+              <Phone className="size-4 shrink-0 text-accent-500" aria-hidden /> {business.phone.display}
             </a>
             <a href={mailHref} className="flex min-h-11 items-center gap-3 break-all hover:text-white">
-              <Mail className="size-4 shrink-0 text-accent-400" aria-hidden /> {business.email}
+              <Mail className="size-4 shrink-0 text-accent-500" aria-hidden /> {business.email}
             </a>
           </address>
           <div className="mt-4 flex items-start gap-3">
-            <Clock className="mt-1 size-4 shrink-0 text-accent-400" aria-hidden />
+            <Clock className="mt-1 size-4 shrink-0 text-accent-500" aria-hidden />
             <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1">
               {groupedHours().map((h) => (
                 <div key={h.label} className="contents">
@@ -52,7 +52,7 @@ export function Footer({ services }: { services: ServicesPayload }) {
               ))}
             </dl>
           </div>
-          {!business.hoursConfirmed && <p className="mt-2 pl-7 font-mono text-[0.6875rem] tracking-wide text-accent-400 uppercase">[CONFIRM HOURS]</p>}
+          {!business.hoursConfirmed && <p className="mt-2 pl-7 font-mono text-[0.6875rem] tracking-wide text-accent-500 uppercase">[CONFIRM HOURS]</p>}
         </div>
 
         <FooterServiceLinks initial={services} />

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/ui/SiteLink";
 import { cn } from "@/lib/cn";
 import { business } from "@/data/business";
 

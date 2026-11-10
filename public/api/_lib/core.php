@@ -58,6 +58,8 @@ function hs_default_config(): array
             'lockout_minutes' => 15,
         ],
         'api' => ['cache_seconds' => 300],
+        // Online bookings → Google Calendar (see docs/google-calendar.md). Empty = not connected.
+        'google_calendar' => ['calendar_id' => '', 'credentials_file' => '', 'api_base' => ''],
         // Where public pages live — used for "View" links in the admin and in API responses.
         'public_paths' => [
             'service' => '/services/{slug}/',

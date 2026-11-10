@@ -1,5 +1,6 @@
+import Link from "@/components/ui/SiteLink";
 import { business } from "@/data/business";
-import { coveredPostcodes } from "@/data/areas";
+import { acCoverageText, districtSummary } from "@/data/postcodes";
 import { pageMeta } from "@/lib/seo";
 import { staticPageSeo } from "@/data/seo";
 import { Section, SectionHeader } from "@/components/ui/Section";
@@ -25,14 +26,24 @@ export default function AreasPage() {
         <AreaLinks />
       </Section>
       <Section tone="mist">
-        <SectionHeader eyebrow="Postcodes" title="Postcode districts we cover" intro="Not sure if you're covered? Use the postcode checker above, or call us — we may still be able to help." />
+        <SectionHeader
+          eyebrow="Postcodes"
+          title="Domestic postcode districts we cover"
+          intro="Online domestic bookings are open to the postcode districts below. Not on the list? Call us — we may still be able to help."
+        />
         <ul className="flex flex-wrap gap-2">
-          {coveredPostcodes.map((p) => (
+          {districtSummary().split(", ").map((p) => (
             <li key={p} className="rounded-lg bg-white px-3.5 py-2 font-display font-bold text-navy-900 ring-1 ring-line">
-              {p.length <= 2 ? `${p} (all)` : p}
+              {p}
             </li>
           ))}
         </ul>
+        <p className="mt-6 max-w-3xl text-base text-muted">
+          <strong className="text-ink">Air conditioning:</strong> {acCoverageText}.{" "}
+          <Link href="/air-conditioning/" className="font-semibold text-brand-600 underline underline-offset-2">
+            Air conditioning services
+          </Link>
+        </p>
       </Section>
       <CtaBand />
     </>

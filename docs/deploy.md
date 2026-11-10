@@ -87,6 +87,8 @@ out/
 └── hs-admin/                  ← admin panel
 ```
 
+**The service and insights pages, and online booking, need the database.** If you set up the database before the booking system existed, import `database/update-bookings.sql`. To sync bookings with Google Calendar, see [google-calendar.md](google-calendar.md).
+
 **The service and insights pages need the database.** Do the admin setup ([admin-setup.md](admin-setup.md)) before or straight after the first upload, or those pages show a "temporarily unavailable" message.
 
 PHPMailer is already included in `api/_lib/PHPMailer/` (v7.1.1). There's nothing to install on the server.
@@ -159,6 +161,8 @@ curl -I https://www.hsappliances.co.uk/about       # → 301 to https://hsapplia
 curl -I https://hsappliances.co.uk/about           # → 301 to /about/
 curl -I https://hsappliances.co.uk/faqs/           # → 301 to /faq/
 curl -I https://hsappliances.co.uk/blog/           # → 301 to /insights/
+curl -s "https://hsappliances.co.uk/api/availability.php?days=3"     # → JSON with the next 3 days' slots
+curl -I https://hsappliances.co.uk/domestic/        # → 200 (also /commercial/ and /air-conditioning/)
 curl -I https://hsappliances.co.uk/services/washing-machine-repair/   # → 200 (PHP page)
 curl -I https://hsappliances.co.uk/services/no-such-service/          # → 404
 curl -I https://hsappliances.co.uk/sitemap.xml     # → 200 application/xml
@@ -179,7 +183,8 @@ Also check:
    - the enquiry arrives at `house.shopappliances@gmail.com` (check Spam the first time and mark it *Not spam*);
    - a confirmation email arrives at the address you entered;
    - hitting **Reply** on the enquiry addresses the customer.
-2. On `/book/`, make a booking **with a photo attached**. The photo should arrive as an attachment (`photo-1.jpg`).
+2. On `/book/`, make a test booking for a date a few days ahead. You should see **Booking confirmed** with a reference like `HS-7K3M9Q`, receive the confirmation email, and the business email should arrive. The slot then shows **Slot not available**. Cancel it in **/hs-admin/ → Bookings**.
+   Check a postcode outside the domestic list, e.g. `SW1A 1AA` with a Domestic booking: it must be refused with the "please call us" message.
 3. Submit the contact form **6 times in a row**. The 6th should say you've sent several requests (rate limit). This resets after 10 minutes.
 4. Check the log at `private/hs-data/logs/api.log`. It records sends and errors (no customer details).
 
