@@ -51,7 +51,7 @@ export function siteGraph(): Graph {
     description:
       "Repair, installation and maintenance of domestic appliances and commercial refrigeration in Feltham, Hounslow and West London.",
     url: `${SITE_URL}/`,
-    logo: absoluteUrl("/icon-512.png"),
+    logo: absoluteUrl("/images/logo.png"),
     image: absoluteUrl(OG_DEFAULT),
     telephone: business.phone.e164,
     email: business.email,

@@ -116,6 +116,28 @@
   background-size: 32px 32px;
 }
 
+/* Continuous brand row. Two equal lists sit side by side; moving -50% loops without a jump. */
+@keyframes brand-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.brand-marquee {
+  mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+}
+.brand-marquee-track {
+  animation: brand-marquee 32s linear infinite;
+}
+.brand-marquee:hover .brand-marquee-track,
+.brand-marquee:focus-within .brand-marquee-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .brand-marquee { mask-image: none; overflow: visible; }
+  .brand-marquee-track { animation: none; width: 100%; flex-wrap: wrap; justify-content: center; row-gap: 1rem; }
+  .brand-marquee-track ul { width: 100%; flex-wrap: wrap; justify-content: center; padding-right: 0; }
+  .brand-marquee-track ul[aria-hidden="true"] { display: none; }
+}
+
 /* Leaves room for the sticky mobile action bar */
 @utility pb-mobile-bar {
   padding-bottom: calc(4.25rem + env(safe-area-inset-bottom));

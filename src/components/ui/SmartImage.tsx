@@ -1,5 +1,6 @@
 import manifest from "@/data/images.json";
 import { cn } from "@/lib/cn";
+import { publicPath } from "@/lib/public-path";
 
 type Entry = { width: number; height: number; widths: number[] };
 const images = manifest as Record<string, Entry>;
@@ -26,11 +27,12 @@ export function SmartImage({
 }) {
   const m = src.match(/^\/images\/(.+)-(\d+)\.webp$/);
   const entry = m ? images[m[1]] : undefined;
-  const srcSet = entry && m ? entry.widths.map((w) => `/images/${m[1]}-${w}.webp ${w}w`).join(", ") : undefined;
+  const srcSet = entry && m ? entry.widths.map((w) => `${publicPath(`/images/${m[1]}-${w}.webp`)} ${w}w`).join(", ") : undefined;
+  const resolvedSrc = publicPath(src);
   return (
     // eslint-disable-next-line @next/next/no-img-element -- static export; images are pre-optimised
     <img
-      src={src}
+      src={resolvedSrc}
       srcSet={srcSet}
       sizes={srcSet ? sizes : undefined}
       alt={alt}

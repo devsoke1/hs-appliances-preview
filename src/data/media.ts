@@ -4,6 +4,7 @@
  */
 import sources from "../../scripts/image-sources.json";
 import manifest from "./images.json";
+import { publicPath } from "@/lib/public-path";
 
 type Source = { name: string; alt: string; service?: string; area?: string; post?: string };
 export type ImageRef = { name: string; alt: string };
@@ -32,5 +33,5 @@ export function imagePath(name: string, want = 800): string {
   const m = images[name];
   if (!m) return "";
   const w = m.widths.find((x) => x >= want) ?? m.widths[m.widths.length - 1];
-  return `/images/${name}-${w}.webp`;
+  return publicPath(`/images/${name}-${w}.webp`);
 }

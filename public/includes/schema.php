@@ -44,7 +44,7 @@ function site_graph(): array
         'alternateName' => $b['shortName'],
         'description' => 'Repair, installation and maintenance of domestic appliances and commercial refrigeration in Feltham, Hounslow and West London.',
         'url' => site_url('/'),
-        'logo' => site_url('/icon-512.png'),
+        'logo' => site_url('/images/logo.png'),
         'image' => site_url('/og/default.png'),
         'telephone' => $b['phone']['e164'],
         'email' => $b['email'],

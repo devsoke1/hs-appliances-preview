@@ -27,7 +27,7 @@ if (is_post()) {
 admin_header('Log in');
 ?>
 <div class="card auth-card">
-  <div class="auth-brand"><span class="brand-mark">HS</span> <strong>HS Appliances Admin</strong></div>
+  <div class="auth-brand"><img class="auth-logo" src="/images/logo.png" alt="HS Appliances" width="2411" height="395"></div>
   <h1>Log in</h1>
   <?php if ($error): ?><div class="alert alert-error" role="alert"><?= e($error) ?></div><?php endif; ?>
   <form method="post" class="stack" novalidate>

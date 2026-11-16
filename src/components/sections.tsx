@@ -3,7 +3,6 @@ import { ArrowRight, Building2, Check, ClipboardCheck, Clock, MapPin, ShieldChec
 import type { Brand } from "@/data/types";
 import { areas, areaHref } from "@/data/areas";
 import { processSteps, trustPoints, whyChooseUs } from "@/data/content";
-import { featuredBrandSlugs } from "@/data/brands";
 import { cn } from "@/lib/cn";
 import { Card } from "@/components/ui/Card";
 
@@ -87,22 +86,32 @@ export function WhyChooseUs({ columns = 3 }: { columns?: 2 | 3 }) {
   );
 }
 
-/* ── Brand strip: swipeable row on mobile, grid from sm ── */
-export function BrandStrip({ brands, className }: { brands: Brand[]; className?: string }) {
+/* ── Brand strip: continuous leftward scroll, paused on hover. Mirrored in brand_strip(). ── */
+function BrandName({ name }: { name: string }) {
   return (
-    <ul className={cn(mobileScroller, "sm:grid sm:grid-cols-3 lg:grid-cols-6", className)}>
-      {brands.map((b) => (
-        <li
-          key={b.slug}
-          className={cn(
-            "grid h-16 w-36 shrink-0 snap-start place-items-center rounded-xl border bg-white px-3 text-center font-display text-lg font-extrabold tracking-tight sm:w-auto",
-            featuredBrandSlugs.includes(b.slug) ? "border-navy-900/15 text-navy-900" : "border-line text-muted",
-          )}
-        >
-          {b.name}
-        </li>
-      ))}
-    </ul>
+    <li className="grid h-16 shrink-0 place-items-center px-1 font-display text-[1.65rem] font-extrabold tracking-tight whitespace-nowrap text-navy-900 sm:text-3xl">
+      {name}
+    </li>
+  );
+}
+
+export function BrandStrip({ brands, className }: { brands: Brand[]; className?: string }) {
+  const seconds = Math.max(18, brands.length * 3.2);
+  return (
+    <div className={cn("brand-marquee relative overflow-hidden", className)} role="region" aria-label="Brands we repair">
+      <div className="brand-marquee-track flex w-max items-center" style={{ animationDuration: `${seconds}s` }}>
+        <ul className="flex items-center gap-14 pr-14">
+          {brands.map((b) => (
+            <BrandName key={b.slug} name={b.name} />
+          ))}
+        </ul>
+        <ul className="flex items-center gap-14 pr-14" aria-hidden="true">
+          {brands.map((b) => (
+            <BrandName key={b.slug} name={b.name} />
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 }
 

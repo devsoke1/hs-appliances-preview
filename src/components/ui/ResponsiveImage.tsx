@@ -1,6 +1,7 @@
 import { preload } from "react-dom";
 import manifest from "@/data/images.json";
 import { cn } from "@/lib/cn";
+import { publicPath } from "@/lib/public-path";
 
 type Entry = { width: number; height: number; widths: number[] };
 const images = manifest as Record<string, Entry>;
@@ -32,8 +33,8 @@ export function ResponsiveImage({
 }) {
   const e = images[name];
   if (!e) return null;
-  const srcSet = e.widths.map((w) => `/images/${name}-${w}.webp ${w}w`).join(", ");
-  const fallback = `/images/${name}-${e.widths.find((w) => w >= 800) ?? e.widths[e.widths.length - 1]}.webp`;
+  const srcSet = e.widths.map((w) => `${publicPath(`/images/${name}-${w}.webp`)} ${w}w`).join(", ");
+  const fallback = publicPath(`/images/${name}-${e.widths.find((w) => w >= 800) ?? e.widths[e.widths.length - 1]}.webp`);
 
   if (priority) {
     preload(fallback, { as: "image", imageSrcSet: srcSet, imageSizes: sizes, fetchPriority: "high", ...(priorityMedia ? { media: priorityMedia } : {}) });

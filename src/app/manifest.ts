@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { business } from "@/data/business";
+import { publicPath } from "@/lib/public-path";
 
 export const dynamic = "force-static";
 
@@ -13,8 +14,8 @@ export default function manifest(): MetadataRoute.Manifest {
     background_color: "#ffffff",
     theme_color: "#00243a",
     icons: [
-      { src: "/icon-192.png", sizes: "192x192", type: "image/png" },
-      { src: "/icon-512.png", sizes: "512x512", type: "image/png" },
+      { src: publicPath("/icon-192.png"), sizes: "192x192", type: "image/png" },
+      { src: publicPath("/icon-512.png"), sizes: "512x512", type: "image/png" },
     ],
   };
 }

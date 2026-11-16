@@ -50,7 +50,8 @@ if (!headers_sent() && http_response_code() === 200) {
 <meta name="twitter:image" content="<?= e($ogImage) ?>">
 <?php if ($gsc): ?><meta name="google-site-verification" content="<?= e($gsc) ?>">
 <?php endif; ?>
-<link rel="icon" href="/icon.svg" type="image/svg+xml" sizes="any">
+<link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
+<link rel="icon" href="/icon-512.png" type="image/png" sizes="512x512">
 <link rel="apple-touch-icon" href="/apple-icon.png" sizes="180x180">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preload" href="/fonts/plus-jakarta-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>

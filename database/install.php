@@ -60,7 +60,7 @@ if ($tableOk && $existing === 0 && $token !== '' && is_post()) {
 admin_header('Install');
 ?>
 <div class="card auth-card">
-  <div class="auth-brand"><span class="brand-mark">HS</span> <strong>HS Appliances Admin — setup</strong></div>
+  <div class="auth-brand"><img class="auth-logo" src="/images/logo.png" alt="HS Appliances" width="2411" height="395"></div>
   <?php if ($done): ?>
     <h1>Admin account created ✓</h1>
     <?php if ($selfDeleted): ?>

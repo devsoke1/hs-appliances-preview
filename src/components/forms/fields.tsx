@@ -109,7 +109,7 @@ export function ConsentCheckbox({ id, error }: { id: string; error?: string }) {
         />
         <span>
           I agree to House &amp; Shop Appliances using these details to respond to my enquiry, as described in the{" "}
-          <a href="/privacy-policy/" className="font-semibold text-brand-600 underline underline-offset-2">
+          <a href={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/privacy-policy/`} className="font-semibold text-brand-600 underline underline-offset-2">
             privacy policy
           </a>
           .

@@ -15,16 +15,10 @@ const MOBILE_SCROLLER = '-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto 
 
 function logo_html(bool $light = false): string
 {
-    return '<a href="/" class="group inline-flex min-h-11 items-center gap-2.5">'
-        . '<svg viewBox="0 0 40 40" class="size-10 shrink-0" aria-hidden="true">'
-        . '<rect width="40" height="40" rx="9" class="' . ($light ? 'fill-white' : 'fill-navy-900') . '"></rect>'
-        . '<path d="M11 11v18M11 20h9M20 11v18" class="' . ($light ? 'stroke-navy-900' : 'stroke-white') . '" stroke-width="3.2" stroke-linecap="round" fill="none"></path>'
-        . '<path d="M29.5 13.5c-1.6-1.4-4.6-1.3-5 .9-.5 2.6 5.6 2.6 5.6 6.4 0 3.2-4.3 3.9-6.4 1.9" class="stroke-accent-500" stroke-width="3" stroke-linecap="round" fill="none"></path>'
-        . '<rect x="9.5" y="32" width="21" height="2.4" rx="1.2" class="fill-accent-500"></rect></svg>'
-        . '<span class="flex flex-col leading-none">'
-        . '<span class="font-display text-[1.1875rem] font-extrabold tracking-tight ' . ($light ? 'text-white' : 'text-navy-900') . '">HS Appliances</span>'
-        . '<span class="mt-1 text-[0.6875rem] font-semibold uppercase tracking-[0.14em] ' . ($light ? 'text-white/60' : 'text-muted') . '">House &amp; Shop</span>'
-        . '</span></a>';
+    $src = $light ? '/images/logo-on-dark.png' : '/images/logo.png';
+    return '<a href="/" class="inline-flex min-h-11 shrink-0 items-center">'
+        . '<img src="' . $src . '" alt="HS Appliances" width="2411" height="395" class="h-9 w-auto sm:h-10 lg:h-11">'
+        . '</a>';
 }
 
 function eyebrow(string $text, string $tone = 'light'): string
@@ -260,13 +254,19 @@ function reviews_section(array $reviews, string $title = 'What our customers say
 
 function brand_strip(array $brands): string
 {
-    $featured = site()['featuredBrandSlugs'] ?? [];
-    $html = '<ul class="' . MOBILE_SCROLLER . ' sm:grid sm:grid-cols-3 lg:grid-cols-6">';
+    $item = static function (array $b): string {
+        return '<li class="grid h-16 shrink-0 place-items-center px-1 font-display text-[1.65rem] font-extrabold tracking-tight whitespace-nowrap text-navy-900 sm:text-3xl">' . e($b['name']) . '</li>';
+    };
+    $row = '';
     foreach ($brands as $b) {
-        $html .= '<li class="grid h-16 w-36 shrink-0 snap-start place-items-center rounded-xl border bg-white px-3 text-center font-display text-lg font-extrabold tracking-tight sm:w-auto '
-            . (in_array($b['slug'], $featured, true) ? 'border-navy-900/15 text-navy-900' : 'border-line text-muted') . '">' . e($b['name']) . '</li>';
+        $row .= $item($b);
     }
-    return $html . '</ul>';
+    $seconds = max(18, count($brands) * 3);
+    return '<div class="brand-marquee relative overflow-hidden" role="region" aria-label="Brands we repair">'
+        . '<div class="brand-marquee-track flex w-max items-center" style="animation-duration:' . $seconds . 's">'
+        . '<ul class="flex items-center gap-14 pr-14">' . $row . '</ul>'
+        . '<ul class="flex items-center gap-14 pr-14" aria-hidden="true">' . $row . '</ul>'
+        . '</div></div>';
 }
 
 function cta_band(string $title = 'Appliance playing up?', string $text = "Call us or book online — tell us the make, model and what it's doing.", string $bookHref = '/book/'): string

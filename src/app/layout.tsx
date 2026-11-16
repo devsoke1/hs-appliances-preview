@@ -51,6 +51,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en-GB" className={`${jakarta.variable} ${source.variable}`}>
       <body className="pb-mobile-bar">
+        {process.env.NEXT_PUBLIC_BASE_PATH ? (
+          <p className="bg-navy-950 px-4 py-2 text-center text-sm text-white/80">
+            Client preview. Design and page copy can be checked here. Booking, service pages, insights, and the admin panel run on the real server.
+          </p>
+        ) : null}
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:rounded-lg focus:bg-navy-900 focus:px-4 focus:py-2 focus:text-white"

@@ -34,14 +34,14 @@ function admin_header(string $title, string $active = '', array $opts = []): voi
   <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#0b1d3a">
   <title><?= e($title) ?> · HS Admin</title>
-  <link rel="icon" href="/icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="<?= e(admin_url('assets/admin.css')) ?>?v=1">
+  <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
+  <link rel="stylesheet" href="<?= e(admin_url('assets/admin.css')) ?>?v=2">
   <?= $extraHead ?>
 </head>
 <body class="<?= $user ? 'has-nav' : '' ?>">
 <?php if ($user): ?>
   <header class="topbar">
-    <a class="brand" href="<?= e(admin_url('')) ?>"><span class="brand-mark">HS</span><span>Admin</span></a>
+    <a class="brand" href="<?= e(admin_url('')) ?>"><img class="brand-logo" src="/images/logo-on-dark.png" alt="HS Appliances" width="2411" height="395"><span>Admin</span></a>
     <div class="topbar-actions">
       <a class="btn btn-ghost btn-sm hide-sm" href="/" target="_blank" rel="noopener">View site ↗</a>
       <form method="post" action="<?= e(admin_url('logout.php')) ?>">
