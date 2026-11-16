@@ -1,6 +1,6 @@
 /**
- * GitHub Pages cannot run PHP. After the static export, add short notes where
- * the live site would serve services, insights, and admin.
+ * GitHub Pages cannot run PHP. Service and insight pages are exported as static
+ * HTML for the client preview. The admin panel still needs the real server.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -31,14 +31,6 @@ const page = (title, body) => `<!DOCTYPE html>
 `;
 
 const notes = {
-  "services/index.html": page(
-    "Service pages",
-    "These pages are generated from the database on the real server. They are not part of this static preview.",
-  ),
-  "insights/index.html": page(
-    "Insights",
-    "Articles are published from the admin panel on the real server. They are not part of this static preview.",
-  ),
   "hs-admin/index.html": page(
     "Admin",
     "The admin panel needs PHP and the database. Open it on the real server, not on this preview.",
