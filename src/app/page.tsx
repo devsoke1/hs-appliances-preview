@@ -17,7 +17,7 @@ import { ResponsiveImage } from "@/components/ui/ResponsiveImage";
 import { PostcodeChecker } from "@/components/postcode/PostcodeChecker";
 import { CtaBand } from "@/components/CtaBand";
 import { CategoryCards } from "@/components/CategoryCards";
-import { AreaLinks, BrandStrip, ProcessSteps, TrustList, WhyChooseUs } from "@/components/sections";
+import { BrandStrip, AreaList, ProcessSteps, TrustList, WhyChooseUs } from "@/components/sections";
 import { ServicesShowcase } from "@/components/live/ServicesShowcase";
 import { ReviewsSection } from "@/components/live/ReviewsSection";
 import { LatestInsights } from "@/components/live/LatestInsights";
@@ -26,26 +26,32 @@ export const metadata: Metadata = pageMeta({ ...staticPageSeo.home, path: "/" })
 
 export default async function HomePage() {
   const [services, reviews, posts] = await Promise.all([buildServices(), buildReviews(), buildPosts(3)]);
-  const hero = business.heroImage;
 
   return (
     <>
       {/* ── Hero: H1, CTAs and trust points fit above the fold on phones ── */}
-      <section className="relative overflow-hidden bg-navy-900 bg-blueprint text-white">
-        <div aria-hidden className="pointer-events-none absolute -top-40 -right-40 size-[36rem] rounded-full bg-brand-600/25 blur-3xl" />
-        <Container className="relative grid gap-8 py-8 sm:py-16 lg:grid-cols-12 lg:items-center lg:gap-12 lg:py-24">
+      <section className="hero-photo relative overflow-hidden text-white">
+        {siteImages.hero && (
+          <div className="hero-photo-media" aria-hidden>
+            <ResponsiveImage name={siteImages.hero.name} alt="" sizes="100vw" priority />
+          </div>
+        )}
+        <div className="hero-photo-shade" aria-hidden />
+        <Container className="relative z-[1] grid gap-8 py-8 sm:py-16 lg:grid-cols-12 lg:items-center lg:gap-12 lg:py-24">
           <div className="lg:col-span-7">
-            <Eyebrow tone="dark">Over 10 years&rsquo; experience · Based in Feltham</Eyebrow>
+            <Eyebrow tone="dark">7 years&rsquo; experience · Based in Feltham</Eyebrow>
             <h1 className="text-display text-white">
               Appliance Repair in <span className="text-accent-500">West London</span> &amp; Surrounding Areas
             </h1>
             <p className="text-lead mt-4 max-w-xl text-white/80 sm:mt-6">
-              The leading local appliance repair business in Feltham and West London, with over 10 years of experience repairing,
-              installing and maintaining household appliances, commercial refrigeration and air conditioning.
+              Air conditioning, household appliances and commercial refrigeration — repaired, installed and maintained across Feltham and West London. Seven years on the tools, and open 7 days, 8am to 6pm.
             </p>
-            <div className="mt-6 grid grid-cols-1 gap-3 sm:mt-8 sm:flex">
+            <div className="mt-6 grid grid-cols-1 gap-3 sm:mt-8 sm:flex sm:flex-wrap">
               <Button href="/book/" size="lg" className="w-full sm:w-auto">
                 Book Now <ArrowRight className="size-5" aria-hidden />
+              </Button>
+              <Button href="/air-conditioning/" variant="outline-light" size="lg" className="w-full sm:w-auto">
+                Air conditioning
               </Button>
               <Button href={telHref} variant="outline-light" size="lg" className="w-full sm:w-auto">
                 <Phone className="size-5" aria-hidden /> {business.phone.display}
@@ -53,17 +59,8 @@ export default async function HomePage() {
             </div>
             <TrustList className="mt-6 max-w-lg sm:mt-8" />
           </div>
-          <div className="flex flex-col gap-5 lg:col-span-5">
-            {/* [REPLACE] Client's own photo goes here (business.heroImage in src/data/business.ts) — run `npm run images` after adding it.
-                Phones: postcode checker first, photo just below the fold (so the H1 is the LCP). Desktop: photo first. */}
-            {hero && (
-              <div className="order-2 aspect-[16/10] overflow-hidden rounded-[var(--radius-card)] ring-1 ring-white/15 lg:order-1">
-                <ResponsiveImage name={hero.name} alt={hero.alt} sizes="(min-width: 1024px) 40vw, 100vw" priority priorityMedia="(min-width: 1024px)" className="h-full" />
-              </div>
-            )}
-            <div className="order-1 lg:order-2">
-              <PostcodeChecker />
-            </div>
+          <div className="lg:col-span-5">
+            <PostcodeChecker tone="light" />
           </div>
         </Container>
       </section>
@@ -72,6 +69,27 @@ export default async function HomePage() {
       <Section tone="mist">
         <SectionHeader eyebrow="How can we help?" title="Domestic, commercial and air conditioning" />
         <CategoryCards />
+      </Section>
+
+      <Section>
+        <div className="grid items-center gap-8 overflow-hidden rounded-[var(--radius-card)] bg-navy-900 text-white lg:grid-cols-12">
+          <div className="p-6 sm:p-8 lg:col-span-7 lg:p-10">
+            <Eyebrow tone="dark">Air conditioning</Eyebrow>
+            <h2 className="text-h2 mt-3 text-white">Cool in summer. Warm in winter.</h2>
+            <p className="mt-3 max-w-xl text-white/80">
+              Installation, servicing and repair for homes, shops and offices. One system for cooling and heating, with a free quotation before any work is agreed.
+            </p>
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+              <Button href="/air-conditioning/#book">Book air conditioning</Button>
+              <Button href="/air-conditioning/" variant="outline-light">
+                Air conditioning services
+              </Button>
+            </div>
+          </div>
+          <div className="aspect-[16/10] lg:col-span-5 lg:aspect-auto lg:min-h-full">
+            <ResponsiveImage name="air-conditioning-repair" alt="Outdoor air conditioning unit" sizes="(min-width: 1024px) 40vw, 100vw" className="h-full" />
+          </div>
+        </div>
       </Section>
 
       {/* ── How it works ── */}
@@ -123,14 +141,9 @@ export default async function HomePage() {
         <SectionHeader
           eyebrow="Areas we cover"
           title="Across West London, Middlesex and Surrey"
-          intro={`From our base at ${business.address.street}, ${business.address.locality}, we cover the areas below and the places in between.`}
-          action={
-            <Button href="/areas/" variant="outline">
-              All areas <ArrowRight className="size-4" aria-hidden />
-            </Button>
-          }
+          intro="Every town we cover from the workshop on Hounslow Road. Choose yours for neighbourhoods, postcodes and travel time."
         />
-        <AreaLinks />
+        <AreaList />
       </Section>
 
       {/* ── Reviews (live, real reviews only) ── */}

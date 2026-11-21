@@ -26,8 +26,12 @@ if (is_post()) {
 
 admin_header('Log in');
 ?>
-<div class="card auth-card">
-  <div class="auth-brand"><img class="auth-logo" src="/images/logo.png" alt="HS Appliances" width="2411" height="395"></div>
+<div class="auth-shell">
+  <div class="auth-aside">
+    <img class="auth-logo" src="/images/logo-on-dark.png" alt="HS Appliances" width="2411" height="395">
+    <p>Bookings, services, insights and reviews — the same desk the website is edited from.</p>
+  </div>
+  <div class="card auth-card">
   <h1>Log in</h1>
   <?php if ($error): ?><div class="alert alert-error" role="alert"><?= e($error) ?></div><?php endif; ?>
   <form method="post" class="stack" novalidate>
@@ -42,5 +46,6 @@ admin_header('Log in');
     </div>
     <button class="btn btn-primary btn-block" type="submit">Log in</button>
   </form>
+  </div>
 </div>
 <?php admin_footer(); ?>

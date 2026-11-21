@@ -18,7 +18,7 @@ fs.mkdirSync(OUT, { recursive: true });
 let failed = 0;
 for (const img of images) {
   const file = path.join(OUT, `${img.name}.jpg`);
-  if (fs.existsSync(file)) continue;
+  if (!img.id || fs.existsSync(file)) continue;
   const url = `https://images.unsplash.com/photo-${img.id}?w=${img.width}&q=82&fm=jpg&fit=max`;
   const res = await fetch(url);
   if (!res.ok) {
@@ -34,11 +34,14 @@ for (const img of images) {
 const order = { high: 0, medium: 1, low: 2 };
 const rows = (list) =>
   list
-    .map((i) => `| \`${i.name}\` | ${i.usedOn} | [${i.photographer}](https://unsplash.com/photos/${i.page}) | ${i.alt} | ${i.replace === "high" ? "**Replace first**" : i.replace === "medium" ? "Replace when you can" : "Optional"} |`)
+    .map((i) => {
+      const credit = String(i.page).startsWith("http") ? i.page : `https://unsplash.com/photos/${i.page}`;
+      return `| \`${i.name}\` | ${i.usedOn} | [${i.photographer}](${credit}) | ${i.alt} | ${i.replace === "high" ? "**Replace first**" : i.replace === "medium" ? "Replace when you can" : "Optional"} |`;
+    })
     .join("\n");
 const md = `# Image credits
 
-All demo photos are from **[Unsplash](https://unsplash.com)** under the [Unsplash License](https://unsplash.com/license): free for commercial use, no permission or attribution required. They're credited here anyway, and so you can swap them out.
+All demo photos are from **[Unsplash](https://unsplash.com)** under the [Unsplash License](https://unsplash.com/license), except the dishwasher photo, which is from **[Pexels](https://www.pexels.com/license/)**. Both are free for commercial use. They're credited here so you can swap them out.
 
 Files: originals in \`assets/images/*.jpg\` → optimised WebP (480–2000px) in \`public/images/\` via \`npm run images\`.
 To replace a photo with your own, save your photo as \`assets/images/<same name>.jpg\` (landscape, at least 1600px wide), run \`npm run images\`, rebuild and redeploy. For services, you can also upload a new image in the admin panel.

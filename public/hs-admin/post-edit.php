@@ -13,7 +13,7 @@ if ($id && !$existing) {
 }
 $p = $existing ?? [
     'slug' => '', 'title' => '', 'excerpt' => '', 'content' => '', 'featured_image' => '', 'image_alt' => '', 'category' => '',
-    'tags' => '', 'author' => setting('author_default', 'House & Shop Appliances'), 'meta_title' => '', 'meta_description' => '',
+    'tags' => '', 'author' => setting('author_default', 'HS Appliances'), 'meta_title' => '', 'meta_description' => '',
     'status' => 'draft', 'published_at' => null,
 ];
 $errors = [];
@@ -31,7 +31,7 @@ if (is_post()) {
         'image_alt' => post_str('image_alt', 255),
         'category' => post_str('category', 80),
         'tags' => normalise_tags(post_str('tags', 300)),
-        'author' => post_str('author', 100) ?: 'House & Shop Appliances',
+        'author' => post_str('author', 100) ?: 'HS Appliances',
         'meta_title' => post_str('meta_title', 70),
         'meta_description' => post_str('meta_description', 170),
     ]);

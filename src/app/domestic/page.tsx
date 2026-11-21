@@ -26,10 +26,10 @@ export default async function DomesticPage() {
         crumbs={[{ label: "Domestic" }]}
         eyebrow="Domestic appliances"
         title="Domestic Appliance Repairs"
-        intro="Washing machines, fridge freezers, ovens, hobs, dishwashers and more — repaired in your home. Choose your appliance below and book a 2-hour slot online in a couple of minutes."
+        intro="Washing machines, tumble dryers, fridge freezers, ovens, hobs, dishwashers and more — repaired in your home. Choose your appliance below and book a 2-hour slot online in a couple of minutes."
         aside={
           <div className="aspect-[16/10] overflow-hidden rounded-[var(--radius-card)] ring-1 ring-white/15 max-lg:hidden">
-            <ResponsiveImage name="washing-machine-repair-feltham" alt="Engineer's view of a washing machine ready for repair" sizes="(min-width: 1024px) 40vw, 100vw" priority priorityMedia="(min-width: 1024px)" className="h-full" />
+            <ResponsiveImage name="washing-machine-repair-feltham" alt="Front-loading washing machine" sizes="(min-width: 1024px) 40vw, 100vw" priority priorityMedia="(min-width: 1024px)" className="h-full" />
           </div>
         }
       >

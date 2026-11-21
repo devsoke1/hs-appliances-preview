@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS posts (
   image_alt         VARCHAR(255) NULL,
   category          VARCHAR(80)  NOT NULL DEFAULT '',
   tags              VARCHAR(300) NOT NULL DEFAULT '',   -- normalised "tag one, tag two"
-  author            VARCHAR(100) NOT NULL DEFAULT 'House & Shop Appliances',
+  author            VARCHAR(100) NOT NULL DEFAULT 'HS Appliances',
   meta_title        VARCHAR(70)  NULL,
   meta_description  VARCHAR(170) NULL,
   status            ENUM('draft','published') NOT NULL DEFAULT 'draft',

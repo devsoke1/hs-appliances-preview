@@ -35,15 +35,16 @@ function admin_header(string $title, string $active = '', array $opts = []): voi
   <meta name="theme-color" content="#0b1d3a">
   <title><?= e($title) ?> · HS Admin</title>
   <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
-  <link rel="stylesheet" href="<?= e(admin_url('assets/admin.css')) ?>?v=2">
+  <link rel="stylesheet" href="<?= e(admin_url('assets/admin.css')) ?>?v=3">
   <?= $extraHead ?>
 </head>
 <body class="<?= $user ? 'has-nav' : '' ?>">
 <?php if ($user): ?>
   <header class="topbar">
-    <a class="brand" href="<?= e(admin_url('')) ?>"><img class="brand-logo" src="/images/logo-on-dark.png" alt="HS Appliances" width="2411" height="395"><span>Admin</span></a>
+    <a class="brand brand-mobile" href="<?= e(admin_url('')) ?>"><img class="brand-logo" src="/images/logo-on-dark.png" alt="HS Appliances" width="2411" height="395"></a>
+    <p class="topbar-title"><?= e($title) ?></p>
     <div class="topbar-actions">
-      <a class="btn btn-ghost btn-sm hide-sm" href="/" target="_blank" rel="noopener">View site ↗</a>
+      <a class="btn btn-ghost btn-sm hide-sm" href="/" target="_blank" rel="noopener">View site</a>
       <form method="post" action="<?= e(admin_url('logout.php')) ?>">
         <?= csrf_field() ?>
         <button class="btn btn-ghost btn-sm" type="submit">Log out</button>
@@ -51,6 +52,7 @@ function admin_header(string $title, string $active = '', array $opts = []): voi
     </div>
   </header>
   <nav class="sidenav" aria-label="Admin">
+    <a class="side-brand" href="<?= e(admin_url('')) ?>"><img class="brand-logo" src="/images/logo-on-dark.png" alt="HS Appliances" width="2411" height="395"></a>
     <?php foreach (ADMIN_NAV as $key => [$label, $href, $path]): ?>
       <a href="<?= e(admin_url($href)) ?>" class="<?= $active === $key ? 'active' : '' ?>" <?= $active === $key ? 'aria-current="page"' : '' ?>>
         <?= icon_svg($path) ?><span><?= e($label) ?></span>

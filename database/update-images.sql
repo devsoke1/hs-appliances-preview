@@ -1,13 +1,13 @@
 -- Adds demo images to existing rows that have none (safe to run more than once).
 SET NAMES utf8mb4;
 UPDATE services SET image = '/images/washing-machine-repair-feltham-800.webp', image_alt = 'Front-loading washing machine in a bright laundry room' WHERE slug = 'washing-machine-repair' AND (image IS NULL OR image = '');
+UPDATE services SET image = '/images/washing-machine-drum-close-up-800.webp', image_alt = 'Inside view of an empty laundry drum' WHERE slug = 'tumble-dryer-repair' AND (image IS NULL OR image = '');
 UPDATE services SET image = '/images/fridge-freezer-repair-feltham-800.webp', image_alt = 'Fridge freezer with the door open showing empty shelves' WHERE slug = 'fridge-freezer-repair' AND (image IS NULL OR image = '');
 UPDATE services SET image = '/images/american-fridge-freezer-repair-800.webp', image_alt = 'Stainless steel American-style fridge freezer in a white fitted kitchen' WHERE slug = 'american-fridge-repair' AND (image IS NULL OR image = '');
-UPDATE services SET image = '/images/dishwasher-repair-west-london-800.webp', image_alt = 'Glasses being loaded into the top rack of a dishwasher' WHERE slug = 'dishwasher-repair' AND (image IS NULL OR image = '');
+UPDATE services SET image = '/images/dishwasher-repair-west-london-800.webp', image_alt = 'Empty stainless steel dishwasher with the door open' WHERE slug = 'dishwasher-repair' AND (image IS NULL OR image = '');
+UPDATE services SET image = '/images/electric-oven-repair-800.webp', image_alt = 'Electric fan oven lit up with food cooking inside' WHERE slug = 'oven-repair' AND (image IS NULL OR image = '');
 UPDATE services SET image = '/images/electric-oven-repair-800.webp', image_alt = 'Electric fan oven lit up with food cooking inside' WHERE slug = 'electric-cooker-repair' AND (image IS NULL OR image = '');
 UPDATE services SET image = '/images/induction-hob-repair-800.webp', image_alt = 'Black induction hob set into a white kitchen worktop' WHERE slug = 'electric-hob-repair' AND (image IS NULL OR image = '');
-UPDATE services SET image = '/images/gas-cooker-repair-800.webp', image_alt = 'Freestanding gas cooker with oven in a home kitchen' WHERE slug = 'gas-cooker-repair' AND (image IS NULL OR image = '');
-UPDATE services SET image = '/images/gas-hob-repair-800.webp', image_alt = 'Close-up of a gas hob burner with an even blue flame' WHERE slug = 'gas-hob-repair' AND (image IS NULL OR image = '');
 UPDATE services SET image = '/images/microwave-repair-800.webp', image_alt = 'Built-in microwave above an oven in a modern kitchen' WHERE slug = 'microwave-repair' AND (image IS NULL OR image = '');
 UPDATE services SET image = '/images/air-conditioning-repair-800.webp', image_alt = 'Outdoor air conditioning condenser unit beside a building' WHERE slug = 'air-conditioning-repair' AND (image IS NULL OR image = '');
 UPDATE services SET image = '/images/cold-room-repair-800.webp', image_alt = 'Frozen stock stored in metal cages inside a commercial cold store' WHERE slug = 'cold-room-repair' AND (image IS NULL OR image = '');

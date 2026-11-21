@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { Plus_Jakarta_Sans, Source_Sans_3 } from "next/font/google";
 import "./globals.css";
 import { business } from "@/data/business";
@@ -49,8 +50,11 @@ export const viewport: Viewport = {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const services = await buildServices();
   return (
-    <html lang="en-GB" className={`${jakarta.variable} ${source.variable}`}>
-      <body className="pb-mobile-bar">
+    <html lang="en-GB" className={`${jakarta.variable} ${source.variable}`} suppressHydrationWarning>
+      <body className="pb-mobile-bar" suppressHydrationWarning>
+        <Script id="strip-extension-attrs" strategy="beforeInteractive">
+          {`(function(){var n=["bis_skin_checked","bis_register","cz-shortcut-listen","fdprocessedid"];var bad={};for(var i=0;i<n.length;i++)bad[n[i]]=1;var set=Element.prototype.setAttribute;Element.prototype.setAttribute=function(k,v){if(bad[k])return;return set.call(this,k,v)};function s(e){if(!e||e.nodeType!==1)return;for(var i=0;i<n.length;i++)e.hasAttribute(n[i])&&e.removeAttribute(n[i])}function w(e){s(e);var c=e.children;if(!c)return;for(var i=0;i<c.length;i++)w(c[i])}w(document.documentElement);new MutationObserver(function(l){for(var i=0;i<l.length;i++){var m=l[i];if(m.type==="attributes")s(m.target);else if(m.addedNodes)for(var j=0;j<m.addedNodes.length;j++)w(m.addedNodes[j])}}).observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:n})})();`}
+        </Script>
         {process.env.NEXT_PUBLIC_BASE_PATH ? (
           <p className="bg-navy-950 px-4 py-2 text-center text-sm text-white/80">
             Client preview. Design and page copy can be checked here. Booking, service pages, insights, and the admin panel run on the real server.

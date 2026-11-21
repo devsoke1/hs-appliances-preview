@@ -69,8 +69,7 @@ function breadcrumb(array $items): string
 
 function page_hero(array $crumbs, string $eyebrowText, string $title, string $intro = '', string $childrenHtml = '', string $asideHtml = ''): string
 {
-    return '<section class="relative overflow-hidden bg-navy-900 bg-blueprint text-white">'
-        . '<div aria-hidden="true" class="pointer-events-none absolute -top-48 -right-32 size-[30rem] rounded-full bg-brand-600/20 blur-3xl"></div>'
+    return '<section class="hero-wash relative overflow-hidden text-white">'
         . '<div class="' . CONTAINER . ' relative py-8 sm:py-14 lg:py-16">' . breadcrumb($crumbs)
         . '<div class="' . cn('mt-6 grid gap-8 sm:mt-8 lg:gap-10', $asideHtml !== '' ? 'lg:grid-cols-12 lg:items-center' : '') . '">'
         . '<div class="' . ($asideHtml !== '' ? 'lg:col-span-7' : 'max-w-3xl') . '">'
@@ -255,7 +254,7 @@ function reviews_section(array $reviews, string $title = 'What our customers say
 function brand_strip(array $brands): string
 {
     $item = static function (array $b): string {
-        return '<li class="grid h-16 shrink-0 place-items-center px-1 font-display text-[1.65rem] font-extrabold tracking-tight whitespace-nowrap text-navy-900 sm:text-3xl">' . e($b['name']) . '</li>';
+        return '<li class="grid h-20 shrink-0 place-items-center rounded-xl bg-white px-5 ring-1 ring-line"><img src="/brands/' . e($b['slug']) . '.svg" alt="' . e($b['name']) . '" class="h-9 w-auto"></li>';
     };
     $row = '';
     foreach ($brands as $b) {
@@ -264,8 +263,8 @@ function brand_strip(array $brands): string
     $seconds = max(18, count($brands) * 3);
     return '<div class="brand-marquee relative overflow-hidden" role="region" aria-label="Brands we repair">'
         . '<div class="brand-marquee-track flex w-max items-center" style="animation-duration:' . $seconds . 's">'
-        . '<ul class="flex items-center gap-14 pr-14">' . $row . '</ul>'
-        . '<ul class="flex items-center gap-14 pr-14" aria-hidden="true">' . $row . '</ul>'
+        . '<ul class="flex items-center gap-4 pr-4">' . $row . '</ul>'
+        . '<ul class="flex items-center gap-4 pr-4" aria-hidden="true">' . $row . '</ul>'
         . '</div></div>';
 }
 

@@ -2,6 +2,8 @@ import Link from "@/components/ui/SiteLink";
 import { ArrowRight, Building2, Check, ClipboardCheck, Clock, MapPin, ShieldCheck, Tag } from "lucide-react";
 import type { Brand } from "@/data/types";
 import { areas, areaHref } from "@/data/areas";
+import { business } from "@/data/business";
+import { publicPath } from "@/lib/public-path";
 import { processSteps, trustPoints, whyChooseUs } from "@/data/content";
 import { cn } from "@/lib/cn";
 import { Card } from "@/components/ui/Card";
@@ -87,10 +89,10 @@ export function WhyChooseUs({ columns = 3 }: { columns?: 2 | 3 }) {
 }
 
 /* ── Brand strip: continuous leftward scroll, paused on hover. Mirrored in brand_strip(). ── */
-function BrandName({ name }: { name: string }) {
+function BrandLogo({ brand }: { brand: Brand }) {
   return (
-    <li className="grid h-16 shrink-0 place-items-center px-1 font-display text-[1.65rem] font-extrabold tracking-tight whitespace-nowrap text-navy-900 sm:text-3xl">
-      {name}
+    <li className="grid h-20 shrink-0 place-items-center rounded-xl bg-white px-5 ring-1 ring-line">
+      <img src={publicPath(`/brands/${brand.slug}.svg`)} alt={brand.name} className="h-9 w-auto" />
     </li>
   );
 }
@@ -100,17 +102,47 @@ export function BrandStrip({ brands, className }: { brands: Brand[]; className?:
   return (
     <div className={cn("brand-marquee relative overflow-hidden", className)} role="region" aria-label="Brands we repair">
       <div className="brand-marquee-track flex w-max items-center" style={{ animationDuration: `${seconds}s` }}>
-        <ul className="flex items-center gap-14 pr-14">
+        <ul className="flex items-center gap-4 pr-4">
           {brands.map((b) => (
-            <BrandName key={b.slug} name={b.name} />
+            <BrandLogo key={b.slug} brand={b} />
           ))}
         </ul>
-        <ul className="flex items-center gap-14 pr-14" aria-hidden="true">
+        <ul className="flex items-center gap-4 pr-4" aria-hidden="true">
           {brands.map((b) => (
-            <BrandName key={b.slug} name={b.name} />
+            <BrandLogo key={b.slug} brand={b} />
           ))}
         </ul>
       </div>
+    </div>
+  );
+}
+
+/** Every area on one list, with the call-out fee when a figure has been set for that town. */
+export function AreaList() {
+  return (
+    <div>
+      <ul className="divide-y divide-line overflow-hidden rounded-[var(--radius-card)] border border-line bg-white">
+        {areas.map((area) => {
+          const fee = business.callOutFees[area.slug] ?? "";
+          return (
+            <li key={area.slug}>
+              <Link
+                href={areaHref(area.slug)}
+                className="flex flex-col gap-1 px-5 py-4 transition-colors hover:bg-mist sm:flex-row sm:items-center sm:justify-between sm:gap-6"
+              >
+                <span className="font-display text-lg font-bold text-ink">{area.name}</span>
+                <span className="text-sm text-muted sm:ml-auto sm:text-right">
+                  {area.postcodes.join(" · ")}
+                  <span className="text-line"> · </span>
+                  {area.travel.minutes} min
+                </span>
+                {fee ? <span className="shrink-0 text-sm font-bold text-brand-600">Call-out {fee}</span> : null}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+      <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted">{business.callOutNote}</p>
     </div>
   );
 }

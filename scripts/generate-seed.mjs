@@ -162,7 +162,7 @@ const settings = {
   email: business.email,
   address,
   // Online booking (editable in /hs-admin/ → Settings)
-  booking_days: "1,2,3,4,5,6",   // ISO weekdays that take bookings: 1 = Monday … 7 = Sunday
+  booking_days: "1,2,3,4,5,6,7",   // ISO weekdays that take bookings: 1 = Monday … 7 = Sunday
   booking_days_ahead: "30",      // how far ahead customers can book
   booking_lead_minutes: "120",   // minimum notice before a slot starts
 };

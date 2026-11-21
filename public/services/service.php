@@ -97,11 +97,9 @@ echo page_hero(
     <section class="mt-14">
       <h2 class="text-h2 mb-5">Prices and call-out</h2>
       <?php if (!empty($b['callOutPrice'])): ?>
-        <p class="text-lead text-ink">Our call-out charge is <strong><?= e($b['callOutPrice']) ?></strong>.</p>
-      <?php else: ?>
-        <div class="grid min-h-24 place-items-center rounded-[var(--radius-card)] border-2 border-dashed border-accent-400/60 bg-accent-50/50 p-4 text-center font-mono text-xs font-semibold tracking-wide text-accent-700 uppercase">[ADD: call-out price, what it includes (e.g. diagnosis), and typical labour/parts pricing for this appliance]</div>
+        <p class="text-lead text-ink">Our call-out charge is <strong><?= e($b['callOutPrice']) ?></strong>. It can differ by area.</p>
       <?php endif; ?>
-      <p class="mt-4">Once we&rsquo;ve diagnosed the fault, you&rsquo;ll get a quote for the repair, including parts, before any work goes ahead.</p>
+      <p class="text-sm leading-relaxed text-muted"><?= e($b['callOutNote'] ?? 'The call-out fee depends on your area. You pay it only if you decide not to go ahead with the repair. If you go ahead, you pay for the parts and the labour only.') ?></p>
     </section>
 
     <?php if ($faqs): ?>

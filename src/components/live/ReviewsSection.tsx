@@ -37,14 +37,14 @@ export function ReviewsSection({
     setOrder(idx);
   }, [shuffle, loaded, filtered]);
   const reviews = order && order.length === filtered.length ? order.map((i) => filtered[i]) : filtered;
-  if (loaded && !reviews.length && !summary.google_reviews_url) return null;
 
   return (
     <Section>
       <div className="mb-8 flex flex-col gap-5 lg:mb-12 lg:flex-row lg:items-end lg:justify-between">
         <div>
-          <Eyebrow>Reviews</Eyebrow>
-          <h2 className="text-h2">What our customers say</h2>
+          <Eyebrow>Google</Eyebrow>
+          <h2 className="text-h2">Google reviews</h2>
+          <p className="mt-2 max-w-xl text-muted">Reviews from our customers, shown in rotation.</p>
         </div>
         <RatingBadge summary={summary} />
       </div>
@@ -53,7 +53,7 @@ export function ReviewsSection({
       ) : !loaded ? (
         <ReviewSkeleton />
       ) : (
-        <p className="text-lead text-muted">Read what our customers say on Google.</p>
+        <p className="text-lead text-muted">Google reviews will appear here in rotation once they are added.</p>
       )}
     </Section>
   );

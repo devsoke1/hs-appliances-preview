@@ -142,14 +142,10 @@ export default async function ServicePage({ params }: Props) {
             <h2 className="text-h2 mb-5">Prices and call-out</h2>
             {business.callOutPrice ? (
               <p className="text-lead text-ink">
-                Our call-out charge is <strong>{business.callOutPrice}</strong>.
+                Our call-out charge is <strong>{business.callOutPrice}</strong>. It can differ by area.
               </p>
-            ) : (
-              <div className="grid min-h-24 place-items-center rounded-[var(--radius-card)] border-2 border-dashed border-accent-400/60 bg-accent-50/50 p-4 text-center font-mono text-xs font-semibold tracking-wide text-accent-700 uppercase">
-                [ADD: call-out price, what it includes (e.g. diagnosis), and typical labour/parts pricing for this appliance]
-              </div>
-            )}
-            <p className="mt-4 text-body">Once we’ve diagnosed the fault, you’ll get a quote for the repair, including parts, before any work goes ahead.</p>
+            ) : null}
+            <p className="text-sm leading-relaxed text-muted">{business.callOutNote}</p>
           </section>
 
           {s.faqs.length > 0 && (

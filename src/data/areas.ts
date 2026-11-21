@@ -211,7 +211,7 @@ export const areas: Area[] = [
       ],
     },
     keyServices: [
-      { slug: "gas-cooker-repair", reason: "Gas cookers and hobs get daily heavy use in Southall's family kitchens." },
+      { slug: "oven-repair", reason: "Ovens and electric cookers get daily use in Southall's family kitchens." },
       { slug: "display-fridge-repair", reason: "For the restaurants, sweet centres and grocers on the Broadway." },
       { slug: "cold-room-repair", reason: "For food wholesalers and restaurants needing walk-in storage." },
     ],

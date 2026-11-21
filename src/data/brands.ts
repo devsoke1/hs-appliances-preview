@@ -1,7 +1,7 @@
 import type { Brand } from "./types";
 
-const laundryCold = ["washing-machine-repair", "fridge-freezer-repair", "dishwasher-repair"];
-const cooking = ["electric-cooker-repair", "electric-hob-repair", "microwave-repair"];
+const laundryCold = ["washing-machine-repair", "tumble-dryer-repair", "fridge-freezer-repair", "dishwasher-repair"];
+const cooking = ["oven-repair", "electric-cooker-repair", "electric-hob-repair", "microwave-repair"];
 const commercialCold = ["cold-room-repair", "display-fridge-repair", "dairy-cabinet-repair", "bar-cooler-repair"];
 
 /**
@@ -11,18 +11,18 @@ const commercialCold = ["cold-room-repair", "display-fridge-repair", "dairy-cabi
  */
 export const brands: Brand[] = [
   // Named in the brief
-  { slug: "beko", name: "Beko", category: "domestic", services: [...laundryCold, "electric-cooker-repair", "gas-cooker-repair"] },
+  { slug: "beko", name: "Beko", category: "domestic", services: [...laundryCold, "oven-repair", "electric-cooker-repair"] },
   { slug: "lg", name: "LG", category: "both", services: [...laundryCold, "american-fridge-repair", "microwave-repair", "air-conditioning-repair"] },
   { slug: "samsung", name: "Samsung", category: "both", services: [...laundryCold, "american-fridge-repair", "microwave-repair", "air-conditioning-repair"] },
-  { slug: "bosch", name: "Bosch", category: "domestic", services: [...laundryCold, ...cooking, "gas-hob-repair"] },
-  { slug: "aeg", name: "AEG", category: "domestic", services: [...laundryCold, ...cooking, "gas-hob-repair"] },
+  { slug: "bosch", name: "Bosch", category: "domestic", services: [...laundryCold, ...cooking] },
+  { slug: "aeg", name: "AEG", category: "domestic", services: [...laundryCold, ...cooking] },
   { slug: "miele", name: "Miele", category: "domestic", services: [...laundryCold, ...cooking] },
   // [CONFIRM] Domestic brands — keep only those you actually repair
-  { slug: "hotpoint", name: "Hotpoint", category: "domestic", services: [...laundryCold, "electric-cooker-repair", "gas-cooker-repair"] },
+  { slug: "hotpoint", name: "Hotpoint", category: "domestic", services: [...laundryCold, "oven-repair", "electric-cooker-repair"] },
   { slug: "indesit", name: "Indesit", category: "domestic", services: [...laundryCold, "electric-cooker-repair"] },
   { slug: "whirlpool", name: "Whirlpool", category: "domestic", services: [...laundryCold, "american-fridge-repair", "microwave-repair"] },
   { slug: "siemens", name: "Siemens", category: "domestic", services: [...laundryCold, ...cooking] },
-  { slug: "neff", name: "Neff", category: "domestic", services: ["dishwasher-repair", ...cooking, "gas-hob-repair"] },
+  { slug: "neff", name: "Neff", category: "domestic", services: ["dishwasher-repair", ...cooking] },
   { slug: "zanussi", name: "Zanussi", category: "domestic", services: [...laundryCold, "electric-cooker-repair"] },
   // [CONFIRM] Commercial / air-con brands — placeholders, edit to what you service
   { slug: "foster", name: "Foster", category: "commercial", services: [...commercialCold, "ice-machine-repair"] },
@@ -40,4 +40,4 @@ export const featuredBrands = brands.filter((b) => featuredBrandSlugs.includes(b
 export const brandsForService = (slug: string) => brands.filter((b) => b.services.includes(slug));
 
 export const brandDisclaimer =
-  "Brand names are trademarks of their respective owners. House & Shop Appliances is an independent repair business and is not affiliated with or authorised by these manufacturers.";
+  "Brand names are trademarks of their respective owners. HS Appliances is an independent repair business and is not affiliated with or authorised by these manufacturers.";

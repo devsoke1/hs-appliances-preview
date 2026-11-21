@@ -29,12 +29,12 @@ export const staticPageSeo = {
   about: {
     title: `About Us – Appliance Repair in Feltham | ${BRAND}`,
     description:
-      "House & Shop Appliances repairs, installs and maintains domestic appliances and commercial refrigeration from 209 Hounslow Road, Feltham TW13 6AD.",
+      "HS Appliances repairs, installs and maintains domestic appliances, commercial refrigeration and air conditioning from 209 Hounslow Road, Feltham TW13 6AD.",
   },
   contact: {
     title: `Contact Us – 209 Hounslow Rd, Feltham | ${BRAND}`,
     description:
-      "Call 07777 372586, email or message House & Shop Appliances, 209 Hounslow Road, Feltham TW13 6AD. Appliance repair across West London.",
+      "Call 07777 372586 or email booking@hsappliances.com. HS Appliances, 209 Hounslow Road, Feltham TW13 6AD. Open 7 days, 8am to 6pm.",
   },
   faq: {
     title: `Appliance Repair FAQs – Booking & Prices | ${BRAND}`,
@@ -69,11 +69,11 @@ export const staticPageSeo = {
   },
   privacy: {
     title: `Privacy Policy | ${BRAND}`,
-    description: "How House & Shop Appliances collects, uses and protects your personal information, and the cookies used on this website.",
+    description: "How HS Appliances collects, uses and protects your personal information, and the cookies used on this website.",
   },
   terms: {
     title: `Terms & Conditions | ${BRAND}`,
-    description: "Terms and conditions for appliance repair, installation and maintenance services from House & Shop Appliances in Feltham.",
+    description: "Terms and conditions for appliance repair, installation and maintenance services from HS Appliances in Feltham.",
   },
 } as const;
 
@@ -94,14 +94,14 @@ const serviceDescriptions: Record<string, string> = {
     "American fridge freezer repair in Feltham & West London — cooling faults, ice makers, water dispensers and leaks. Same/next-day visits. 07777 372586.",
   "dishwasher-repair":
     "Dishwasher repair in Feltham & West London: not draining, not cleaning, leaking or not drying. Integrated & freestanding. Call 07777 372586.",
+  "oven-repair":
+    "Oven repair in Feltham & West London — not heating, fan faults, tripping electrics, grills and door seals. Call 07777 372586.",
+  "tumble-dryer-repair":
+    "Tumble dryer repair in Feltham & West London: not heating, not tumbling, long cycles or noisy. Vented, condenser and heat pump. Call 07777 372586.",
   "electric-cooker-repair":
     "Electric oven & cooker repair in Feltham & West London — not heating, fan faults, tripping electrics, grills and timers. Call 07777 372586.",
   "electric-hob-repair":
     "Induction, ceramic & electric hob repair in Feltham & West London: zones not heating, touch controls, error codes. Call 07777 372586.",
-  "gas-cooker-repair":
-    "Gas cooker & oven repair in Feltham & West London — burners not lighting, flames going out, ovens not heating. Call 07777 372586.",
-  "gas-hob-repair":
-    "Gas hob repair in Feltham & West London: burners won't light, constant clicking, weak or yellow flames, stiff knobs. Call 07777 372586.",
   "microwave-repair":
     "Built-in & combination microwave repair in Feltham & West London — not heating, sparking, turntable or door faults. Call 07777 372586.",
   "air-conditioning-repair":

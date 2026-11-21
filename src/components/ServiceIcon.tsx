@@ -1,25 +1,25 @@
 import {
-  AirVent, Beer, Container, CookingPot, Flame, Microwave, Milk, Refrigerator, Snowflake,
-  Store, Thermometer, UtensilsCrossed, WashingMachine, Warehouse, Wrench, Zap,
+  AirVent, Beer, Container, CookingPot, Microwave, Milk, Refrigerator, Snowflake,
+  Store, Thermometer, UtensilsCrossed, WashingMachine, Warehouse, Wind, Wrench, Zap,
   type LucideProps,
 } from "lucide-react";
 
 /** Icon by lucide name (as stored in the database `services.icon`). */
 const byName: Record<string, React.ComponentType<LucideProps>> = {
-  WashingMachine, Refrigerator, Container, UtensilsCrossed, CookingPot, Zap, Flame, Microwave, AirVent,
-  Warehouse, Milk, Store, Beer, Thermometer, Snowflake, Wrench,
+  WashingMachine, Refrigerator, Container, UtensilsCrossed, CookingPot, Zap, Microwave, AirVent,
+  Warehouse, Milk, Store, Beer, Thermometer, Snowflake, Wrench, Wind,
 };
 
 /** Default icon per service slug (used when no icon name is given). */
 const bySlug: Record<string, string> = {
   "washing-machine-repair": "WashingMachine",
+  "tumble-dryer-repair": "Wind",
   "fridge-freezer-repair": "Refrigerator",
   "american-fridge-repair": "Container",
   "dishwasher-repair": "UtensilsCrossed",
+  "oven-repair": "CookingPot",
   "electric-cooker-repair": "CookingPot",
   "electric-hob-repair": "Zap",
-  "gas-cooker-repair": "Flame",
-  "gas-hob-repair": "Flame",
   "microwave-repair": "Microwave",
   "air-conditioning-repair": "AirVent",
   "cold-room-repair": "Warehouse",

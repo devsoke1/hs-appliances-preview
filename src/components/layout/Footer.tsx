@@ -2,7 +2,6 @@ import Link from "@/components/ui/SiteLink";
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import { business, fullAddress, groupedHours, mailHref, telHref } from "@/data/business";
 import { featuredAreas } from "@/data/areas";
-import { brandDisclaimer } from "@/data/brands";
 import { companyLinks, legalLinks } from "@/lib/nav";
 import type { ServicesPayload } from "@/lib/live-types";
 import { Container } from "@/components/ui/Container";
@@ -82,9 +81,9 @@ export function Footer({ services }: { services: ServicesPayload }) {
         <Container className="flex flex-col gap-4 py-6 text-[0.8125rem] lg:flex-row lg:items-start lg:justify-between">
           <div className="space-y-1.5">
             <p>
-              © {year} {business.name}. {business.legalName} · {business.companyNumber}
+              © {year} {business.name}
+              {business.companyNumber.startsWith("[") ? "" : ` · ${business.companyNumber}`}
             </p>
-            <p className="max-w-3xl text-white/60">{brandDisclaimer}</p>
           </div>
           <ul className="flex flex-wrap gap-x-5">
             {legalLinks.map((l) => (

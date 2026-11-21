@@ -47,6 +47,6 @@ CREATE TABLE IF NOT EXISTS blocked_slots (
   UNIQUE KEY uq_blocked_slot (slot_date, slot_start)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT IGNORE INTO settings (setting_key, setting_value) VALUES ('booking_days', '1,2,3,4,5,6');
+INSERT IGNORE INTO settings (setting_key, setting_value) VALUES ('booking_days', '1,2,3,4,5,6,7');
 INSERT IGNORE INTO settings (setting_key, setting_value) VALUES ('booking_days_ahead', '30');
 INSERT IGNORE INTO settings (setting_key, setting_value) VALUES ('booking_lead_minutes', '120');

@@ -65,8 +65,7 @@ $fl = 'inline-flex min-h-11 min-w-11 items-center transition-colors hover:text-w
   <div class="border-t border-white/10">
     <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col gap-4 py-6 text-[0.8125rem] lg:flex-row lg:items-start lg:justify-between">
       <div class="space-y-1.5">
-        <p>© <?= date('Y') ?> <?= e($b['name']) ?>. <?= e($b['legalName']) ?> · <?= e($b['companyNumber']) ?></p>
-        <p class="max-w-3xl text-white/60"><?= e(site()['brandDisclaimer']) ?></p>
+        <p>© <?= date('Y') ?> <?= e($b['name']) ?><?php if (!empty($b['companyNumber']) && !str_starts_with((string) $b['companyNumber'], '[')): ?> · <?= e($b['companyNumber']) ?><?php endif; ?></p>
       </div>
       <ul class="flex flex-wrap gap-x-5">
         <?php foreach (site()['nav']['legal'] as $l): ?>

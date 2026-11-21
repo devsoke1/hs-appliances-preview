@@ -1,12 +1,12 @@
 import type { Service, ServiceCategory } from "../types";
 import { washingMachine } from "./washing-machine";
+import { tumbleDryer } from "./tumble-dryer";
 import { fridgeFreezer } from "./fridge-freezer";
 import { americanFridge } from "./american-fridge";
 import { dishwasher } from "./dishwasher";
+import { oven } from "./oven";
 import { electricCooker } from "./electric-cooker";
 import { electricHob } from "./electric-hob";
-import { gasCooker } from "./gas-cooker";
-import { gasHob } from "./gas-hob";
 import { microwave } from "./microwave";
 import { airConditioning } from "./air-conditioning";
 import { coldRoom } from "./cold-room";
@@ -23,13 +23,13 @@ import { iceMachine } from "./ice-machine";
  */
 export const services: Service[] = [
   washingMachine,
+  tumbleDryer,
   fridgeFreezer,
   americanFridge,
   dishwasher,
+  oven,
   electricCooker,
   electricHob,
-  gasCooker,
-  gasHob,
   microwave,
   airConditioning,
   coldRoom,

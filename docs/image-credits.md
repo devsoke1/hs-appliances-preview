@@ -1,6 +1,6 @@
 # Image credits
 
-All demo photos are from **[Unsplash](https://unsplash.com)** under the [Unsplash License](https://unsplash.com/license): free for commercial use, no permission or attribution required. They're credited here anyway, and so you can swap them out.
+All demo photos are from **[Unsplash](https://unsplash.com)** under the [Unsplash License](https://unsplash.com/license), except the dishwasher photo, which is from **[Pexels](https://www.pexels.com/license/)**. Both are free for commercial use. They're credited here so you can swap them out.
 
 Files: originals in `assets/images/*.jpg` → optimised WebP (480–2000px) in `public/images/` via `npm run images`.
 To replace a photo with your own, save your photo as `assets/images/<same name>.jpg` (landscape, at least 1600px wide), run `npm run images`, rebuild and redeploy. For services, you can also upload a new image in the admin panel.
@@ -30,6 +30,7 @@ Real photos of your van, your engineers at work and your workshop build far more
 | `appliance-fault-diagnosis-multimeter` | Homepage – How it works | [Toolmash Expo](https://unsplash.com/photos/electrician-testing-electrical-panel-with-multimeter-PkHf7BUWbtk) | Engineer in gloves testing electrical components with a multimeter probe | Replace when you can |
 | `red-brick-residential-street` | Hounslow area page | [Loris Boulinguez](https://unsplash.com/photos/a-street-lined-with-tall-red-brick-buildings-YjmnoFxpgIU) | Residential street lined with red brick buildings | Replace when you can |
 | `riverside-buildings-sunset` | Isleworth area page | [Ruth Gledhill](https://unsplash.com/photos/a-river-that-has-a-bunch-of-buildings-on-it-qUVqbELVWcc) | Riverside buildings and a church tower reflected in the Thames at sunset | Replace when you can |
+| `electric-oven-repair` | Oven Repair | [undefined](https://unsplash.com/photos/undefined) | Electric fan oven lit up with food cooking inside | Optional |
 | `brick-chimney-rooftop` | Southall area page | [Kai Butcher](https://unsplash.com/photos/a-brick-chimney-on-a-building-KuB1m5qmDeU) | Brick chimney stack among trees against a blue sky | Replace when you can |
 | `washing-machine-repair-feltham` | Washing Machine Repair | [PlanetCare](https://unsplash.com/photos/white-front-load-washing-machine-5cpBWEl6y6c) | Front-loading washing machine in a bright laundry room | Replace when you can |
 | `air-conditioning-repair` | Air Conditioning Repair & Servicing | [Everett Pachmann](https://unsplash.com/photos/a-white-air-conditioner-sitting-on-top-of-a-brick-wall-JsPkVrHMQoo) | Outdoor air conditioning condenser unit beside a building | Optional |
@@ -38,7 +39,7 @@ Real photos of your van, your engineers at work and your workshop build far more
 | `engineer-tool-wall` | Call-to-action band background | [Barn Images](https://unsplash.com/photos/assorted-handheld-tools-in-tool-rack-t5YUoHW6zRo) | Wall of neatly organised hand tools in a workshop | Optional |
 | `cellar-cooler-repair` | Cellar Cooler Repair | [Brian Hurst](https://unsplash.com/photos/a-large-room-with-many-metal-pipes-LRtQMrOQHnU) | Pub beer cellar with kegs connected to beer lines | Optional |
 | `dairy-cabinet-repair` | Dairy Cabinet Repair | [Eduardo Soares](https://unsplash.com/photos/refrigerated-yogurt-display-in-grocery-store-NRP0iTFLzPk) | Rows of refrigerated dairy display cabinets in a grocery store | Optional |
-| `dishwasher-repair-west-london` | Dishwasher Repair | [Jutta Elisabeth](https://unsplash.com/photos/loading-dishes-into-the-dishwasher-IjfNz4CAtO8) | Glasses being loaded into the top rack of a dishwasher | Optional |
+| `dishwasher-repair-west-london` | Dishwasher Repair | [Castorly Stock](https://www.pexels.com/photo/empty-dishwasher-3829549/) | Empty stainless steel dishwasher with the door open | Optional |
 | `display-fridge-repair` | Display Fridge Repair | [Sebastian Frederik Jacobsen](https://unsplash.com/photos/a-refrigerated-display-case-filled-with-many-different-beverages-vIvFljpyVd4) | Glass-door display fridges stocked with chilled drinks | Optional |
 | `induction-hob-repair` | Electric & Induction Hob Repair | [Ceba Solutions](https://unsplash.com/photos/gold-pendant-lights-over-kitchen-cooktop-ppN6ukPnYsA) | Black induction hob set into a white kitchen worktop | Optional |
 | `electric-oven-repair` | Electric Cooker & Oven Repair | [Louis Hansel](https://unsplash.com/photos/stainless-steel-oven-with-foods-ktVKZRYUP4Y) | Electric fan oven lit up with food cooking inside | Optional |
@@ -53,6 +54,7 @@ Real photos of your van, your engineers at work and your workshop build far more
 | `microwave-repair` | Microwave Repair | [Caroline Badran](https://unsplash.com/photos/modern-kitchen-with-microwave-and-oven-QWz3RKq7pSw) | Built-in microwave above an oven in a modern kitchen | Optional |
 | `view-from-richmond-hill` | Richmond area page | [Spekboom](https://unsplash.com/photos/boat-on-river-near-green-trees-during-daytime-ZGz_HIl31fM) | Boat on the River Thames below green meadows and trees | Optional |
 | `riverside-houses-thames` | Staines area page | [Johen Redman](https://unsplash.com/photos/white-and-brown-concrete-building-near-body-of-water-under-blue-sky-during-daytime-d7_RdDMrNtk) | Riverside houses on the bank of the River Thames | Optional |
+| `washing-machine-drum-close-up` | Tumble Dryer Repair | [undefined](https://unsplash.com/photos/undefined) | Inside view of an empty laundry drum | Optional |
 | `twickenham-stadium` | Twickenham area page | [Billy Brodzinski](https://unsplash.com/photos/a-large-stadium-filled-with-lots-of-people-xYuWNp26AXc) | View across the pitch inside Twickenham Stadium on a match day | Optional |
 
 ## Notes

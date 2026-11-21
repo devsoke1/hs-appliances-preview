@@ -15,12 +15,12 @@ const images = manifest as Record<string, { width: number; height: number; width
 const ref = (s?: Source): ImageRef | null => (s && images[s.name] ? { name: s.name, alt: s.alt } : null);
 const byName = (name: string) => ref(list.find((i) => i.name === name));
 
-/** Fixed slots on the static pages. */
+/** Fixed slots on the static pages. Van photos wait for the business's own picture. */
 export const siteImages = {
-  hero: byName("appliance-repair-engineer-washing-machine-motor"),
-  howItWorks: byName("appliance-fault-diagnosis-multimeter"),
-  whyUs: byName("appliance-repair-van-west-london"),
-  about: byName("service-van-feltham"),
+  hero: byName("washing-machine-repair-feltham"),
+  howItWorks: byName("electric-oven-repair"),
+  whyUs: byName("display-fridge-repair"),
+  about: byName("cold-room-repair"),
   cta: byName("engineer-tool-wall"),
 } as const;
 

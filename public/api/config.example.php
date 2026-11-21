@@ -30,12 +30,12 @@ return [
     ],
 
     'business' => [
-        'name' => 'House & Shop Appliances',
+        'name' => 'HS Appliances',
         // Where enquiries and bookings are delivered
-        'to_email' => 'house.shopappliances@gmail.com',
-        'to_name' => 'House & Shop Appliances',
+        'to_email' => 'booking@hsappliances.com',
+        'to_name' => 'HS Appliances',
         'phone' => '07777 372586',
-        'website' => 'https://hsappliances.co.uk',
+        'website' => 'https://www.hsappliances.co.uk',
     ],
 
     // Send customers an automatic "we've received your request" email
@@ -51,6 +51,7 @@ return [
     // Only form posts from these origins are accepted.
     // Add 'http://localhost:8000' while testing locally with `php -S`.
     'allowed_origins' => [
+        'https://www.hsappliances.co.uk',
         'https://hsappliances.co.uk',
     ],
 

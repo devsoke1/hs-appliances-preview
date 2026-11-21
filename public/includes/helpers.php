@@ -46,7 +46,7 @@ function mail_href(): string
 
 function site_url(string $path = '/'): string
 {
-    return rtrim((string) (biz()['url'] ?? 'https://hsappliances.co.uk'), '/') . $path;
+    return rtrim((string) (biz()['url'] ?? 'https://www.hsappliances.co.uk'), '/') . $path;
 }
 
 /** Lucide icon (inner SVG exported from lucide-react at build time). */

@@ -7,7 +7,7 @@ import { Section, SectionHeader } from "@/components/ui/Section";
 import { PageHero } from "@/components/ui/PageHero";
 import { PostcodeChecker } from "@/components/postcode/PostcodeChecker";
 import { CtaBand } from "@/components/CtaBand";
-import { AreaLinks } from "@/components/sections";
+import { AreaList } from "@/components/sections";
 
 export const metadata = pageMeta({ ...staticPageSeo.areas, path: "/areas/" });
 
@@ -22,8 +22,8 @@ export default function AreasPage() {
         aside={<PostcodeChecker />}
       />
       <Section>
-        <SectionHeader eyebrow="Area pages" title="Choose your area" intro="Each page covers local neighbourhoods, postcodes, travel time from our base and the services we offer there." />
-        <AreaLinks />
+        <SectionHeader eyebrow="Area pages" title="Choose your area" intro="Every area we cover. Open one for neighbourhoods, postcodes, travel time and the work we do there." />
+        <AreaList />
       </Section>
       <Section tone="mist">
         <SectionHeader

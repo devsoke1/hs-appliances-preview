@@ -7,7 +7,7 @@ import type { FAQ } from "./types";
  */
 export const trustPoints = [
   "Same-day & next-day visits",
-  "Fixed call-out price",
+  "Call-out by area",
   "Domestic & commercial",
   "Insured engineers",
 ] as const;
@@ -36,8 +36,8 @@ export const whyChooseUs = [
   },
   {
     icon: "tag",
-    title: "Fixed call-out price",
-    body: "You know the call-out cost when you book — no surprises when the engineer arrives.",
+    title: "Call-out by area",
+    body: "The call-out fee depends on your area. You pay it only if you decide not to go ahead. If you go ahead, you pay for the parts and the labour only.",
   },
   {
     icon: "shield",
@@ -90,7 +90,7 @@ export const faqGroups: { title: string; faqs: FAQ[] }[] = [
   {
     title: "Prices & payment",
     faqs: [
-      { question: "How much is the call-out charge?", answer: "[ADD: call-out price and what it includes (e.g. diagnosis).]" },
+      { question: "How much is the call-out charge?", answer: "It depends on your area, and we confirm the fee when you book. You pay the call-out only if you decide not to go ahead with the repair. If you go ahead, you pay for the parts and the labour only." },
       {
         question: "Will I know the cost before the repair?",
         answer: "Yes. After diagnosing the fault we'll give you a quote for the repair, and no work goes ahead until you've agreed it.",

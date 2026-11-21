@@ -25,7 +25,7 @@ export default function PrivacyPolicyPage() {
 
           <h2>Who we are</h2>
           <p>
-            This website is operated by {business.name} (<Todo>{business.legalName}</Todo>), {fullAddress}. We are the data controller for
+            This website is operated by {business.name}, {fullAddress}. We are the data controller for
             personal information collected through this website. Contact us about privacy at <a href={mailHref}>{business.email}</a>.
           </p>
 

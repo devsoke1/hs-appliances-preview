@@ -29,7 +29,7 @@ set_exception_handler(static function (Throwable $e): void {
         header('Retry-After: 120');
     }
     // Keep it simple and dependency-free: the database may be the thing that's down.
-    $b = site()['business'] ?? ['name' => 'House & Shop Appliances', 'phone' => ['display' => '07777 372586', 'e164' => '+447777372586']];
+    $b = site()['business'] ?? ['name' => 'HS Appliances', 'phone' => ['display' => '07777 372586', 'e164' => '+447777372586']];
     echo '<!doctype html><html lang="en-GB"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">'
         . '<title>Temporarily unavailable</title><body style="font-family:system-ui,sans-serif;max-width:40rem;margin:4rem auto;padding:0 1rem;line-height:1.6;color:#0f1a2e">'
         . '<h1>Sorry — this page is temporarily unavailable</h1><p>Please try again in a few minutes, or call us on <a href="tel:' . e($b['phone']['e164']) . '">' . e($b['phone']['display']) . '</a>.</p>'

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { business } from "@/data/business";
 
-export const SITE_URL = business.url; // https://hsappliances.co.uk (no trailing slash)
+export const SITE_URL = business.url; // https://www.hsappliances.co.uk (no trailing slash)
 export const BRAND = business.shortName;
 export const OG_DEFAULT = "/og/default.png";
 export const TITLE_MAX = 60;

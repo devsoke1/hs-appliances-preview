@@ -3,9 +3,9 @@ import { AirVent, ArrowRight, Refrigerator, WashingMachine, type LucideIcon } fr
 import { categoryNav } from "@/lib/nav";
 
 const copy: Record<string, { Icon: LucideIcon; text: string }> = {
-  domestic: { Icon: WashingMachine, text: "Washing machines, fridge freezers, ovens, hobs, dishwashers and microwaves — repaired at home." },
+  domestic: { Icon: WashingMachine, text: "Washing machines, tumble dryers, fridge freezers, ovens, hobs, dishwashers and microwaves — repaired at home." },
   commercial: { Icon: Refrigerator, text: "Cold rooms, display fridges, dairy cabinets, bar and cellar coolers and ice machines." },
-  ac: { Icon: AirVent, text: "Cooling and heating in one: free quotations, installation, servicing and repair." },
+  ac: { Icon: AirVent, text: "Cooling and heating in one system. Free quotations, installation, servicing and repair for homes and businesses." },
 };
 
 /** Domestic / Commercial / Air Conditioning — the three ways into the site, each with its own booking form. */
@@ -15,7 +15,7 @@ export function CategoryCards() {
       {categoryNav.map((c) => {
         const { Icon, text } = copy[c.key];
         return (
-          <li key={c.key} className="flex flex-col rounded-[var(--radius-card)] border border-line bg-white p-5 shadow-[var(--shadow-card)] sm:p-6">
+          <li key={c.key} className={`flex flex-col rounded-[var(--radius-card)] border bg-white p-5 shadow-[var(--shadow-card)] sm:p-6 ${c.key === "ac" ? "border-accent-600 ring-2 ring-accent-600/30" : "border-line"}`}>
             <span className="grid size-12 place-items-center rounded-xl bg-brand-50 text-brand-600">
               <Icon className="size-6" aria-hidden />
             </span>

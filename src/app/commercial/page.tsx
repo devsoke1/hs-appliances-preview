@@ -28,7 +28,7 @@ export default async function CommercialPage() {
         intro="Cold rooms, display fridges, dairy cabinets, bar and cellar coolers and ice machines — repaired and maintained for shops, pubs, restaurants and food businesses. Choose your equipment and book online."
         aside={
           <div className="aspect-[16/10] overflow-hidden rounded-[var(--radius-card)] ring-1 ring-white/15 max-lg:hidden">
-            <ResponsiveImage name="commercial-display-freezer" alt="Commercial display freezer in a shop" sizes="(min-width: 1024px) 40vw, 100vw" priority priorityMedia="(min-width: 1024px)" className="h-full" />
+            <ResponsiveImage name="dairy-cabinet-repair" alt="Refrigerated dairy cabinets in a shop" sizes="(min-width: 1024px) 40vw, 100vw" priority priorityMedia="(min-width: 1024px)" className="h-full" />
           </div>
         }
       >

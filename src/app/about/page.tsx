@@ -19,7 +19,7 @@ const pillars = [
   {
     icon: Home,
     title: "Domestic repairs",
-    body: "Washing machines, fridge freezers, American fridges, dishwashers, electric and gas cookers and hobs, microwaves and air conditioning.",
+    body: "Washing machines, tumble dryers, fridge freezers, American fridges, dishwashers, ovens, electric cookers and hobs, microwaves and air conditioning.",
   },
   {
     icon: Building2,
@@ -48,8 +48,7 @@ export default function AboutPage() {
           <Eyebrow>Who we are</Eyebrow>
           <h2 className="text-h2">Local, practical and straight-talking</h2>
           <p className="text-lead text-ink">
-            {business.name} — {business.shortName} for short — repairs, installs and maintains domestic appliances and commercial
-            refrigeration from our base at {fullAddress}.
+            {business.name} repairs, installs and maintains domestic appliances, commercial refrigeration and air conditioning from our base at {fullAddress}.
           </p>
           <p>
             We work with households that need the washing machine, fridge or oven back up and running, and with businesses — shops,

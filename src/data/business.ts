@@ -1,17 +1,41 @@
 import type { OpeningHours } from "./types";
 
 export const business = {
-  name: "House & Shop Appliances",
+  name: "HS Appliances",
   shortName: "HS Appliances",
-  legalName: "[CONFIRM: registered business / company name]",
+  legalName: "HS Appliances",
   companyNumber: "[ADD: Companies House number, if limited company]",
-  url: "https://hsappliances.co.uk",
+  url: "https://www.hsappliances.co.uk",
   legacyUrl: "https://houseandshopappliances.co.uk",
   tagline: "Domestic & commercial appliance repair in West London",
   /** Used in service page H1s: "[Appliance] Repair in {mainArea}" */
   mainArea: "Feltham & West London",
-  /** [ADD] Call-out price, shown on service pages when filled in (e.g. "£65") */
+  /**
+   * Optional single figure, shown as well as the area fees below.
+   * Leave "" when the fee is set per area instead.
+   */
   callOutPrice: "" as string,
+  /**
+   * Call-out fee for each area slug. Fill the amount you charge, e.g. feltham: "£45".
+   * Leave "" and the site will not show a figure for that area.
+   * The fee is paid only if the customer does not go ahead. If they do, they pay parts and labour only.
+   */
+  callOutFees: {
+    feltham: "",
+    hounslow: "",
+    twickenham: "",
+    ashford: "",
+    staines: "",
+    isleworth: "",
+    hayes: "",
+    southall: "",
+    richmond: "",
+    kingston: "",
+    ealing: "",
+    heathrow: "",
+  } as Record<string, string>,
+  callOutNote:
+    "The call-out fee depends on your area. You pay it only if you decide not to go ahead with the repair. If you go ahead, you pay for the parts and the labour only.",
   /** Google Maps embed (no API key needed) */
   mapEmbedUrl: "https://www.google.com/maps?q=209+Hounslow+Road,+Feltham+TW13+6AD&output=embed",
   mapLinkUrl: "https://www.google.com/maps/search/?api=1&query=209+Hounslow+Road%2C+Feltham+TW13+6AD",
@@ -21,7 +45,7 @@ export const business = {
     /** E.164 for tel: links and schema */
     e164: "+447777372586",
   },
-  email: "house.shopappliances@gmail.com",
+  email: "booking@hsappliances.com",
 
   address: {
     street: "209 Hounslow Road",
@@ -37,19 +61,16 @@ export const business = {
    */
   geo: { lat: 51.440108 as number | null, lng: -0.389958 as number | null },
 
-  /**
-   * [CONFIRM HOURS] Placeholder hours — replace with the hours on your Google Business Profile.
-   * They must match GBP exactly (NAP + hours consistency matters for local SEO).
-   */
-  hoursConfirmed: false,
+  /** Confirmed by the business: 7 days, 8am–6pm. */
+  hoursConfirmed: true,
   hours: [
     { day: "Monday", opens: "08:00", closes: "18:00" },
     { day: "Tuesday", opens: "08:00", closes: "18:00" },
     { day: "Wednesday", opens: "08:00", closes: "18:00" },
     { day: "Thursday", opens: "08:00", closes: "18:00" },
     { day: "Friday", opens: "08:00", closes: "18:00" },
-    { day: "Saturday", opens: "09:00", closes: "16:00" },
-    { day: "Sunday", opens: null, closes: null },
+    { day: "Saturday", opens: "08:00", closes: "18:00" },
+    { day: "Sunday", opens: "08:00", closes: "18:00" },
   ] satisfies OpeningHours[],
 
   /** Short summary used in copy until areas.ts is populated */

@@ -61,8 +61,7 @@ export default async function AirConditioningPage() {
   return (
     <>
       {/* ── Top of page: visual + short description (cooling AND heating, more efficient than central heating) ── */}
-      <section className="relative overflow-hidden bg-navy-900 bg-blueprint text-white">
-        <div aria-hidden className="pointer-events-none absolute -top-48 -right-32 size-[30rem] rounded-full bg-brand-600/20 blur-3xl" />
+      <section className="hero-wash relative overflow-hidden text-white">
         <Container className="relative py-8 sm:py-14 lg:py-16">
           <Breadcrumb items={[{ label: "Air Conditioning" }]} />
           <div className="mt-6 grid gap-8 sm:mt-8 lg:grid-cols-12 lg:items-center lg:gap-12">

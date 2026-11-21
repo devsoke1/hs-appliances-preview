@@ -259,6 +259,7 @@ export function BookingForm({
 
   return (
     <div ref={rootRef}>
+      <p className="mb-6 text-sm leading-relaxed text-muted">{business.callOutNote}</p>
       <form action={ENDPOINT} method="post" className="relative space-y-8" {...formProps}>
         <Honeypot />
 

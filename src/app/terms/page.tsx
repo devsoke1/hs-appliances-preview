@@ -20,7 +20,7 @@ export default function TermsPage() {
 
           <h2>1. About us</h2>
           <p>
-            These terms apply to services provided by {business.name} (<Todo>{business.legalName}</Todo>), {fullAddress}. Contact:{" "}
+            These terms apply to services provided by {business.name}, {fullAddress}. Contact:{" "}
             {business.phone.display}, <a href={mailHref}>{business.email}</a>.
           </p>
 
@@ -33,9 +33,8 @@ export default function TermsPage() {
 
           <h2>3. Call-out charge and quotes</h2>
           <p>
-            A call-out charge of <Todo>[ADD AMOUNT]</Todo> applies to each visit and covers <Todo>[CONFIRM: e.g. travel and diagnosis]</Todo>.
-            After diagnosing the fault, we&rsquo;ll give you a quote for the repair. No repair work goes ahead without your agreement. If you
-            decide not to proceed, only the call-out charge is payable.
+            {business.callOutNote} The fee for your area is confirmed when you book. After diagnosing the fault, we give you a quote
+            for the parts and the labour. No repair work goes ahead without your agreement.
           </p>
 
           <h2>4. Parts</h2>

@@ -10,16 +10,16 @@ import { imagePath, postImage, serviceImage } from "@/data/media";
 import { getAllPosts, postHref } from "@/lib/blog";
 import type { PostSummary, ReviewsPayload, ServicesPayload, ServiceSummary } from "./live-types";
 
-const API_BASE = process.env.HS_BUILD_API_BASE ?? "https://hsappliances.co.uk";
+const API_BASE = process.env.HS_BUILD_API_BASE ?? "https://www.hsappliances.co.uk";
 
 const ICONS: Record<string, string> = {
-  "washing-machine-repair": "WashingMachine", "fridge-freezer-repair": "Refrigerator", "american-fridge-repair": "Container",
-  "dishwasher-repair": "UtensilsCrossed", "electric-cooker-repair": "CookingPot", "electric-hob-repair": "Zap",
-  "gas-cooker-repair": "Flame", "gas-hob-repair": "Flame", "microwave-repair": "Microwave", "air-conditioning-repair": "AirVent",
+  "washing-machine-repair": "WashingMachine", "tumble-dryer-repair": "Wind", "fridge-freezer-repair": "Refrigerator", "american-fridge-repair": "Container",
+  "dishwasher-repair": "UtensilsCrossed", "oven-repair": "CookingPot", "electric-cooker-repair": "CookingPot", "electric-hob-repair": "Zap",
+  "microwave-repair": "Microwave", "air-conditioning-repair": "AirVent",
   "cold-room-repair": "Warehouse", "dairy-cabinet-repair": "Milk", "display-fridge-repair": "Store", "bar-cooler-repair": "Beer",
   "cellar-cooler-repair": "Thermometer", "ice-machine-repair": "Snowflake",
 };
-const FEATURED = new Set(["washing-machine-repair", "fridge-freezer-repair", "american-fridge-repair", "dishwasher-repair", "electric-cooker-repair", "cold-room-repair", "display-fridge-repair", "ice-machine-repair"]);
+const FEATURED = new Set(["washing-machine-repair", "tumble-dryer-repair", "fridge-freezer-repair", "oven-repair", "dishwasher-repair", "electric-cooker-repair", "air-conditioning-repair", "cold-room-repair", "display-fridge-repair"]);
 
 async function api<T>(path: string): Promise<T | null> {
   if (!API_BASE) return null;

@@ -54,7 +54,7 @@ function booking_slot_label(string $start): string
 function booking_settings(): array
 {
     $days = array_values(array_unique(array_filter(
-        array_map('intval', explode(',', setting('booking_days', '1,2,3,4,5,6'))),
+        array_map('intval', explode(',', setting('booking_days', '1,2,3,4,5,6,7'))),
         static fn (int $d): bool => $d >= 1 && $d <= 7
     )));
     return [

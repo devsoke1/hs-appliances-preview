@@ -116,6 +116,52 @@
   background-size: 32px 32px;
 }
 
+/* Homepage hero: a real photograph, with the navy held over the words. */
+.hero-photo {
+  background: #001a2b;
+}
+.hero-photo-media {
+  position: absolute;
+  inset: 0;
+}
+.hero-photo-media img {
+  object-position: 78% center;
+}
+.hero-photo-shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(100deg, #001a2b 0%, rgb(0 26 43 / 0.92) 30%, rgb(0 36 58 / 0.42) 52%, rgb(0 26 43 / 0.12) 78%),
+    linear-gradient(180deg, rgb(0 26 43 / 0.05), rgb(0 26 43 / 0.22));
+}
+.hero-photo::after,
+.hero-wash::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  height: 3px;
+  background: linear-gradient(90deg, #f25c00 0 18%, rgb(242 92 0 / 0) 62%);
+  pointer-events: none;
+}
+@media (max-width: 1023px) {
+  .hero-photo-media img { object-position: center 35%; }
+  .hero-photo-shade {
+    background: linear-gradient(180deg, rgb(0 26 43 / 0.86) 0%, rgb(0 26 43 / 0.9) 58%, rgb(0 26 43 / 0.74) 100%);
+  }
+}
+
+/* Inner-page heroes: brand colour, no grid. */
+.hero-wash {
+  background-color: #00243a;
+  background-image:
+    radial-gradient(80% 90% at 100% -20%, rgb(242 92 0 / 0.22), transparent 46%),
+    radial-gradient(60% 70% at -10% 120%, rgb(0 97 165 / 0.4), transparent 48%),
+    linear-gradient(165deg, #0a4468 0%, #00243a 46%, #001a2b 100%);
+}
+
 /* Continuous brand row. Two equal lists sit side by side; moving -50% loops without a jump. */
 @keyframes brand-marquee {
   from { transform: translateX(0); }
